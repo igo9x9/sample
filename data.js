@@ -116,4 +116,42 @@ const datas = [{
             status: "correct"
         }
     }
+},{
+    title: "隅の死活 第7型",
+    setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
+    nextHands: {106: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {96: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {108: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [{108: "+"}],
+            nextHands: {86: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        }
+    }
 }];

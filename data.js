@@ -123,6 +123,44 @@ const datas = [{
     hands: {
         a: {
             removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {97: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {74: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 63,
+            removeBlackStones: [],
+            nextHands: {75: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        }
+    }
+},{
+    title: "隅の死活 第7型（別パターン）",
+    setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
+    nextHands: {106: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
             nextWhiteHand: 97,
             removeBlackStones: [],
             nextHands: {96: "b"},
@@ -146,6 +184,74 @@ const datas = [{
             status: "continue"
         },
         d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {95: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 74,
+            removeBlackStones: [],
+            nextHands: {108: "f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [{97: "|"}, {107: "-"}],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        }
+    }
+},{
+    title: "隅の死活 第8型",
+    setup: "*********| *********| *********| ******B**| *********| ******B**| *******B*| *****BBWW| *****BW**| ------W--+",
+    nextHands: {107: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        }
+    }
+},{
+    title: "隅の死活 第9型",
+    setup: "*********| *********| *********| ******B**| *********| ******B*B| *******BW| *****BBWW| *****BW**| -------W-+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [],
+            nextHands: {105: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
             removeWhiteStones: [],
             nextWhiteHand: null,
             removeBlackStones: [],

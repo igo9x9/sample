@@ -306,4 +306,72 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    title: "隅の死活 第11型",
+    setup: "*********| *********| *********| *********| *********| ******W**| *******WW| ***W*WWBB| ******B**| ---------+",
+    nextHands: {96: "a", 107: "c"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {105: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "正解だが、やや薄い形。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第12型",
+    setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******W**| -------W-+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {86: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {92: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {107: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
 }];

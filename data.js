@@ -256,8 +256,54 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "",
+            message: "コウ。",
             status: "correct"
         }
+    }
+},{
+    title: "隅の死活 第10型",
+    setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| -----W-B-+",
+    nextHands: {74: "a", 97: "d"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 63,
+            removeBlackStones: [],
+            nextHands: {97: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {107: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 74,
+            removeBlackStones: [],
+            nextHands: {107: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
     }
 }];

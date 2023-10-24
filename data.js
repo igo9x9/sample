@@ -155,7 +155,7 @@ const datas = [{
         }
     }
 },{
-    title: "隅の死活 第7型 別解",
+    title: "隅の死活 第7型 別パターン",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -442,6 +442,98 @@ const datas = [{
             nextHands: {},
             message: "白取り番のコウで黒不利。",
             status: "incorrect"
+        },
+    }
+},{
+    title: "隅の死活 第14型",
+    setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******WBW| ---------+",
+    nextHands: {106: "a", 97: "c"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {86: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "無条件死。",
+            status: "correct"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [{95: "*"}],
+            nextHands: {86: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {92: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {107: "f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウは失敗。",
+            status: "incorrect"
+        },
+    }
+},{
+    title: "隅の死活 第15型",
+    setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W**| --------W+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {105: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {92: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {95: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "両アタリ。",
+            status: "correct"
         },
     }
 }];

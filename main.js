@@ -38,6 +38,7 @@ const Question = function(data) {
         self.contents(marks);
         self.message("");
         self.gameover(false);
+        self.status("");
     };
 
     self.putPlayer = function(pos) {

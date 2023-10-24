@@ -5,6 +5,11 @@ const App = function() {
     self.question = ko.observable();
 
     self.page = ko.observable("title");
+
+    self.showTitle = function() {
+        self.page("title");
+    };
+    
     self.showMokuji = function() {
         self.page("mokuji");
     };

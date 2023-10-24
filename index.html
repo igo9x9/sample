@@ -17,7 +17,7 @@
         <p>
             この本を暗記するために作ったものです。すべて黒番に統一しています。各問題の解説は書籍をご覧ください。
         </p>
-        <div class="mt-3 d-flex justify-content-center">
+        <div class="my-3 d-flex justify-content-center">
             <button class="btn btn-primary" data-bind="click: showMokuji">目次へ</button>
         </div>
         <!-- /ko -->
@@ -29,6 +29,9 @@
                 text: title,
                 click: function(){$parent.showQuestion($data)},
                 css: {'list-group-item-secondary': status()==='correct', 'list-group-item-danger': status()==='incorrect'}"></a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <button class="btn btn-secondary" data-bind="click: showTitle">表紙へ</button>
         </div>
         <!-- /ko -->
 

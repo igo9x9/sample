@@ -656,4 +656,94 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    title: "隅の死活 第19型",
+    setup: "*********| *********| *********| *********| *********| ******B**| *****B*BB| ***B*BWW*| **B*BW**W| ------W--+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {85: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {107: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第20型",
+    setup: "*********| *********| *********| *********| *********| ******W**| *****W*WW| ***W*WBB*| ****WB**B| ---------+",
+    nextHands: {106: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {104: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {86: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第21型",
+    setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ****B*WW*| ****BW**W| ---------+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {85: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [{97: "|"}],
+            nextHands: {106: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
 }];

@@ -155,7 +155,7 @@ const datas = [{
         }
     }
 },{
-    title: "隅の死活 第7型（別パターン）",
+    title: "隅の死活 第7型 別解",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -372,6 +372,76 @@ const datas = [{
             nextHands: {},
             message: "コウ。",
             status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第13型",
+    setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W*W| ---------+",
+    nextHands: {107: "a", 97: "p"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {106: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [],
+            nextHands: {93: "c", 97: "g"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {97: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [{108: "+"}],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "黒取り番のコウ。これが最善。",
+            status: "correct"
+        },
+        g: {
+            removeWhiteStones: [{108: "+"}],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {93: "h"},
+            message: "",
+            status: "continue"
+        },
+        h: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "白取り番のコウで黒不利。",
+            status: "incorrect"
+        },
+        p: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {107: "q"},
+            message: "",
+            status: "continue"
+        },
+        q: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [{97: "|"}],
+            nextHands: {},
+            message: "白取り番のコウで黒不利。",
+            status: "incorrect"
         },
     }
 }];

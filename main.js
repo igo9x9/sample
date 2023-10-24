@@ -1,31 +1,23 @@
 const App = function() {
     const self = this;
-    const questions = [];
+
+    self.questions = ko.observableArray();
+    self.question = ko.observable();
+
+    self.page = ko.observable("title");
+    self.showMokuji = function() {
+        self.page("mokuji");
+    };
+
+    self.showQuestion = function(question) {
+        self.question(question);
+        self.page("question");
+    };
+
     for (n = 0; n < datas.length; n++) {
-        questions.push(new Question(datas[n]));
+        self.questions.push(new Question(datas[n]));
     }
 
-    let questionNo = ko.observable(0);
-
-    self.question = ko.observable(questions[questionNo()]);
-
-    self.nextQuestion = function() {
-        questionNo(questionNo() + 1);
-        self.question(questions[questionNo()]);
-    };
-
-    self.canNextQuestion = ko.computed(function() {
-        return questionNo() < questions.length - 1;
-    });
-
-    self.prevQuestion = function() {
-        questionNo(questionNo() - 1);
-        self.question(questions[questionNo()]);
-    };
-
-    self.canPrevQuestion = ko.computed(function() {
-        return questionNo() > 0;
-    });
 };
 
 const Question = function(data) {
@@ -38,6 +30,7 @@ const Question = function(data) {
     self.title = ko.observable(data.title);
 
     self.gameover = ko.observable(false);
+    self.status = ko.observable("");
 
     self.restart = function() {
         marks = data.setup;
@@ -48,6 +41,7 @@ const Question = function(data) {
     };
 
     self.putPlayer = function(pos) {
+        console.log(pos);
         if (self.gameover()) {
             return;
         }
@@ -62,8 +56,9 @@ const Question = function(data) {
         const nextHandLabel = nextHands[pos];
 
         if (!nextHandLabel) {
-            self.message("<span style='color:blue'>不正解</span>");
+            self.message("<span style='color:red'>不正解</span>");
             self.gameover(true);
+            self.status("incorrect");
         }
 
         if (data.hands[nextHandLabel]) {
@@ -83,10 +78,12 @@ const Question = function(data) {
 
                 if (data.hands[nextHandLabel].status == "correct") {
                     self.gameover(true);
-                    self.message("<span style='color:red'>正解</span><br>" + data.hands[nextHandLabel].message);
+                    self.message("<span style='color:blue'>正解</span><br>" + data.hands[nextHandLabel].message);
+                    self.status("correct");
                 } else if (data.hands[nextHandLabel].status == "incorrect") {
                     self.gameover(true);
-                    self.message("<span style='color:blue'>不正解</span><br>" + data.hands[nextHandLabel].message);
+                    self.message("<span style='color:red'>不正解</span><br>" + data.hands[nextHandLabel].message);
+                    self.status("incorrect");
                 }
                 nextHands = data.hands[nextHandLabel].nextHands;
 

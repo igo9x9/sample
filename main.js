@@ -35,6 +35,14 @@ const App = function() {
         self.question(self.questions()[questionIndex()]);
     };
 
+    self.canGoPrevQuestion = ko.computed(function() {
+        return questionIndex() > 0;
+    });
+
+    self.goPrevQuestion = function() {
+        questionIndex(questionIndex() - 1);
+        self.question(self.questions()[questionIndex()]);
+    };
 };
 
 const Question = function(data) {
@@ -48,6 +56,12 @@ const Question = function(data) {
 
     self.gameover = ko.observable(false);
     self.status = ko.observable("");
+
+    self.bookmark = ko.observable(false);
+
+    self.toggleBookmark = function() {
+        self.bookmark(!self.bookmark());
+    };
 
     self.restart = function() {
         marks = data.setup;

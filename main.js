@@ -8,6 +8,12 @@ const App = function() {
 
     let questionIndex = ko.observable(0);
 
+    self.bookmarkFilter = ko.observable(false);
+
+    self.toggleBookmarkFilter = function() {
+        self.bookmarkFilter(!self.bookmarkFilter());
+    };
+
     self.showTitle = function() {
         self.page("title");
     };

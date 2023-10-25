@@ -23,7 +23,11 @@
         <!-- /ko -->
 
         <!-- ko if: page()==='mokuji' -->
-        <div class="list-group" data-bind="foreach: questions">
+        <div class="my-3 d-flex justify-content-end">
+            <button class="btn btn-sm" data-bind="click: toggleBookmarkFilter, css: {'btn-secondary':!bookmarkFilter(), 'btn-danger':bookmarkFilter}">★</button>
+        </div>
+        <div class="list-group mt-2" data-bind="foreach: questions">
+            <!-- ko if: !$parent.bookmarkFilter() || ($parent.bookmarkFilter && bookmark) -->
             <a href="#" class="list-group-item list-group-item-action"
             data-bind="
                 click: function(){$parent.showQuestion($data, $index())},
@@ -33,6 +37,7 @@
                     <span data-bind="visible: bookmark">★</span>
                 </div>
             </a>
+            <!-- /ko -->
         </div>
         <div class="my-3 d-flex justify-content-center">
             <button class="btn btn-secondary" data-bind="click: showTitle">表紙へ</button>

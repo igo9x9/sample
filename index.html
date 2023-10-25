@@ -15,7 +15,7 @@
             <img src="img/book.jpg" class="rounded mx-auto d-block" style="width:150px">
         </div>
         <p>
-            この本を暗記するために作った問題集です。問題はすべて黒番に統一しています。各問題の解説は書籍をご覧ください。
+            この本を暗記するために作った問題集です。問題は<strong>すべて黒番</strong>に統一しています。各問題の解説は書籍をご覧ください。
         </p>
         <div class="my-3 d-flex justify-content-center">
             <button class="btn btn-primary" data-bind="click: showMokuji">目次へ</button>
@@ -27,7 +27,7 @@
             <a href="#" class="list-group-item list-group-item-action"
             data-bind="
                 text: title,
-                click: function(){$parent.showQuestion($data)},
+                click: function(){$parent.showQuestion($data, $index())},
                 css: {'list-group-item-secondary': status()==='correct', 'list-group-item-danger': status()==='incorrect'}"></a>
         </div>
         <div class="my-3 d-flex justify-content-center">
@@ -54,6 +54,7 @@
         <div class="mt-3 d-flex justify-content-between">
             <button class="btn btn-secondary" data-bind="click: showMokuji">&lt; 目次へ戻る</button>
             <button class="btn btn-secondary" data-bind="visible: question().gameover, click:question().restart">もう一度</button>
+            <button class="btn btn-primary" data-bind="enable: canGoNextQuestion, click: goNextQuestion">次の問題 &gt;</button>
         </div>
         <!-- /ko -->
 

@@ -6,6 +6,8 @@ const App = function() {
 
     self.page = ko.observable("title");
 
+    let questionIndex = ko.observable(0);
+
     self.showTitle = function() {
         self.page("title");
     };
@@ -14,14 +16,24 @@ const App = function() {
         self.page("mokuji");
     };
 
-    self.showQuestion = function(question) {
+    self.showQuestion = function(question, index) {
         self.question(question);
         self.page("question");
+        questionIndex(index);
     };
 
     for (n = 0; n < datas.length; n++) {
         self.questions.push(new Question(datas[n]));
     }
+
+    self.canGoNextQuestion = ko.computed(function() {
+        return questionIndex() < self.questions().length - 1;
+    });
+
+    self.goNextQuestion = function() {
+        questionIndex(questionIndex() + 1);
+        self.question(self.questions()[questionIndex()]);
+    };
 
 };
 

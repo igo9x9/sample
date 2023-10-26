@@ -1011,7 +1011,7 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 105,
             removeBlackStones: [],
-            nextHands: {86: "c"},
+            nextHands: {86: "c", 107: "m"},
             message: "",
             status: "continue"
         },
@@ -1030,6 +1030,22 @@ const datas = [{
             nextHands: {},
             message: "",
             status: "correct"
+        },
+        m: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {108: "n"},
+            message: "",
+            status: "continue"
+        },
+        n: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "隅のマガリ四目で死だが、最善ではない。",
+            status: "incorrect"
         },
     }
 },{
@@ -1120,6 +1136,44 @@ const datas = [{
             nextHands: {},
             message: "",
             status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第31型",
+    setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| ****WBB**| ---------+",
+    nextHands: {96: "a", 107: "c", 106: "d"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {107: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "生きだが、薄い。",
+            status: "incorrect"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "生きだが、損。",
+            status: "incorrect"
         },
     }
  }];

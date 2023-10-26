@@ -63,6 +63,8 @@ const Question = function(data) {
     self.gameover = ko.observable(false);
     self.status = ko.observable("");
 
+    self.moved = ko.observable(false);
+
     self.bookmark = ko.observable(false);
 
     self.toggleBookmark = function() {
@@ -76,6 +78,7 @@ const Question = function(data) {
         self.message("");
         self.gameover(false);
         self.status("");
+        self.moved(false);
     };
 
     self.putPlayer = function(pos) {
@@ -134,6 +137,8 @@ const Question = function(data) {
 
             }, 500);
         }
+
+        self.moved(true);
     };
 
     self.getImageFileName = function(pos) {

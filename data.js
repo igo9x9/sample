@@ -1044,7 +1044,7 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "隅のマガリ四目で死だが、最善ではない。",
+            message: "隅のマガリ四目だが、最善ではない。",
             status: "incorrect"
         },
     }
@@ -1173,6 +1173,128 @@ const datas = [{
             removeBlackStones: [],
             nextHands: {},
             message: "生きだが、損。",
+            status: "incorrect"
+        },
+    }
+},{
+    title: "隅の死活 第32型",
+    setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
+    nextHands: {96: "a", 104: "f"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {97: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {104: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {106: "g"},
+            message: "",
+            status: "continue"
+        },
+        g: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "incorrect"
+        },
+    }
+},{
+    title: "隅の死活 第33型",
+    setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| **W*WBB**W ----B----+",
+    nextHands: {86: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {95: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {105: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 102,
+            removeBlackStones: [],
+            nextHands: {108: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [{96:"*"}, {97:"|"}, {106:"-"}, {107:"-"}],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {96: "f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第34型",
+    setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWBW ***W*WBBB| ****WBB**| ---------+",
+    nextHands: {96: "a", 107: "b"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "生きだが、薄い。",
             status: "incorrect"
         },
     }

@@ -168,7 +168,7 @@ const datas = [{
     }
 },{
     title: "隅の死活 第7型 変化",
-    offence: true,
+    offence: false,
     answer: 0,
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
@@ -401,7 +401,7 @@ const datas = [{
 },{
     title: "隅の死活 第13型",
     offence: true,
-    answer: 0,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W*W| ---------+",
     nextHands: {107: "a", 97: "p"},
     hands: {
@@ -1184,7 +1184,7 @@ const datas = [{
     }
 },{
     title: "隅の死活 第30型",
-    offence: true,
+    offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| ********W| ********WB *****WWWBW *****WBBB| ***W*WB**| ---------+",
     nextHands: {107: "a"},
@@ -1297,7 +1297,7 @@ const datas = [{
 },{
     title: "隅の死活 第33型",
     offence: false,
-    answer: 1,
+    answer: 2,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| **W*WBB**W ----B----+",
     nextHands: {86: "a"},
     hands: {
@@ -1427,6 +1427,166 @@ const datas = [{
             removeBlackStones: [],
             nextHands: {},
             message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第37型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| ***B*BWWW| ****BW***| ----B-W--+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {107:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {97:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "隅のマガリ四目。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第38型",
+    offence: false,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| ***W*WBBB| ****WB***| ----W-B-W+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {106:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {108: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [{107:"-"}],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第39型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| ********B| ******BBW| ***BBBWWW| ***BWW***| ---B-----+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {107:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {103: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {97:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "隅のマガリ四目。",
+            status: "correct"
+        },
+    }
+},{
+    title: "隅の死活 第40型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| ********B| *********| ******BBB| ***BBBWWW| ***BWW***| ---------+",
+    nextHands: {103: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {86:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {107: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {102:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
             status: "correct"
         },
     }

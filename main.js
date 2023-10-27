@@ -67,6 +67,20 @@ const Question = function(data) {
 
     self.bookmark = ko.observable(false);
 
+    self.firstStage = ko.observable(true);
+    const firstStageAnswerNo = data.answer;
+    self.isOffence = data.offence;
+
+    self.choiseFirstStageAnswer = function(answerNo) {
+        self.moved(true);
+        if (answerNo == firstStageAnswerNo) {
+            self.message("手順を示してください。");
+            self.firstStage(false);
+            return;
+        }
+        self.message("<span style='color:red'>不正解</span>");
+    }
+
     self.toggleBookmark = function() {
         self.bookmark(!self.bookmark());
     };
@@ -74,6 +88,7 @@ const Question = function(data) {
     self.restart = function() {
         marks = data.setup;
         nextHands = data.nextHands;
+        self.firstStage(true);
         self.contents(marks);
         self.message("");
         self.gameover(false);
@@ -82,10 +97,13 @@ const Question = function(data) {
     };
 
     self.putPlayer = function(pos) {
+
         console.log(pos);
-        if (self.gameover()) {
+
+        if (self.firstStage() || self.gameover()) {
             return;
         }
+
         const oldChar = marks.split("")[pos];
         if (!canPutStone(marks, pos)) {
             return;

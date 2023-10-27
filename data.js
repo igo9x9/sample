@@ -1,5 +1,7 @@
 const datas = [{
     title: "隅の死活 第1型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| *******B*| ********B| *****BBBWW *****BWWW| -----BW--+",
     nextHands: {107: "a"},
     hands: {
@@ -22,6 +24,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第2型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *******W*| ********W| *****WWWBB *****WBBB| ------B-W+",
     nextHands: {108: "a"},
     hands: {
@@ -52,6 +56,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第4型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *******WW| *******WB| *****WWWB| *****WBBB| ---------+",
     nextHands: {108: "a"},
     hands: {
@@ -66,6 +72,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第5型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *******BB| *******BW| *****BBBW| *****BWWW| ------W--+",
     nextHands: {107: "a"},
     hands: {
@@ -88,6 +96,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第6型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *******B*| ********B| ****BBBBWW ****BWWW*| ---------+",
     nextHands: {107: "a"},
     hands: {
@@ -118,6 +128,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第7型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -156,6 +168,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第7型 変化",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -210,6 +224,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第8型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| ******B**| *********| ******B**| *******B*| *****BBWW| *****BW**| ------W--+",
     nextHands: {107: "a"},
     hands: {
@@ -232,6 +248,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第9型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| ******B**| *********| ******B*B| *******BW| *****BBWW| *****BW**| -------W-+",
     nextHands: {97: "a"},
     hands: {
@@ -262,6 +280,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第10型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| -----W-B-+",
     nextHands: {74: "a", 97: "d"},
     hands: {
@@ -308,6 +328,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第11型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| ******W**| *******WW| ***W*WWBB| ******B**| ---------+",
     nextHands: {96: "a", 107: "c"},
     hands: {
@@ -338,6 +360,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第12型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******W**| -------W-+",
     nextHands: {97: "a"},
     hands: {
@@ -376,6 +400,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第13型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W*W| ---------+",
     nextHands: {107: "a", 97: "p"},
     hands: {
@@ -446,6 +472,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第14型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******WBW| ---------+",
     nextHands: {106: "a", 97: "c"},
     hands: {
@@ -500,6 +528,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第15型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W**| --------W+",
     nextHands: {97: "a"},
     hands: {
@@ -538,6 +568,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第16型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *******BB| *****BBWW| ***B*BW**W -------W-+",
     nextHands: {107: "a"},
     hands: {
@@ -560,6 +592,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第17型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
     nextHands: {103: "a"},
     hands: {
@@ -590,6 +624,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第17型 変化",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
     nextHands: {103: "a"},
     hands: {
@@ -628,6 +664,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第18型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| -------W-+",
     nextHands: {94: "a"},
     hands: {
@@ -658,6 +696,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第19型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| ******B**| *****B*BB| ***B*BWW*| **B*BW**W| ------W--+",
     nextHands: {97: "a"},
     hands: {
@@ -688,6 +728,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第20型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| ******W**| *****W*WW| ***W*WBB*| ****WB**B| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -718,6 +760,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第21型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ****B*WW*| ****BW**W| ---------+",
     nextHands: {97: "a"},
     hands: {
@@ -748,6 +792,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第22型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW*W*| ------W--+",
     nextHands: {96: "a", 97: "e"},
     hands: {
@@ -802,6 +848,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第23型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******B*| *********| *****BBB*| ***B*BWW*| **B*BW*W*| ---------+",
     nextHands: {75: "a"},
     hands: {
@@ -832,6 +880,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第23型 変化",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******B*| *********| *****BBB*| ***B*BWW*| **B*BW*W*| ---------+",
     nextHands: {75: "a"},
     hands: {
@@ -862,6 +912,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第24型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *******B*| *********| *****BBB*| *******W*| ***B*BBW*| ******W**| ---------+",
     nextHands: {96: "a"},
     hands: {
@@ -892,6 +944,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第25型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBBB *****BWWWW *****BW**| -----BW--+",
     nextHands: {96: "a"},
     hands: {
@@ -914,6 +968,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第26型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBBB *****BWWWW *****BW**| ------W--+",
     nextHands: {107: "a"},
     hands: {
@@ -936,6 +992,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第27型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| *****WWWW| *****WBBBB *****WB**| ------B-W+",
     nextHands: {96: "a"},
     hands: {
@@ -966,6 +1024,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第28型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| *****BWWW| ***B*BW**| ---------+",
     nextHands: {75: "a"},
     hands: {
@@ -996,6 +1056,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第28型 変化",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| *****BWWW| ***B*BW**| ---------+",
     nextHands: {75: "a"},
     hands: {
@@ -1050,6 +1112,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第28型 生き方",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| *****WBBB| ***W*WB**| ---------+",
     nextHands: {107: "a"},
     hands: {
@@ -1088,6 +1152,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第29型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| ********B| ********BW *****BBBW| *****BWWW| ***B*BW**| ---------+",
     nextHands: {105: "a"},
     hands: {
@@ -1118,6 +1184,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第30型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| ********W| ********WB *****WWWBW *****WBBB| ***W*WB**| ---------+",
     nextHands: {107: "a"},
     hands: {
@@ -1140,6 +1208,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第31型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| ****WBB**| ---------+",
     nextHands: {96: "a", 107: "c", 106: "d"},
     hands: {
@@ -1178,6 +1248,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第32型",
+    offence: true,
+    answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
     nextHands: {96: "a", 104: "f"},
     hands: {
@@ -1224,6 +1296,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第33型",
+    offence: false,
+    answer: 1,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| **W*WBB**W ----B----+",
     nextHands: {86: "a"},
     hands: {
@@ -1278,6 +1352,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第34型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWBW ***W*WBBB| ****WBB**| ---------+",
     nextHands: {96: "a", 107: "b"},
     hands: {
@@ -1300,6 +1376,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第35型",
+    offence: false,
+    answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| ***W*WBBB| ****WBB*W| ---------+",
     nextHands: {97: "a"},
     hands: {
@@ -1322,6 +1400,8 @@ const datas = [{
     }
 },{
     title: "隅の死活 第36型",
+    offence: true,
+    answer: 1,
     setup: "*********| *********| *********| *********| *******B*| ********BB *****BBBW| ***B*BWWW| ****BWW**| ---------+",
     nextHands: {96: "a"},
     hands: {

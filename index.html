@@ -60,8 +60,19 @@
                 <!-- /ko -->
             </div>
         </div>
-        <div class="rounded mt-3" data-bind="with:question" style="height: 70px; border:1px solid black;">
-            <div class="m-2" data-bind="html: message"></div>
+        <div class="rounded mt-3 p-2" data-bind="with:question" style="height: 70px; border:1px solid black;">
+            <!-- ko if: firstStage && !moved() -->
+            <div data-bind="visible:isOffence">
+                <button class="btn btn-sm btn-primary" data-bind="click:function(){choiseFirstStageAnswer(0)}">A.無条件死</button>
+                <button class="btn btn-sm btn-primary" data-bind="click:function(){choiseFirstStageAnswer(1)}">B.コウ</button>
+            </div>
+            <div data-bind="visible:!isOffence">
+                <button class="btn btn-sm btn-primary" data-bind="click:function(){choiseFirstStageAnswer(0)}">A.無条件生き</button>
+                <button class="btn btn-sm btn-primary" data-bind="click:function(){choiseFirstStageAnswer(1)}">B.セキ</button>
+                <button class="btn btn-sm btn-primary" data-bind="click:function(){choiseFirstStageAnswer(2)}">C.コウ</button>
+            </div>
+            <!-- /ko -->
+            <div data-bind="html: message"></div>
         </div>
 
         <div class="mt-3 d-flex justify-content-between">

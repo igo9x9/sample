@@ -1,6 +1,22 @@
 const App = function() {
     const self = this;
 
+    const backgroundColorDefault = "#ECF0F1";
+    const backgroundColorCorrect = "#a4b0be";
+    const backgroundColorIncorrect = "#f8d7da";
+    self.backgroundColor = ko.observable(backgroundColorDefault);
+    const setBackground = {
+        default: function() {
+            self.backgroundColor(backgroundColorDefault);
+        },
+        correct: function() {
+            self.backgroundColor(backgroundColorCorrect);
+        },
+        incorrect: function() {
+            self.backgroundColor(backgroundColorIncorrect);
+        }
+    };
+
     self.questions = ko.observableArray();
     self.question = ko.observable();
 
@@ -20,10 +36,12 @@ const App = function() {
     };
 
     self.showTitle = function() {
+        self.backgroundColor(backgroundColorDefault);
         self.page("title");
     };
     
     self.showMokuji = function() {
+        self.backgroundColor(backgroundColorDefault);
         self.page("mokuji");
     };
 
@@ -35,7 +53,7 @@ const App = function() {
     };
 
     for (n = 0; n < datas.length; n++) {
-        self.questions.push(new Question(datas[n]));
+        self.questions.push(new Question(datas[n], setBackground));
     }
 
     self.refleshAll = function() {
@@ -104,7 +122,7 @@ const App = function() {
     load();
 };
 
-const Question = function(data) {
+const Question = function(data, setBackground) {
     const self = this;
 
     self.id = data.id;
@@ -156,6 +174,13 @@ const Question = function(data) {
         self.gameover(false);
         // self.status("");
         self.moved(false);
+        if (self.status() === "correct") {
+            setBackground.correct();
+        } else if (self.status() === "incorrect") {
+            setBackground.incorrect();
+        } else {
+            setBackground.default();
+        }
         save();
     };
 
@@ -181,6 +206,7 @@ const Question = function(data) {
             self.message("<span style='color:red'>不正解</span>");
             self.gameover(true);
             self.status("incorrect");
+            setBackground.incorrect();
             save();
         }
 
@@ -203,10 +229,12 @@ const Question = function(data) {
                     self.gameover(true);
                     self.message("<span style='color:blue'>正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("correct");
+                    setBackground.correct();
                 } else if (data.hands[nextHandLabel].status == "incorrect") {
                     self.gameover(true);
                     self.message("<span style='color:red'>不正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("incorrect");
+                    setBackground.incorrect();
                 }
                 nextHands = data.hands[nextHandLabel].nextHands;
 

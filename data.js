@@ -1662,7 +1662,7 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 94,
             removeBlackStones: [],
-            nextHands: {103:"d"},
+            nextHands: {103:"d", 104:"d"},
             message: "",
             status: "continue"
         },
@@ -1922,6 +1922,129 @@ const datas = [{
             status: "continue"
         },
         d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    id: 53,
+    title: "第50型",
+    offence: true,
+    answer: 1,
+    setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWW| ****BW***| ---------+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {95:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {106: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {75:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {103:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "万年コウ。",
+            status: "correct"
+        },
+    }
+},{
+    id: 54,
+    title: "第51型",
+    offence: false,
+    answer: 2,
+    setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWBW ****WB*BB| ****WB***| ---------+",
+    nextHands: {83: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {97:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {107: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {104:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "万年コウ。",
+            status: "correct"
+        },
+    }
+},{
+    id: 55,
+    title: "第52型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| ********B| ****BBBBW| ****BW*WW| ****BW***| ---------+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {75:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {96: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
             removeWhiteStones: [],
             nextWhiteHand: null,
             removeBlackStones: [],

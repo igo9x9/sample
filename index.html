@@ -25,47 +25,39 @@
         <!-- /ko -->
 
         <!-- ko if: page()==='mokuji' -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand fixed-top navbar-dark bg-dark">
             <div class="container-fluid" style="width: 330px;">
                 <span class="navbar-brand mb-0 h1">目次</span>
-                <div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown dropstart">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                操作
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown dropstart">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        操作
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#" data-bind="click: toogleStatusFilter">
+                                    <svg data-bind="visible:statusFilter()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                    <span>正解済の問題は非表示</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#" data-bind="click: toogleStatusFilter">
-                                            <svg data-bind="visible:statusFilter()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                            </svg>
-                                            <span>正解済の問題は非表示</span>
-                                        </a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#" data-bind="click: toggleBookmarkFilter">
-                                            <svg data-bind="visible:bookmarkFilter()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                            </svg>
-                                            <span>マークした問題のみ表示</span>
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#" data-bind="click: refleshAll">成績を全クリア</a></li>
-                                    <li><a class="dropdown-item" href="#" data-bind="click: refleshAllBookmark">マークを全クリア</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#" data-bind="click: shuffleQuestions">出題順をシャッフル</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#" data-bind="click: showTitle">表紙へ戻る</a></li>
-                                </ul>
                             </li>
+                            <li><a class="dropdown-item" href="#" data-bind="click: toggleBookmarkFilter">
+                                    <svg data-bind="visible:bookmarkFilter()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                    <span>マークした問題のみ表示</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-bind="click: refleshAll">成績を全クリア</a></li>
+                            <li><a class="dropdown-item" href="#" data-bind="click: refleshAllBookmark">マークを全クリア</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-bind="click: shuffleQuestions">出題順をシャッフル</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-bind="click: showTitle">表紙へ戻る</a></li>
                         </ul>
-                    </div>
-
-                </div>
+                    </li>
+                </ul>
             </div>
         </nav>
 
@@ -93,7 +85,7 @@
         <!-- /ko -->
 
         <!-- ko if: page()==='question' -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
             <div class="container-fluid" style="width: 330px;">
                 <span class="navbar-brand mb-0 h1">
                     <span data-bind="text: question().title"></span>

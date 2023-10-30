@@ -28,6 +28,7 @@ const App = function() {
     };
 
     self.showQuestion = function(question, index) {
+        question.restart();
         self.question(question);
         self.page("question");
         questionIndex(index);
@@ -73,7 +74,9 @@ const App = function() {
 
     self.goNextQuestion = function() {
         questionIndex(questionIndex() + 1);
-        self.question(self.questions()[questionIndex()]);
+        const q = self.questions()[questionIndex()];
+        q.restart();
+        self.question(q);
     };
 
     self.canGoPrevQuestion = ko.computed(function() {
@@ -82,7 +85,9 @@ const App = function() {
 
     self.goPrevQuestion = function() {
         questionIndex(questionIndex() - 1);
-        self.question(self.questions()[questionIndex()]);
+        const q = self.questions()[questionIndex()];
+        q.restart();
+        self.question(q);
     };
 
     function load() {
@@ -149,7 +154,7 @@ const Question = function(data) {
         self.contents(marks);
         self.message("");
         self.gameover(false);
-        self.status("");
+        // self.status("");
         self.moved(false);
         save();
     };

@@ -1,4 +1,5 @@
 const datas = [{
+    id: 1,
     title: "隅の死活 第1型",
     offence: true,
     answer: 1,
@@ -23,6 +24,7 @@ const datas = [{
         }
     }
 },{
+    id: 2,
     title: "隅の死活 第2型",
     offence: false,
     answer: 0,
@@ -55,6 +57,7 @@ const datas = [{
         }
     }
 },{
+    id: 3,
     title: "隅の死活 第4型",
     offence: false,
     answer: 0,
@@ -71,6 +74,7 @@ const datas = [{
         }
     }
 },{
+    id: 4,
     title: "隅の死活 第5型",
     offence: true,
     answer: 0,
@@ -95,6 +99,7 @@ const datas = [{
         }
     }
 },{
+    id: 5,
     title: "隅の死活 第6型",
     offence: true,
     answer: 0,
@@ -127,6 +132,7 @@ const datas = [{
         }
     }
 },{
+    id: 6,
     title: "隅の死活 第7型",
     offence: false,
     answer: 0,
@@ -167,6 +173,7 @@ const datas = [{
         }
     }
 },{
+    id: 7,
     title: "隅の死活 第7型 変化",
     offence: false,
     answer: 0,
@@ -223,6 +230,7 @@ const datas = [{
         }
     }
 },{
+    id: 8,
     title: "隅の死活 第8型",
     offence: true,
     answer: 0,
@@ -247,6 +255,7 @@ const datas = [{
         }
     }
 },{
+    id: 9,
     title: "隅の死活 第9型",
     offence: true,
     answer: 1,
@@ -279,6 +288,7 @@ const datas = [{
         }
     }
 },{
+    id: 10,
     title: "隅の死活 第10型",
     offence: false,
     answer: 0,
@@ -327,6 +337,7 @@ const datas = [{
         },
     }
 },{
+    id: 11,
     title: "隅の死活 第11型",
     offence: false,
     answer: 0,
@@ -359,6 +370,7 @@ const datas = [{
         },
     }
 },{
+    id: 12,
     title: "隅の死活 第12型",
     offence: true,
     answer: 1,
@@ -399,6 +411,7 @@ const datas = [{
         },
     }
 },{
+    id: 13,
     title: "隅の死活 第13型",
     offence: true,
     answer: 1,
@@ -471,6 +484,7 @@ const datas = [{
         },
     }
 },{
+    id: 14,
     title: "隅の死活 第14型",
     offence: true,
     answer: 0,
@@ -527,6 +541,7 @@ const datas = [{
         },
     }
 },{
+    id: 15,
     title: "隅の死活 第15型",
     offence: true,
     answer: 0,
@@ -567,6 +582,7 @@ const datas = [{
         },
     }
 },{
+    id: 16,
     title: "隅の死活 第16型",
     offence: true,
     answer: 0,
@@ -591,6 +607,7 @@ const datas = [{
         },
     }
 },{
+    id: 17,
     title: "隅の死活 第17型",
     offence: true,
     answer: 0,
@@ -623,6 +640,7 @@ const datas = [{
         },
     }
 },{
+    id: 18,
     title: "隅の死活 第17型 変化",
     offence: true,
     answer: 0,
@@ -663,6 +681,7 @@ const datas = [{
         },
     }
 },{
+    id: 19,
     title: "隅の死活 第18型",
     offence: true,
     answer: 0,
@@ -695,6 +714,7 @@ const datas = [{
         },
     }
 },{
+    id: 20,
     title: "隅の死活 第19型",
     offence: true,
     answer: 1,
@@ -727,6 +747,7 @@ const datas = [{
         },
     }
 },{
+    id: 21,
     title: "隅の死活 第20型",
     offence: false,
     answer: 0,
@@ -759,6 +780,7 @@ const datas = [{
         },
     }
 },{
+    id: 22,
     title: "隅の死活 第21型",
     offence: true,
     answer: 0,
@@ -791,6 +813,7 @@ const datas = [{
         },
     }
 },{
+    id: 23,
     title: "隅の死活 第22型",
     offence: true,
     answer: 1,
@@ -847,6 +870,7 @@ const datas = [{
         },
     }
 },{
+    id: 24,
     title: "隅の死活 第23型",
     offence: true,
     answer: 0,
@@ -879,6 +903,7 @@ const datas = [{
         },
     }
 },{
+    id: 25,
     title: "隅の死活 第23型 変化",
     offence: true,
     answer: 0,
@@ -911,6 +936,7 @@ const datas = [{
         },
     }
 },{
+    id: 26,
     title: "隅の死活 第24型",
     offence: true,
     answer: 0,
@@ -943,6 +969,7 @@ const datas = [{
         },
     }
 },{
+    id: 27,
     title: "隅の死活 第25型",
     offence: true,
     answer: 0,
@@ -967,6 +994,7 @@ const datas = [{
         },
     }
 },{
+    id: 28,
     title: "隅の死活 第26型",
     offence: true,
     answer: 1,
@@ -991,6 +1019,7 @@ const datas = [{
         },
     }
 },{
+    id: 29,
     title: "隅の死活 第27型",
     offence: false,
     answer: 0,
@@ -1023,6 +1052,7 @@ const datas = [{
         },
     }
 },{
+    id: 30,
     title: "隅の死活 第28型",
     offence: true,
     answer: 0,
@@ -1055,6 +1085,7 @@ const datas = [{
         },
     }
 },{
+    id: 31,
     title: "隅の死活 第28型 変化",
     offence: true,
     answer: 0,
@@ -1111,6 +1142,7 @@ const datas = [{
         },
     }
 },{
+    id: 32,
     title: "隅の死活 第28型 生き方",
     offence: false,
     answer: 0,
@@ -1151,6 +1183,7 @@ const datas = [{
         },
     }
 },{
+    id: 33,
     title: "隅の死活 第29型",
     offence: true,
     answer: 0,
@@ -1183,6 +1216,7 @@ const datas = [{
         },
     }
 },{
+    id: 34,
     title: "隅の死活 第30型",
     offence: false,
     answer: 0,
@@ -1207,6 +1241,7 @@ const datas = [{
         },
     }
 },{
+    id: 35,
     title: "隅の死活 第31型",
     offence: false,
     answer: 0,
@@ -1247,6 +1282,7 @@ const datas = [{
         },
     }
 },{
+    id: 36,
     title: "隅の死活 第32型",
     offence: true,
     answer: 0,
@@ -1295,6 +1331,7 @@ const datas = [{
         },
     }
 },{
+    id: 37,
     title: "隅の死活 第33型",
     offence: false,
     answer: 2,
@@ -1351,6 +1388,7 @@ const datas = [{
         },
     }
 },{
+    id: 38,
     title: "隅の死活 第34型",
     offence: false,
     answer: 0,
@@ -1375,6 +1413,7 @@ const datas = [{
         },
     }
 },{
+    id: 39,
     title: "隅の死活 第35型",
     offence: false,
     answer: 0,
@@ -1399,6 +1438,7 @@ const datas = [{
         },
     }
 },{
+    id: 40,
     title: "隅の死活 第36型",
     offence: true,
     answer: 1,
@@ -1431,6 +1471,7 @@ const datas = [{
         },
     }
 },{
+    id: 41,
     title: "隅の死活 第37型",
     offence: true,
     answer: 0,
@@ -1471,6 +1512,7 @@ const datas = [{
         },
     }
 },{
+    id: 42,
     title: "隅の死活 第38型",
     offence: false,
     answer: 0,
@@ -1503,6 +1545,7 @@ const datas = [{
         },
     }
 },{
+    id: 43,
     title: "隅の死活 第39型",
     offence: true,
     answer: 0,
@@ -1551,6 +1594,7 @@ const datas = [{
         },
     }
 },{
+    id: 44,
     title: "隅の死活 第40型",
     offence: true,
     answer: 0,
@@ -1591,6 +1635,7 @@ const datas = [{
         },
     }
 },{
+    id: 45,
     title: "隅の死活 第41型",
     offence: true,
     answer: 0,
@@ -1631,6 +1676,7 @@ const datas = [{
         },
     }
 },{
+    id: 46,
     title: "隅の死活 第42型",
     offence: false,
     answer: 0,
@@ -1663,6 +1709,7 @@ const datas = [{
         },
     }
 },{
+    id: 47,
     title: "隅の死活 第43型",
     offence: true,
     answer: 1,
@@ -1719,6 +1766,7 @@ const datas = [{
         },
     }
 },{
+    id: 48,
     title: "隅の死活 第44型",
     offence: false,
     answer: 0,
@@ -1735,6 +1783,7 @@ const datas = [{
         },
     }
 },{
+    id: 49,
     title: "隅の死活 第45型",
     offence: true,
     answer: 1,
@@ -1767,6 +1816,7 @@ const datas = [{
         },
     }
 },{
+    id: 50,
     title: "隅の死活 第46型",
     offence: true,
     answer: 2,
@@ -1799,6 +1849,7 @@ const datas = [{
         },
     }
 },{
+    id: 51,
     title: "隅の死活 第47型",
     offence: true,
     answer: 0,
@@ -1839,6 +1890,7 @@ const datas = [{
         },
     }
 },{
+    id: 52,
     title: "隅の死活 第48型",
     offence: true,
     answer: 0,

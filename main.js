@@ -9,9 +9,14 @@ const App = function() {
     let questionIndex = ko.observable(0);
 
     self.bookmarkFilter = ko.observable(false);
+    self.statusFilter = ko.observable(true);
 
     self.toggleBookmarkFilter = function() {
         self.bookmarkFilter(!self.bookmarkFilter());
+    };
+
+    self.toogleStatusFilter = function() {
+        self.statusFilter(!self.statusFilter());
     };
 
     self.showTitle = function() {
@@ -32,6 +37,36 @@ const App = function() {
         self.questions.push(new Question(datas[n]));
     }
 
+    self.refleshAll = function() {
+        for (n = 0; n < self.questions().length; n++) {
+            self.questions()[n].restart();
+        }
+        for (n = 0; n < self.questions().length; n++) {
+            const q = self.questions()[n];
+            let json = JSON.parse(localStorage.getItem(q.id));
+            if (json) {
+                self.questions()[n].status("");
+            }
+        }
+    };
+
+    self.refleshAllBookmark = function() {
+        for (n = 0; n < self.questions().length; n++) {
+            self.questions()[n].bookmark(false);
+        }
+        for (n = 0; n < self.questions().length; n++) {
+            const q = self.questions()[n];
+            let json = JSON.parse(localStorage.getItem(q.id));
+            if (json) {
+                self.questions()[n].bookmark(false);
+            }
+        }
+    };
+
+    self.shuffleQuestions = function() {
+        self.questions(self.questions().sort(function(a,b) { return 0.5 - Math.random(); }));
+    };
+
     self.canGoNextQuestion = ko.computed(function() {
         return questionIndex() < self.questions().length - 1;
     });
@@ -49,11 +84,25 @@ const App = function() {
         questionIndex(questionIndex() - 1);
         self.question(self.questions()[questionIndex()]);
     };
+
+    function load() {
+        for (n = 0; n < self.questions().length; n++) {
+            const q = self.questions()[n];
+            let json = JSON.parse(localStorage.getItem(q.id));
+            if (json) {
+                self.questions()[n].status(json.status);
+                self.questions()[n].bookmark(json.bookmark);
+            }
+        }
+    }
+
+    load();
 };
 
 const Question = function(data) {
     const self = this;
 
+    self.id = data.id;
     let marks = data.setup;
     self.contents = ko.observable(marks);
     let nextHands = data.nextHands;
@@ -71,6 +120,13 @@ const Question = function(data) {
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;
 
+    function save() {
+        localStorage.setItem(self.id, JSON.stringify({
+            status: self.status(),
+            bookmark: self.bookmark(),
+        }));
+    }
+
     self.choiseFirstStageAnswer = function(answerNo) {
         self.moved(true);
         if (answerNo == firstStageAnswerNo) {
@@ -83,6 +139,7 @@ const Question = function(data) {
 
     self.toggleBookmark = function() {
         self.bookmark(!self.bookmark());
+        save();
     };
 
     self.restart = function() {
@@ -94,6 +151,7 @@ const Question = function(data) {
         self.gameover(false);
         self.status("");
         self.moved(false);
+        save();
     };
 
     self.putPlayer = function(pos) {
@@ -118,6 +176,7 @@ const Question = function(data) {
             self.message("<span style='color:red'>不正解</span>");
             self.gameover(true);
             self.status("incorrect");
+            save();
         }
 
         if (data.hands[nextHandLabel]) {
@@ -152,6 +211,7 @@ const Question = function(data) {
                 }
 
                 self.contents(marks);
+                save();
 
             }, 500);
         }

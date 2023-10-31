@@ -57,7 +57,7 @@ const App = function() {
     };
 
     self.showQuestion = function(question, index) {
-        question.restartSoft();
+        question.restartAuto();
         self.question(question);
         self.page("question");
         questionIndex(index);
@@ -69,7 +69,7 @@ const App = function() {
 
     self.refleshAll = function() {
         for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].restartSoft();
+            self.questions()[n].restartAuto();
         }
         for (n = 0; n < self.questions().length; n++) {
             const q = self.questions()[n];
@@ -104,7 +104,7 @@ const App = function() {
     self.goNextQuestion = function() {
         questionIndex(questionIndex() + 1);
         const q = self.questions()[questionIndex()];
-        q.restartSoft();
+        q.restartAuto();
         self.question(q);
     };
 
@@ -115,7 +115,7 @@ const App = function() {
     self.goPrevQuestion = function() {
         questionIndex(questionIndex() - 1);
         const q = self.questions()[questionIndex()];
-        q.restartSoft();
+        q.restartAuto();
         self.question(q);
     };
 
@@ -197,13 +197,15 @@ const Question = function(data, setBackground, setScore) {
         }
     };
 
-    self.restartHard = function() {
+    // ユーザが手動でやり直す
+    self.restartManual = function() {
         self.status("");
         restart();
+        setScore.reset();
         save();
     };
 
-    self.restartSoft = function() {
+    self.restartAuto = function() {
         restart();
         save();
     };

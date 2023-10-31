@@ -46,7 +46,7 @@ const App = function() {
     };
 
     self.showQuestion = function(question, index) {
-        question.restart();
+        question.restartSoft();
         self.question(question);
         self.page("question");
         questionIndex(index);
@@ -58,7 +58,7 @@ const App = function() {
 
     self.refleshAll = function() {
         for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].restart();
+            self.questions()[n].restartSoft();
         }
         for (n = 0; n < self.questions().length; n++) {
             const q = self.questions()[n];
@@ -93,7 +93,7 @@ const App = function() {
     self.goNextQuestion = function() {
         questionIndex(questionIndex() + 1);
         const q = self.questions()[questionIndex()];
-        q.restart();
+        q.restartSoft();
         self.question(q);
     };
 
@@ -104,7 +104,7 @@ const App = function() {
     self.goPrevQuestion = function() {
         questionIndex(questionIndex() - 1);
         const q = self.questions()[questionIndex()];
-        q.restart();
+        q.restartSoft();
         self.question(q);
     };
 
@@ -165,22 +165,33 @@ const Question = function(data, setBackground) {
         save();
     };
 
-    self.restart = function() {
+    const restart = function() {
         marks = data.setup;
         nextHands = data.nextHands;
         self.firstStage(true);
         self.contents(marks);
         self.message("");
         self.gameover(false);
-        // self.status("");
-        self.moved(false);
         if (self.status() === "correct") {
+            self.moved(true);
             setBackground.correct();
         } else if (self.status() === "incorrect") {
+            self.moved(true);
             setBackground.incorrect();
         } else {
+            self.moved(false);
             setBackground.default();
         }
+    };
+
+    self.restartHard = function() {
+        self.status("");
+        restart();
+        save();
+    };
+
+    self.restartSoft = function() {
+        restart();
         save();
     };
 

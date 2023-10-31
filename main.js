@@ -17,6 +17,17 @@ const App = function() {
         }
     };
 
+    self.score = ko.observable(0);
+
+    const setScore = {
+        reset: function() {
+            self.score(0);
+        },
+        up: function() {
+            self.score(self.score() + 1);
+        }
+    };
+
     self.questions = ko.observableArray();
     self.question = ko.observable();
 
@@ -53,7 +64,7 @@ const App = function() {
     };
 
     for (n = 0; n < datas.length; n++) {
-        self.questions.push(new Question(datas[n], setBackground));
+        self.questions.push(new Question(datas[n], setBackground, setScore));
     }
 
     self.refleshAll = function() {
@@ -122,7 +133,7 @@ const App = function() {
     load();
 };
 
-const Question = function(data, setBackground) {
+const Question = function(data, setBackground, setScore) {
     const self = this;
 
     self.id = data.id;
@@ -158,6 +169,8 @@ const Question = function(data, setBackground) {
             return;
         }
         self.message("<span style='color:red'>不正解</span>");
+        self.status("incorrect");
+        setScore.reset();
     }
 
     self.toggleBookmark = function() {
@@ -217,6 +230,7 @@ const Question = function(data, setBackground) {
             self.message("<span style='color:red'>不正解</span>");
             self.gameover(true);
             self.status("incorrect");
+            setScore.reset();
             setBackground.incorrect();
             save();
         }
@@ -241,10 +255,12 @@ const Question = function(data, setBackground) {
                     self.message("<span style='color:blue'>正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("correct");
                     setBackground.correct();
+                    setScore.up();
                 } else if (data.hands[nextHandLabel].status == "incorrect") {
                     self.gameover(true);
                     self.message("<span style='color:red'>不正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("incorrect");
+                    setScore.reset();
                     setBackground.incorrect();
                 }
                 nextHands = data.hands[nextHandLabel].nextHands;

@@ -57,7 +57,7 @@ const App = function() {
     };
 
     self.showQuestion = function(question, index) {
-        question.restartAuto();
+        question.restart();
         self.question(question);
         self.page("question");
         questionIndex(index);
@@ -69,28 +69,14 @@ const App = function() {
 
     self.refleshAll = function() {
         for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].restartManual();
+            self.questions()[n].restartHard();
         }
-        // for (n = 0; n < self.questions().length; n++) {
-        //     const q = self.questions()[n];
-        //     let json = JSON.parse(localStorage.getItem(q.id));
-        //     if (json) {
-        //         self.questions()[n].status("");
-        //     }
-        // }
         self.score(0);
     };
 
     self.refleshAllBookmark = function() {
         for (n = 0; n < self.questions().length; n++) {
             self.questions()[n].bookmark(false);
-        }
-        for (n = 0; n < self.questions().length; n++) {
-            const q = self.questions()[n];
-            let json = JSON.parse(localStorage.getItem(q.id));
-            if (json) {
-                self.questions()[n].bookmark(false);
-            }
         }
     };
 
@@ -105,7 +91,7 @@ const App = function() {
     self.goNextQuestion = function() {
         questionIndex(questionIndex() + 1);
         const q = self.questions()[questionIndex()];
-        q.restartAuto();
+        q.restart();
         self.question(q);
     };
 
@@ -116,7 +102,7 @@ const App = function() {
     self.goPrevQuestion = function() {
         questionIndex(questionIndex() - 1);
         const q = self.questions()[questionIndex()];
-        q.restartAuto();
+        q.restart();
         self.question(q);
     };
 
@@ -179,7 +165,7 @@ const Question = function(data, setBackground, setScore) {
         save();
     };
 
-    const restart = function() {
+    self.restart = function() {
         marks = data.setup;
         nextHands = data.nextHands;
         self.firstStage(true);
@@ -196,20 +182,19 @@ const Question = function(data, setBackground, setScore) {
             self.moved(false);
             setBackground.default();
         }
+        save();
     };
     
+    // 成績も初期化する
+    self.restartHard = function() {
+        self.status("");
+        self.restart();
+    };
 
     // ユーザが手動でやり直す
     self.restartManual = function() {
-        self.status("");
-        restart();
-        save();
+        self.restartHard();
         setScore.reset();
-    };
-
-    self.restartAuto = function() {
-        restart();
-        save();
     };
 
     self.putPlayer = function(pos) {
@@ -286,7 +271,6 @@ const Question = function(data, setBackground, setScore) {
     self.getImageFileName = function(pos) {
         return convertMarkToImageFileName(marks.split("")[pos]);
     };
-
 
 };
 

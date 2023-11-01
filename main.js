@@ -197,6 +197,7 @@ const Question = function(data, setBackground, setScore) {
             setBackground.default();
         }
     };
+    
 
     // ユーザが手動でやり直す
     self.restartManual = function() {

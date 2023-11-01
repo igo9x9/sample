@@ -69,15 +69,16 @@ const App = function() {
 
     self.refleshAll = function() {
         for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].restartAuto();
+            self.questions()[n].restartManual();
         }
-        for (n = 0; n < self.questions().length; n++) {
-            const q = self.questions()[n];
-            let json = JSON.parse(localStorage.getItem(q.id));
-            if (json) {
-                self.questions()[n].status("");
-            }
-        }
+        // for (n = 0; n < self.questions().length; n++) {
+        //     const q = self.questions()[n];
+        //     let json = JSON.parse(localStorage.getItem(q.id));
+        //     if (json) {
+        //         self.questions()[n].status("");
+        //     }
+        // }
+        self.score(0);
     };
 
     self.refleshAllBookmark = function() {
@@ -201,8 +202,8 @@ const Question = function(data, setBackground, setScore) {
     self.restartManual = function() {
         self.status("");
         restart();
-        setScore.reset();
         save();
+        setScore.reset();
     };
 
     self.restartAuto = function() {

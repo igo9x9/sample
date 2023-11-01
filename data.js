@@ -2053,4 +2053,273 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    id: 56,
+    title: "第53型",
+    offence: false,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWB| ****WBWBB| ****WBB**| -----W---+",
+    nextHands: {106: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {96:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 103,
+            removeBlackStones: [],
+            nextHands: {108: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {86: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [{97:"|"}],
+            nextWhiteHand: 95,
+            removeBlackStones: [{82:"*"},{93:"*"},{94:"*"}],
+            nextHands: {94: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [{95:"*"}],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    id: 57,
+    title: "第54型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| *********| ****BBBB*| ****BW*WW| **B*BW***| ---------+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {74:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {97: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {105: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    id: 58,
+    title: "第55型",
+    offence: true,
+    answer: 1,
+    setup: "*********| *********| *********| *********| *******B*| ****B***B| ****B*BBW| ****BW*WW| **B*BW***| ---------+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {107:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 83,
+            removeBlackStones: [],
+            nextHands: {103: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {94: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {106: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    id: 59,
+    title: "第56型",
+    offence: false,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******W*| ****W***W| ****W*WWB| ****WBWBB| **W*WBB**| -----WB-W+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {108:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [{108:"+"}],
+            nextHands: {86: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 71,
+            removeBlackStones: [],
+            nextHands: {103: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [{104:"-"}],
+            nextWhiteHand: 108,
+            removeBlackStones: [],
+            nextHands: {95: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [{97:"|"},{106:"-"},{107:"-"},{108:"+"}],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {108: "f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [{108:"+"}],
+            nextHands: {106: "g"},
+            message: "",
+            status: "continue"
+        },
+        g: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    id: 60,
+    title: "第57型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| ****B***BB ****B*BBW| ****BW*WW| **B*BW***| ---------+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {83:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {107: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {106: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [],
+            nextHands: {86: "e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {97: "f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [{108:"+"}],
+            nextWhiteHand: 108,
+            removeBlackStones: [{86:"|"},{97:"|"}],
+            nextHands: {97: "g"},
+            message: "",
+            status: "continue"
+        },
+        g: {
+            removeWhiteStones: [{108:"+"}],
+            nextWhiteHand: 0,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "隅のマガリ四目。",
+            status: "correct"
+        },
+    }
  }];

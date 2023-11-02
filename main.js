@@ -39,6 +39,9 @@ const App = function() {
     self.statusFilter = ko.observable(true);
 
     self.toggleBookmarkFilter = function() {
+        if (!self.bookmarkFilter()) {
+            self.statusFilter(false);
+        }
         self.bookmarkFilter(!self.bookmarkFilter());
     };
 

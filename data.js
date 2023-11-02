@@ -2315,7 +2315,7 @@ const datas = [{
         },
         g: {
             removeWhiteStones: [{108:"+"}],
-            nextWhiteHand: 0,
+            nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
             message: "隅のマガリ四目。",

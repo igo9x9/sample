@@ -1,5 +1,4 @@
 const datas = [{
-    id: 1,
     title: "第1型",
     offence: true,
     answer: 1,
@@ -24,7 +23,6 @@ const datas = [{
         }
     }
 },{
-    id: 2,
     title: "第2型",
     offence: false,
     answer: 0,
@@ -57,7 +55,6 @@ const datas = [{
         }
     }
 },{
-    id: 3,
     title: "第4型",
     offence: false,
     answer: 0,
@@ -74,7 +71,6 @@ const datas = [{
         }
     }
 },{
-    id: 4,
     title: "第5型",
     offence: true,
     answer: 0,
@@ -99,7 +95,6 @@ const datas = [{
         }
     }
 },{
-    id: 5,
     title: "第6型",
     offence: true,
     answer: 0,
@@ -132,7 +127,6 @@ const datas = [{
         }
     }
 },{
-    id: 6,
     title: "第7型",
     offence: false,
     answer: 0,
@@ -173,7 +167,6 @@ const datas = [{
         }
     }
 },{
-    id: 7,
     title: "第7型 変化",
     offence: false,
     answer: 0,
@@ -230,7 +223,6 @@ const datas = [{
         }
     }
 },{
-    id: 8,
     title: "第8型",
     offence: true,
     answer: 0,
@@ -255,7 +247,6 @@ const datas = [{
         }
     }
 },{
-    id: 9,
     title: "第9型",
     offence: true,
     answer: 1,
@@ -288,7 +279,6 @@ const datas = [{
         }
     }
 },{
-    id: 10,
     title: "第10型",
     offence: false,
     answer: 0,
@@ -337,7 +327,6 @@ const datas = [{
         },
     }
 },{
-    id: 11,
     title: "第11型",
     offence: false,
     answer: 0,
@@ -370,7 +359,6 @@ const datas = [{
         },
     }
 },{
-    id: 12,
     title: "第12型",
     offence: true,
     answer: 1,
@@ -411,7 +399,6 @@ const datas = [{
         },
     }
 },{
-    id: 13,
     title: "第13型",
     offence: true,
     answer: 1,
@@ -484,7 +471,6 @@ const datas = [{
         },
     }
 },{
-    id: 14,
     title: "第14型",
     offence: true,
     answer: 0,
@@ -541,7 +527,6 @@ const datas = [{
         },
     }
 },{
-    id: 15,
     title: "第15型",
     offence: true,
     answer: 0,
@@ -582,7 +567,6 @@ const datas = [{
         },
     }
 },{
-    id: 16,
     title: "第16型",
     offence: true,
     answer: 0,
@@ -607,7 +591,6 @@ const datas = [{
         },
     }
 },{
-    id: 17,
     title: "第17型",
     offence: true,
     answer: 0,
@@ -640,7 +623,6 @@ const datas = [{
         },
     }
 },{
-    id: 18,
     title: "第17型 変化",
     offence: true,
     answer: 0,
@@ -681,7 +663,6 @@ const datas = [{
         },
     }
 },{
-    id: 19,
     title: "第18型",
     offence: true,
     answer: 0,
@@ -714,7 +695,6 @@ const datas = [{
         },
     }
 },{
-    id: 20,
     title: "第19型",
     offence: true,
     answer: 1,
@@ -747,7 +727,6 @@ const datas = [{
         },
     }
 },{
-    id: 21,
     title: "第20型",
     offence: false,
     answer: 0,
@@ -780,7 +759,6 @@ const datas = [{
         },
     }
 },{
-    id: 22,
     title: "第21型",
     offence: true,
     answer: 0,
@@ -813,7 +791,6 @@ const datas = [{
         },
     }
 },{
-    id: 23,
     title: "第22型",
     offence: true,
     answer: 1,
@@ -870,7 +847,6 @@ const datas = [{
         },
     }
 },{
-    id: 24,
     title: "第23型",
     offence: true,
     answer: 0,
@@ -903,7 +879,6 @@ const datas = [{
         },
     }
 },{
-    id: 25,
     title: "第23型 変化",
     offence: true,
     answer: 0,
@@ -936,7 +911,6 @@ const datas = [{
         },
     }
 },{
-    id: 26,
     title: "第24型",
     offence: true,
     answer: 0,
@@ -969,7 +943,6 @@ const datas = [{
         },
     }
 },{
-    id: 27,
     title: "第25型",
     offence: true,
     answer: 0,
@@ -994,7 +967,6 @@ const datas = [{
         },
     }
 },{
-    id: 28,
     title: "第26型",
     offence: true,
     answer: 1,
@@ -1019,7 +991,6 @@ const datas = [{
         },
     }
 },{
-    id: 29,
     title: "第27型",
     offence: false,
     answer: 0,
@@ -1052,7 +1023,6 @@ const datas = [{
         },
     }
 },{
-    id: 30,
     title: "第28型",
     offence: true,
     answer: 0,
@@ -1085,7 +1055,6 @@ const datas = [{
         },
     }
 },{
-    id: 31,
     title: "第28型 変化",
     offence: true,
     answer: 0,
@@ -1142,7 +1111,6 @@ const datas = [{
         },
     }
 },{
-    id: 32,
     title: "第28型 生き方",
     offence: false,
     answer: 0,
@@ -1183,7 +1151,6 @@ const datas = [{
         },
     }
 },{
-    id: 33,
     title: "第29型",
     offence: true,
     answer: 0,
@@ -1216,7 +1183,6 @@ const datas = [{
         },
     }
 },{
-    id: 34,
     title: "第30型",
     offence: false,
     answer: 0,
@@ -1241,7 +1207,6 @@ const datas = [{
         },
     }
 },{
-    id: 35,
     title: "第31型",
     offence: false,
     answer: 0,
@@ -1282,7 +1247,6 @@ const datas = [{
         },
     }
 },{
-    id: 36,
     title: "第32型",
     offence: true,
     answer: 0,
@@ -1331,7 +1295,6 @@ const datas = [{
         },
     }
 },{
-    id: 37,
     title: "第33型",
     offence: false,
     answer: 2,
@@ -1388,7 +1351,6 @@ const datas = [{
         },
     }
 },{
-    id: 38,
     title: "第34型",
     offence: false,
     answer: 0,
@@ -1413,7 +1375,6 @@ const datas = [{
         },
     }
 },{
-    id: 39,
     title: "第35型",
     offence: false,
     answer: 0,
@@ -1438,7 +1399,6 @@ const datas = [{
         },
     }
 },{
-    id: 40,
     title: "第36型",
     offence: true,
     answer: 1,
@@ -1466,12 +1426,35 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "コウ。",
+            message: "コウ。二段コウのような形。",
             status: "correct"
         },
     }
 },{
-    id: 41,
+    title: "第36型 白手順ミス",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******B*| ********BB *****BBBW| ***B*BWWW| ****BWWWBW -------B-+",
+    nextHands: {107: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {104: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "サガリの影響でダメヅマリ。",
+            status: "correct"
+        },
+    }
+},{
     title: "第37型",
     offence: true,
     answer: 0,
@@ -1512,7 +1495,6 @@ const datas = [{
         },
     }
 },{
-    id: 42,
     title: "第38型",
     offence: false,
     answer: 0,
@@ -1545,7 +1527,6 @@ const datas = [{
         },
     }
 },{
-    id: 43,
     title: "第39型",
     offence: true,
     answer: 0,
@@ -1594,7 +1575,6 @@ const datas = [{
         },
     }
 },{
-    id: 44,
     title: "第40型",
     offence: true,
     answer: 0,
@@ -1635,7 +1615,6 @@ const datas = [{
         },
     }
 },{
-    id: 45,
     title: "第41型",
     offence: true,
     answer: 0,
@@ -1676,7 +1655,6 @@ const datas = [{
         },
     }
 },{
-    id: 46,
     title: "第42型",
     offence: false,
     answer: 0,
@@ -1709,7 +1687,6 @@ const datas = [{
         },
     }
 },{
-    id: 47,
     title: "第43型",
     offence: true,
     answer: 1,
@@ -1766,7 +1743,6 @@ const datas = [{
         },
     }
 },{
-    id: 48,
     title: "第44型",
     offence: false,
     answer: 0,
@@ -1783,7 +1759,6 @@ const datas = [{
         },
     }
 },{
-    id: 49,
     title: "第45型",
     offence: true,
     answer: 1,
@@ -1816,7 +1791,6 @@ const datas = [{
         },
     }
 },{
-    id: 50,
     title: "第46型",
     offence: true,
     answer: 2,
@@ -1849,7 +1823,6 @@ const datas = [{
         },
     }
 },{
-    id: 51,
     title: "第47型",
     offence: true,
     answer: 0,
@@ -1890,7 +1863,6 @@ const datas = [{
         },
     }
 },{
-    id: 52,
     title: "第48型",
     offence: true,
     answer: 0,
@@ -1931,7 +1903,6 @@ const datas = [{
         },
     }
 },{
-    id: 53,
     title: "第50型",
     offence: true,
     answer: 1,
@@ -1980,7 +1951,6 @@ const datas = [{
         },
     }
 },{
-    id: 54,
     title: "第51型",
     offence: false,
     answer: 2,
@@ -2021,7 +1991,6 @@ const datas = [{
         },
     }
 },{
-    id: 55,
     title: "第52型",
     offence: true,
     answer: 0,
@@ -2054,7 +2023,6 @@ const datas = [{
         },
     }
 },{
-    id: 56,
     title: "第53型",
     offence: false,
     answer: 0,
@@ -2103,7 +2071,6 @@ const datas = [{
         },
     }
 },{
-    id: 57,
     title: "第54型",
     offence: true,
     answer: 0,
@@ -2144,7 +2111,6 @@ const datas = [{
         },
     }
 },{
-    id: 58,
     title: "第55型",
     offence: true,
     answer: 1,
@@ -2193,7 +2159,6 @@ const datas = [{
         },
     }
 },{
-    id: 59,
     title: "第56型",
     offence: false,
     answer: 0,
@@ -2258,7 +2223,6 @@ const datas = [{
         },
     }
 },{
-    id: 60,
     title: "第57型",
     offence: true,
     answer: 0,

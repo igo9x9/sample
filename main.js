@@ -4,6 +4,7 @@ const App = function() {
     const backgroundColorDefault = "#ECF0F1";
     const backgroundColorCorrect = "#a4b0be";
     const backgroundColorIncorrect = "#f8d7da";
+    const backgroundColorRemoved = "#111111";
     self.backgroundColor = ko.observable(backgroundColorDefault);
     const setBackground = {
         default: function() {
@@ -14,6 +15,9 @@ const App = function() {
         },
         incorrect: function() {
             self.backgroundColor(backgroundColorIncorrect);
+        },
+        removed: function() {
+            self.backgroundColor(backgroundColorRemoved);
         }
     };
 
@@ -67,7 +71,7 @@ const App = function() {
     };
 
     for (n = 0; n < datas.length; n++) {
-        self.questions.push(new Question(datas[n], setBackground, setScore));
+        self.questions.push(new Question(datas[n], n, setBackground, setScore));
     }
 
     self.refleshAll = function() {
@@ -123,10 +127,10 @@ const App = function() {
     load();
 };
 
-const Question = function(data, setBackground, setScore) {
+const Question = function(data, id, setBackground, setScore) {
     const self = this;
 
-    self.id = data.id;
+    self.id = id;
     let marks = data.setup;
     self.contents = ko.observable(marks);
     let nextHands = data.nextHands;

@@ -81,7 +81,9 @@ const App = function() {
 
     self.refleshAllBookmark = function() {
         for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].bookmark(false);
+            const q = self.questions()[n];
+            q.bookmark(false);
+            q.save();
         }
     };
 
@@ -186,7 +188,7 @@ const Question = function(data, id, setBackground, setScore) {
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;
 
-    function save() {
+    self.save = function() {
         localStorage.setItem(self.id, JSON.stringify({
             status: self.status(),
             bookmark: self.bookmark(),
@@ -207,7 +209,7 @@ const Question = function(data, id, setBackground, setScore) {
 
     self.toggleBookmark = function() {
         self.bookmark(!self.bookmark());
-        save();
+        self.save();
     };
 
     self.restart = function() {
@@ -227,7 +229,7 @@ const Question = function(data, id, setBackground, setScore) {
             self.moved(false);
             setBackground.default();
         }
-        save();
+        self.save();
     };
     
     // 成績も初期化する
@@ -266,7 +268,7 @@ const Question = function(data, id, setBackground, setScore) {
             self.status("incorrect");
             setScore.reset();
             setBackground.incorrect();
-            save();
+            self.save();
         }
 
         if (data.hands[nextHandLabel]) {
@@ -305,7 +307,7 @@ const Question = function(data, id, setBackground, setScore) {
                 }
 
                 self.contents(marks);
-                save();
+                self.save();
 
             }, 500);
         }

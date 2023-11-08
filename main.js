@@ -43,10 +43,8 @@ const App = function() {
     self.statusFilter = ko.observable(true);
 
     self.toggleBookmarkFilter = function() {
-        if (!self.bookmarkFilter()) {
-            self.statusFilter(false);
-        }
         self.bookmarkFilter(!self.bookmarkFilter());
+        self.statusFilter(!self.bookmarkFilter());
     };
 
     self.toogleStatusFilter = function() {
@@ -92,25 +90,65 @@ const App = function() {
     };
 
     self.canGoNextQuestion = ko.computed(function() {
-        return questionIndex() < self.questions().length - 1;
+        if (self.bookmarkFilter() == false) {
+            return questionIndex() < self.questions().length - 1;
+        } else {
+            return searchNextMarkedQuestion(questionIndex()) !== null;
+        }
     });
 
     self.goNextQuestion = function() {
-        questionIndex(questionIndex() + 1);
+        if (self.bookmarkFilter() == false) {
+            questionIndex(questionIndex() + 1);
+        } else {
+            const newIndex = searchNextMarkedQuestion(questionIndex());
+            if (newIndex !== null) {
+                questionIndex(newIndex);
+            }
+        }
         const q = self.questions()[questionIndex()];
         q.restart();
         self.question(q);
     };
 
     self.canGoPrevQuestion = ko.computed(function() {
-        return questionIndex() > 0;
+        if (self.bookmarkFilter() == false) {
+            return questionIndex() > 0;
+        } else {
+            return searchPrevMarkedQuestion(questionIndex()) !== null;
+        }
     });
 
     self.goPrevQuestion = function() {
-        questionIndex(questionIndex() - 1);
+        if (self.bookmarkFilter() == false) {
+            questionIndex(questionIndex() - 1);
+        } else {
+            const newIndex = searchPrevMarkedQuestion(questionIndex());
+            if (newIndex !== null) {
+                questionIndex(newIndex);
+            }
+        }
         const q = self.questions()[questionIndex()];
         q.restart();
         self.question(q);
+    };
+
+    const searchNextMarkedQuestion = function(index) {
+        for (n = index + 1; n < self.questions().length; n++) {
+            if (self.questions()[n].bookmark()) {
+                return n;
+            }
+        }
+        return null;
+    };
+
+    const searchPrevMarkedQuestion = function(index) {
+        for (n = index - 1; n >= 0; n--) {
+            if (self.questions()[n].bookmark()) {
+                return n;
+            }
+        }
+        return null;
     };
 
     function load() {

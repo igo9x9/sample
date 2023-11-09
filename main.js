@@ -22,13 +22,21 @@ const App = function() {
     };
 
     self.score = ko.observable(0);
+    self.hightScore = ko.observable(0);
 
     const setScore = {
         reset: function() {
             self.score(0);
+            const hightScore = localStorage.getItem("hightScore");
+            if (hightScore) {
+                self.hightScore(hightScore);
+            }
         },
         up: function() {
             self.score(self.score() + 1);
+            if (self.score() > self.hightScore()) {
+                localStorage.setItem("hightScore", self.score());
+            }
         }
     };
 
@@ -85,6 +93,11 @@ const App = function() {
             q.bookmark(false);
             q.save();
         }
+    };
+
+    self.clearHightScore = function() {
+        self.hightScore(0);
+        localStorage.setItem("hightScore", 0);
     };
 
     self.shuffleQuestions = function() {
@@ -161,6 +174,10 @@ const App = function() {
                 self.questions()[n].status(json.status);
                 self.questions()[n].bookmark(json.bookmark);
             }
+        }
+        const hightScore = localStorage.getItem("hightScore");
+        if (hightScore) {
+            self.hightScore(hightScore);
         }
     }
 

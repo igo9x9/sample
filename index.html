@@ -114,6 +114,8 @@
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#" data-bind="click: clearHightScore">最高記録をゼロに戻す</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#" data-bind="click: showMokuji">目次へ戻る</a></li>
                                 </ul>
                             </li>
@@ -128,6 +130,7 @@
 
         <div class="mt-2 d-flex justify-content-center">
             連続正解数：<strong data-bind="text:score"></strong>
+            （最高記録：<span data-bind="text:hightScore"></span>）
         </div>
 
         <div class="mt-2 d-flex justify-content-center" data-bind="with: question">

@@ -200,6 +200,8 @@ const Free = function(data) {
 
     self.contents = [];
 
+    let blackTurn = true;
+
     const datas = data.split("");
     for (n = 0; n < datas.length; n++) {
         let char = datas[n];
@@ -211,12 +213,9 @@ const Free = function(data) {
     };
 
     self.putPlayer = function(pos) {
-        console.log(pos);
         const char = self.contents[pos]();
         let nextChar;
-        if (char === "B") {
-            nextChar = "W";
-        } else if (char === "W") {
+        if (char === "B" || char === "W") {
             if (pos === 108) {
                 nextChar = "+";
             } else if (pos == 9 || pos == 20 || pos == 31 || pos == 42 || pos == 53 || pos == 64 || pos == 75 || pos == 86 || pos == 97) {
@@ -227,7 +226,12 @@ const Free = function(data) {
                 nextChar = "*";
             }
         } else {
-            nextChar = "B";
+            if (blackTurn) {
+                nextChar = "B";
+            } else {
+                nextChar = "W";
+            }
+            blackTurn = !blackTurn;
         }
         self.contents[pos](nextChar);
     };

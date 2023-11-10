@@ -221,7 +221,7 @@ const Free = function(data) {
                 nextChar = "+";
             } else if (pos == 9 || pos == 20 || pos == 31 || pos == 42 || pos == 53 || pos == 64 || pos == 75 || pos == 86 || pos == 97) {
                 nextChar = "|";
-            } else if (pos > 90) {
+            } else if (pos > 98) {
                 nextChar = "-";
             } else {
                 nextChar = "*";

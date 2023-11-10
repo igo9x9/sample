@@ -92,14 +92,6 @@
         <!-- /ko -->
 
         <!-- ko if: page()==='free' -->
-        <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
-            <div class="container-fluid" style="width: 330px;">
-                <span class="navbar-brand mb-0 h1">
-                    <span data-bind="text: question().title"></span> 検討中
-                </span>
-            </div>
-        </nav>
-        <div style="height:40px;">空</div>
         <div class="mt-2 d-flex justify-content-center" data-bind="with: free">
             <div data-bind="foreach: contents">
                 <!-- ko if: $data != " " -->

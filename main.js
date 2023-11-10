@@ -204,7 +204,6 @@ const Free = function(data) {
 
     const datas = data.split("");
     for (n = 0; n < datas.length; n++) {
-        let char = datas[n];
         self.contents.push(ko.observable(datas[n]));
     }
 
@@ -218,7 +217,7 @@ const Free = function(data) {
         if (char === "B" || char === "W") {
             if (pos === 108) {
                 nextChar = "+";
-            } else if (pos == 9 || pos == 20 || pos == 31 || pos == 42 || pos == 53 || pos == 64 || pos == 75 || pos == 86 || pos == 97) {
+            } else if ((pos - 9) % 11 == 0) {
                 nextChar = "|";
             } else if (pos > 98) {
                 nextChar = "-";

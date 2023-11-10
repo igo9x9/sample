@@ -2286,4 +2286,180 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    title: "第58型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWB| ****BW**WW ---------+",
+    nextHands: {105: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {95:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第59型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| ********B| *******B*| ****BB*B*| ****BWWW*| ****BW***| ---------+",
+    nextHands: {97: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 74,
+            removeBlackStones: [],
+            nextHands: {75:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 64,
+            removeBlackStones: [],
+            nextHands: {86:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第60型",
+    offence: false,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *******W*| *********| *****WWW*| ****WBBB*| ****WWB**| ---------+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 74,
+            removeBlackStones: [],
+            nextHands: {106:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {86:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 85,
+            removeBlackStones: [],
+            nextHands: {108:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [{97: "|"}],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第61型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWB| ****B***WW -------W-+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {94:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第62型",
+    offence: false,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ****WWWWW| ****WBBBW| ****W***BB ---------+",
+    nextHands: {105: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {93:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {107:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第63型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ****BBBBBB ****BWWWBW ****B***WW ------W--+",
+    nextHands: {106: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {95:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "白はどちらからもオセない。",
+            status: "correct"
+        },
+    }
  }];

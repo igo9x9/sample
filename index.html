@@ -91,6 +91,31 @@
         </div>
         <!-- /ko -->
 
+        <!-- ko if: page()==='free' -->
+        <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
+            <div class="container-fluid" style="width: 330px;">
+                <span class="navbar-brand mb-0 h1">
+                    <span data-bind="text: question().title"></span> 検討中
+                </span>
+            </div>
+        </nav>
+        <div style="height:40px;">空</div>
+        <div class="mt-2 d-flex justify-content-center" data-bind="with: free">
+            <div data-bind="foreach: contents">
+                <!-- ko if: $data != " " -->
+                    <img style="display:block;float:left;width:30px;height:30px" data-bind="attr:{src: $parent.getImageFileName($data)}, click: function(){$parent.putPlayer($index())}">
+                <!-- /ko -->
+                <!-- ko if: $data == " " -->
+                    <br style="clear: both;">
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="mt-2 d-flex justify-content-center">
+            <button class="btn btn-primary" data-bind="click: toggleFreeMode">戻る</button>
+        </div>
+        <!-- /ko -->
+
         <!-- ko if: page()==='question' -->
         <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
             <div class="container-fluid" style="width: 330px;">
@@ -119,6 +144,8 @@
                                         click: question().toggleBookmark,
                                         text: question().bookmark() ? 'マークを外す' : 'マークを付ける'">
                                         </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" data-bind="click: toggleFreeMode">検討モード</a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#" data-bind="click: clearHightScore">最高記録をゼロに戻す</a></li>

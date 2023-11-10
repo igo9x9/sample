@@ -50,6 +50,17 @@ const App = function() {
     self.bookmarkFilter = ko.observable(false);
     self.statusFilter = ko.observable(true);
 
+    self.free = ko.observable();
+
+    self.toggleFreeMode = function() {
+        if (self.page() === "free") {
+            self.page("question");
+        } else {
+            self.free(new Free(self.question().contents()));
+            self.page("free");
+        }
+    };
+
     self.toggleBookmarkFilter = function() {
         self.bookmarkFilter(!self.bookmarkFilter());
         self.statusFilter(!self.bookmarkFilter());
@@ -182,6 +193,45 @@ const App = function() {
     }
 
     load();
+};
+
+const Free = function(data) {
+    const self = this;
+
+    self.contents = [];
+
+    const datas = data.split("");
+    for (n = 0; n < datas.length; n++) {
+        let char = datas[n];
+        self.contents.push(ko.observable(datas[n]));
+    }
+
+    self.getImageFileName = function(char) {
+        return convertMarkToImageFileName(char);
+    };
+
+    self.putPlayer = function(pos) {
+        console.log(pos);
+        const char = self.contents[pos]();
+        let nextChar;
+        if (char === "B") {
+            nextChar = "W";
+        } else if (char === "W") {
+            if (pos === 108) {
+                nextChar = "+";
+            } else if (pos == 9 || pos == 20 || pos == 31 || pos == 42 || pos == 53 || pos == 64 || pos == 75 || pos == 86 || pos == 97) {
+                nextChar = "|";
+            } else if (pos > 90) {
+                nextChar = "-";
+            } else {
+                nextChar = "*";
+            }
+        } else {
+            nextChar = "B";
+        }
+        self.contents[pos](nextChar);
+    };
+
 };
 
 const Question = function(data, id, setBackground, setScore) {

@@ -268,6 +268,7 @@ const Question = function(data, id, setBackground, setScore) {
         }
         self.message("<span style='color:red'>不正解</span>");
         self.status("incorrect");
+        setBackground.incorrect();
         setScore.reset();
     }
 

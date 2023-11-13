@@ -1,24 +1,20 @@
 const App = function() {
     const self = this;
 
-    const backgroundColorDefault = "#ECF0F1";
-    const backgroundColorCorrect = "#a4b0be";
-    const backgroundColorIncorrect = "#f8d7da";
-    const backgroundColorRemoved = "#111111";
-    self.backgroundColor = ko.observable(backgroundColorDefault);
+    const BACKGROUND_COLOR_DEFAULT = "#ECF0F1";
+    const BACKGROUND_COLOR_CORRECT = "#a4b0be";
+    const BACKGROUND_COLOR_INCORRECT = "#f8d7da";
+    self.backgroundColor = ko.observable(BACKGROUND_COLOR_DEFAULT);
     const setBackground = {
         default: function() {
-            self.backgroundColor(backgroundColorDefault);
+            self.backgroundColor(BACKGROUND_COLOR_DEFAULT);
         },
         correct: function() {
-            self.backgroundColor(backgroundColorCorrect);
+            self.backgroundColor(BACKGROUND_COLOR_CORRECT);
         },
         incorrect: function() {
-            self.backgroundColor(backgroundColorIncorrect);
+            self.backgroundColor(BACKGROUND_COLOR_INCORRECT);
         },
-        removed: function() {
-            self.backgroundColor(backgroundColorRemoved);
-        }
     };
 
     self.score = ko.observable(0);
@@ -42,7 +38,6 @@ const App = function() {
 
     self.questions = ko.observableArray();
     self.question = ko.observable();
-
     self.page = ko.observable("title");
 
     let questionIndex = ko.observable(0);
@@ -71,12 +66,12 @@ const App = function() {
     };
 
     self.showTitle = function() {
-        self.backgroundColor(backgroundColorDefault);
+        self.backgroundColor(BACKGROUND_COLOR_DEFAULT);
         self.page("title");
     };
     
     self.showMokuji = function() {
-        self.backgroundColor(backgroundColorDefault);
+        self.backgroundColor(BACKGROUND_COLOR_DEFAULT);
         self.page("mokuji");
     };
 
@@ -238,23 +233,22 @@ const Free = function(data) {
 };
 
 const Question = function(data, id, setBackground, setScore) {
+
     const self = this;
 
-    self.id = id;
     let marks = data.setup;
-    self.contents = ko.observable(marks);
     let nextHands = data.nextHands;
+
+    self.id = id;
+    self.contents = ko.observable(marks);
     self.message = ko.observable("");
     self.title = ko.observable(data.title);
-
     self.gameover = ko.observable(false);
     self.status = ko.observable("");
-
     self.moved = ko.observable(false);
-
     self.bookmark = ko.observable(false);
-
     self.firstStage = ko.observable(true);
+
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;
 
@@ -263,7 +257,7 @@ const Question = function(data, id, setBackground, setScore) {
             status: self.status(),
             bookmark: self.bookmark(),
         }));
-    }
+    };
 
     self.choiseFirstStageAnswer = function(answerNo) {
         self.moved(true);
@@ -310,8 +304,10 @@ const Question = function(data, id, setBackground, setScore) {
 
     // ユーザが手動でやり直す
     self.restartManual = function() {
+        if (self.status() === "incorrect") {
+            setScore.reset();
+        }
         self.restartHard();
-        setScore.reset();
     };
 
     self.putPlayer = function(pos) {

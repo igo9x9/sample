@@ -33,7 +33,12 @@ const App = function() {
             if (self.score() > self.hightScore()) {
                 localStorage.setItem("hightScore", self.score());
             }
-        }
+        },
+        down: function() {
+            if (self.score() > 0) {
+                self.score(self.score() - 1);
+            }
+        },
     };
 
     self.questions = ko.observableArray();
@@ -307,6 +312,9 @@ const Question = function(data, id, setBackground, setScore) {
     self.restartManual = function() {
         if (self.status() === "incorrect") {
             setScore.reset();
+        }
+        if (self.status() === "correct") {
+            setScore.down();
         }
         self.restartHard();
     };

@@ -92,6 +92,9 @@ const App = function() {
     }
 
     self.refleshAll = function() {
+        if (!window.confirm("成績を全てクリアします。")) {
+            return;
+        }
         for (n = 0; n < self.questions().length; n++) {
             self.questions()[n].restartHard();
         }
@@ -99,6 +102,9 @@ const App = function() {
     };
 
     self.refleshAllBookmark = function() {
+        if (!window.confirm("マークを全てクリアします。")) {
+            return;
+        }
         for (n = 0; n < self.questions().length; n++) {
             const q = self.questions()[n];
             q.bookmark(false);
@@ -107,6 +113,9 @@ const App = function() {
     };
 
     self.clearHightScore = function() {
+        if (!window.confirm("最高記録をクリアします。")) {
+            return;
+        }
         self.hightScore(0);
         localStorage.setItem("hightScore", 0);
     };

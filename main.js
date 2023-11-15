@@ -1,3 +1,7 @@
+const confirmDialog = new bootstrap.Modal(document.getElementById("confirm"));
+let confirmMessage = ko.observable("");
+let confirmCommitAction = null;
+
 const App = function() {
     const self = this;
 
@@ -92,32 +96,38 @@ const App = function() {
     }
 
     self.refleshAll = function() {
-        if (!window.confirm("成績を全てクリアします。")) {
-            return;
-        }
-        for (n = 0; n < self.questions().length; n++) {
-            self.questions()[n].restartHard();
-        }
-        self.score(0);
+        confirmMessage("成績を全てクリアします。よろしいですか？");
+        confirmCommitAction = function() {
+            for (n = 0; n < self.questions().length; n++) {
+                self.questions()[n].restartHard();
+            }
+            self.score(0);
+            confirmDialog.hide();
+        };
+        confirmDialog.show();
     };
 
     self.refleshAllBookmark = function() {
-        if (!window.confirm("マークを全てクリアします。")) {
-            return;
-        }
-        for (n = 0; n < self.questions().length; n++) {
-            const q = self.questions()[n];
-            q.bookmark(false);
-            q.save();
-        }
+        confirmMessage("マークを全てクリアします。よろしいですか？");
+        confirmCommitAction = function() {
+            for (n = 0; n < self.questions().length; n++) {
+                const q = self.questions()[n];
+                q.bookmark(false);
+                q.save();
+            }
+            confirmDialog.hide();
+        };
+        confirmDialog.show();
     };
 
     self.clearHightScore = function() {
-        if (!window.confirm("最高記録をクリアします。")) {
-            return;
-        }
-        self.hightScore(0);
-        localStorage.setItem("hightScore", 0);
+        confirmMessage("最高記録をクリアします。本当によろしいですか？");
+        confirmCommitAction = function() {
+            self.hightScore(0);
+            localStorage.setItem("hightScore", 0);
+            confirmDialog.hide();
+        };
+        confirmDialog.show();
     };
 
     self.shuffleQuestions = function() {

@@ -2726,4 +2726,68 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    title: "第71型",
+    offence: true,
+    answer: 1,
+    setup: "*********| *********| *********| *********| *********| *******B*| ****BBB*B| ***B**WWB| ***BW***WW ---------+",
+    nextHands: {93: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {105:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {103:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第72型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| ********B| ***BBBBB*| **B*W*WWBB **BW****WW ---------+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {93:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 82,
+            removeBlackStones: [],
+            nextHands: {92:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "黒のワタリを止められない。",
+            status: "correct"
+        },
+    }
  }];

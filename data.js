@@ -1251,7 +1251,7 @@ const datas = [{
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
-    nextHands: {96: "a", 104: "f"},
+    nextHands: {96: "a", 104: "f", 97: "p"},
     hands: {
         a: {
             removeWhiteStones: [],
@@ -1291,6 +1291,14 @@ const datas = [{
             removeBlackStones: [],
             nextHands: {},
             message: "",
+            status: "incorrect"
+        },
+        p: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "第33型を参照。コウになる。",
             status: "incorrect"
         },
     }

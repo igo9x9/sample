@@ -203,13 +203,13 @@ const App = function() {
             if (json) {
                 self.questions()[n].status(json.status);
                 self.questions()[n].bookmark(json.bookmark);
-                if (!!json.correctHistory) {
-                    historys = json.correctHistory.split(",");
-                    for (i = 0; i < historys.length; i++) {
-                        self.questions()[n].correctHistory.push(historys[i]);
-                    }
+                // if (!!json.correctHistory) {
+                //     historys = json.correctHistory.split(",");
+                //     for (i = 0; i < historys.length; i++) {
+                //         self.questions()[n].correctHistory.push(historys[i]);
+                //     }
                     
-                }
+                // }
             }
         }
         const hightScore = localStorage.getItem("hightScore");
@@ -279,44 +279,44 @@ const Question = function(data, id, setBackground, setScore) {
     self.moved = ko.observable(false);
     self.bookmark = ko.observable(false);
     self.firstStage = ko.observable(true);
-    self.correctHistory = ko.observableArray();
+    // self.correctHistory = ko.observableArray();
 
-    function addCorrectHistory(isCorrect) {
-        if (self.correctHistory().length > 9) {
-            self.correctHistory.shift();
-        }
-        self.correctHistory.push(isCorrect);
-    }
+    // function addCorrectHistory(isCorrect) {
+    //     if (self.correctHistory().length > 9) {
+    //         self.correctHistory.shift();
+    //     }
+    //     self.correctHistory.push(isCorrect);
+    // }
 
-    self.correctRate = ko.pureComputed(function() {
-        let correct = 0;
-        let incorrect = 0;
-        for (i = 0; i < self.correctHistory().length; i++) {
-            self.correctHistory()[i] ? correct++ : incorrect++;
-        }
-        const a = correct + incorrect;
-        if (a == 0) {
-            return 0;
-        }
-        return Math.ceil(correct * 100 / a);
-    });
+    // self.correctRate = ko.pureComputed(function() {
+    //     let correct = 0;
+    //     let incorrect = 0;
+    //     for (i = 0; i < self.correctHistory().length; i++) {
+    //         self.correctHistory()[i] ? correct++ : incorrect++;
+    //     }
+    //     const a = correct + incorrect;
+    //     if (a == 0) {
+    //         return 0;
+    //     }
+    //     return Math.ceil(correct * 100 / a);
+    // });
 
-    self.difficulty = ko.pureComputed(function() {
-        if (self.correctHistory().length == 0) { 
-            return "不明";
-        }
-        if (self.correctRate() < 20) {
-            return "★★★★★";
-        } else if (self.correctRate() < 40) {
-            return "★★★★☆";
-        } else if (self.correctRate() < 60) {
-            return "★★★☆☆";
-        } else if (self.correctRate() < 80) {
-            return "★★☆☆☆";
-        } else {
-            return "★☆☆☆☆";
-        }
-    });
+    // self.difficulty = ko.pureComputed(function() {
+    //     if (self.correctHistory().length == 0) { 
+    //         return "不明";
+    //     }
+    //     if (self.correctRate() < 20) {
+    //         return "★★★★★";
+    //     } else if (self.correctRate() < 40) {
+    //         return "★★★★☆";
+    //     } else if (self.correctRate() < 60) {
+    //         return "★★★☆☆";
+    //     } else if (self.correctRate() < 80) {
+    //         return "★★☆☆☆";
+    //     } else {
+    //         return "★☆☆☆☆";
+    //     }
+    // });
 
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;
@@ -325,7 +325,7 @@ const Question = function(data, id, setBackground, setScore) {
         localStorage.setItem(self.id, JSON.stringify({
             status: self.status(),
             bookmark: self.bookmark(),
-            correctHistory: self.correctHistory() ? self.correctHistory().join(",") : null,
+            // correctHistory: self.correctHistory() ? self.correctHistory().join(",") : null,
         }));
     };
 
@@ -338,7 +338,7 @@ const Question = function(data, id, setBackground, setScore) {
         }
         self.message("<span style='color:red'>不正解</span>");
         self.status("incorrect");
-        addCorrectHistory(false);
+        // addCorrectHistory(false);
         setBackground.incorrect();
         setScore.reset();
         self.save();
@@ -408,7 +408,7 @@ const Question = function(data, id, setBackground, setScore) {
             self.message("<span style='color:red'>不正解</span>");
             self.gameover(true);
             self.status("incorrect");
-            addCorrectHistory(false);
+            // addCorrectHistory(false);
             setScore.reset();
             setBackground.incorrect();
             self.save();
@@ -433,14 +433,14 @@ const Question = function(data, id, setBackground, setScore) {
                     self.gameover(true);
                     self.message("<span style='color:blue'>正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("correct");
-                    addCorrectHistory(true);
+                    // addCorrectHistory(true);
                     setBackground.correct();
                     setScore.up();
                 } else if (data.hands[nextHandLabel].status == "incorrect") {
                     self.gameover(true);
                     self.message("<span style='color:red'>不正解</span><br>" + data.hands[nextHandLabel].message);
                     self.status("incorrect");
-                    addCorrectHistory(false);
+                    // addCorrectHistory(false);
                     setScore.reset();
                     setBackground.incorrect();
                 }

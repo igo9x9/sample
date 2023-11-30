@@ -263,9 +263,9 @@ const datas = [{
         },
         b: {
             removeWhiteStones: [],
-            nextWhiteHand: 108,
+            nextWhiteHand: 105,
             removeBlackStones: [],
-            nextHands: {105: "c"},
+            nextHands: {107: "c"},
             message: "",
             status: "continue"
         },
@@ -274,7 +274,7 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "コウ。",
+            message: "コウ。なお、本編の手順だと白が損。",
             status: "correct"
         }
     }

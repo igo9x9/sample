@@ -3718,4 +3718,428 @@ const datas = [{
             status: "correct"
         },
     }
+},{
+    title: "第95型",
+    offence: false,
+    answer: 2,
+    setup: "*********| *********| *********| *********| *********| ****WWWWW| ******BBW| ****WWB*B| ****WBB**W ---------+",
+    nextHands: {86: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {104:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {84:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {95:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {105:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 103,
+            removeBlackStones: [],
+            nextHands: {108:"f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [{106:"-"},{107:"-"},{96:"*"},{97:"|"}],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {96:"g"},
+            message: "",
+            status: "continue"
+        },
+        g: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第96型",
+    offence: true,
+    answer: 1,
+    setup: "*********| *********| *********| *******B*| *********| ****BB*BB| ******WWB| ****BBW*W| ****BWW**| ---------+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {95:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {106:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 84,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第97型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBB| ***BWWWWW| ***B*****| ---------+",
+    nextHands: {104: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {103:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 107,
+            removeBlackStones: [],
+            nextHands: {97:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {94:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第98型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBB| ***BWWWWW| ***B*W***| ----BBW--+",
+    nextHands: {95: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {86:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {107:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "三目ナカ手。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第99型",
+    offence: true,
+    answer: 1,
+    setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBBW ***BWWWWW| ***B*W***| ----BBW--+",
+    nextHands: {107: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {106:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "コウ。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第100型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ***BBBBB*| *B*BWW***| **BWW**W*| ---------+",
+    nextHands: {85: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 96,
+            removeBlackStones: [],
+            nextHands: {97:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 83,
+            removeBlackStones: [],
+            nextHands: {102:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 103,
+            removeBlackStones: [],
+            nextHands: {107:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+    }
+},{
+    title: "第101型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ***BBBBBB| *B*BWW**W| **BWW***W| --B------+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 83,
+            removeBlackStones: [],
+            nextHands: {84:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {102:"c",103:"g",104:"p"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {103:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {104:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 94,
+            removeBlackStones: [],
+            nextHands: {86:"f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        g: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {102:"d"},
+            message: "",
+            status: "continue"
+        },
+        p: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {102:"q", 103:"r"},
+            message: "",
+            status: "continue"
+        },
+        q: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {103:"e"},
+            message: "",
+            status: "continue"
+        },
+        r: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [{94:"*"}],
+            nextHands: {102:"e"},
+            message: "",
+            status: "continue"
+        },
+    }
+},{
+    title: "第102型",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ***BBBBBBB *B*BWW**W| **BWW***W| ---------+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 83,
+            removeBlackStones: [],
+            nextHands: {97:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {84:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {106:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 108,
+            removeBlackStones: [{97:"|"}],
+            nextHands: {104:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {105:"f"},
+            message: "",
+            status: "continue"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "オス手なし。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第102型 変化",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| *********| *********| ***BBBBBBB *B*BWW**W| **BWW***W| ---------+",
+    nextHands: {94: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 83,
+            removeBlackStones: [],
+            nextHands: {97:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 95,
+            removeBlackStones: [],
+            nextHands: {104:"c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: 93,
+            removeBlackStones: [],
+            nextHands: {105:"d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 86,
+            removeBlackStones: [],
+            nextHands: {84:"e"},
+            message: "",
+            status: "continue"
+        },
+        e: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "オス手なし。",
+            status: "correct"
+        },
+    }
  }];

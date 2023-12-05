@@ -41,8 +41,7 @@ const App = function() {
             if (self.score() > self.hightScore()) {
                 localStorage.setItem("hightScore", self.score());
             }
-            console.log(self.score(), self.hightScore());
-            if (self.score() === self.hightScore() + 1 || self.hightScore() === 0) {
+            if (self.score() === self.hightScore() + 1) {
                 hightScoreDialog.show();
             }
         },

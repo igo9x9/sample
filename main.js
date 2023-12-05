@@ -2,6 +2,8 @@ const confirmDialog = new bootstrap.Modal(document.getElementById("confirm"));
 let confirmMessage = ko.observable("");
 let confirmCommitAction = null;
 
+const hightScoreDialog = new bootstrap.Modal(document.getElementById("hightScoreMessage"));
+
 const App = function() {
     const self = this;
 
@@ -30,7 +32,7 @@ const App = function() {
             localStorage.setItem("score", 0);
             const hightScore = localStorage.getItem("hightScore");
             if (hightScore) {
-                self.hightScore(hightScore);
+                self.hightScore(Number(hightScore));
             }
         },
         up: function() {
@@ -38,6 +40,10 @@ const App = function() {
             localStorage.setItem("score", self.score());
             if (self.score() > self.hightScore()) {
                 localStorage.setItem("hightScore", self.score());
+            }
+            console.log(self.score(), self.hightScore());
+            if (self.score() === self.hightScore() + 1 || self.hightScore() === 0) {
+                hightScoreDialog.show();
             }
         },
         down: function() {
@@ -214,7 +220,7 @@ const App = function() {
         }
         const hightScore = localStorage.getItem("hightScore");
         if (hightScore) {
-            self.hightScore(hightScore);
+            self.hightScore(Number(hightScore));
         }
     }
 

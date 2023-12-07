@@ -130,6 +130,7 @@ const datas = [{
     title: "第7型",
     offence: false,
     answer: 0,
+    memo: "<strong>補足</strong><br>小目の小ケイマジマリの中に入り込んだ時にできる形です。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {

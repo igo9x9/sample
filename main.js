@@ -284,6 +284,7 @@ const Question = function(data, id, setBackground, setScore) {
     self.moved = ko.observable(false);
     self.bookmark = ko.observable(false);
     self.firstStage = ko.observable(true);
+    self.memo = ko.observable(data.memo);
 
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;

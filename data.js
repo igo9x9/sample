@@ -130,7 +130,7 @@ const datas = [{
     title: "第7型",
     offence: false,
     answer: 0,
-    memo: "<strong>補足</strong><br>小目の小ケイマジマリの中に入り込んだ時にできる形です。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
+    memo: "小目の小ケイマジマリの中に入り込んだ時にできる形。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -171,6 +171,7 @@ const datas = [{
     title: "第7型 変化",
     offence: false,
     answer: 0,
+    memo: "小目の小ケイマジマリの中に入り込んだ時にできる形。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -227,6 +228,7 @@ const datas = [{
     title: "第8型",
     offence: true,
     answer: 0,
+    memo: "第7型での守り方を誤り、サガってしまった形。",
     setup: "*********| *********| *********| ******B**| *********| ******B**| *******B*| *****BBWW| *****BW**| ------W--+",
     nextHands: {107: "a"},
     hands: {
@@ -251,6 +253,7 @@ const datas = [{
     title: "第9型",
     offence: true,
     answer: 1,
+    memo: "第7型で、白①と広げてから③とカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼●❷┤<br>┼┼┼┼●①┤<br>┼┼●●○○┤<br>┼┼●○┼┼┤<br>┴┴┴┴③┴┘<br></div>",
     setup: "*********| *********| *********| ******B**| *********| ******B*B| *******BW| *****BBWW| *****BW**| -------W-+",
     nextHands: {97: "a"},
     hands: {
@@ -283,6 +286,7 @@ const datas = [{
     title: "第10型",
     offence: false,
     answer: 0,
+    memo: "第7型からの生き形に対して、白が①とサガった形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼○┼┤<br>┼┼○○●●┤<br>┼┼○●┼┼┤<br>┴┴①┴●┴┘<br></div>",
     setup: "*********| *********| *********| ******W**| *********| ******W**| *******W*| *****WWBB| *****WB**| -----W-B-+",
     nextHands: {74: "a", 97: "d"},
     hands: {
@@ -331,6 +335,7 @@ const datas = [{
     title: "第11型",
     offence: false,
     answer: 0,
+    memo: "第7型とは逆を白がオサえた形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼○①┤<br>┼┼○○●●┤<br>┼┼┼●┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *********| ******W**| *******WW| ***W*WWBB| ******B**| ---------+",
     nextHands: {96: "a", 107: "c"},
     hands: {
@@ -363,6 +368,7 @@ const datas = [{
     title: "第12型",
     offence: true,
     answer: 1,
+    memo: "第11型の生き方を間違えた形。",
     setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******W**| -------W-+",
     nextHands: {97: "a"},
     hands: {
@@ -403,6 +409,7 @@ const datas = [{
     title: "第13型",
     offence: true,
     answer: 1,
+    memo: "第11型の生き形に、❶のサガりがある形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┤<br>┼┼┼●●❶<br>┼●●○○┤<br>┼┼○┼○┤<br>┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W*W| ---------+",
     nextHands: {107: "a", 97: "p"},
     hands: {
@@ -595,6 +602,7 @@ const datas = [{
     title: "第17型",
     offence: true,
     answer: 0,
+    memo: "黒の小目からの一間ジマリに白が入り、⑤とナナメに動きました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●❷●┼┤<br>┼●┼❹①③┼┤<br>┼┼┼┼┼┼⑤┤<br>┼┴┴┴┴┴┴┘</div>黒❶と眼形を作らせず、白②④とハネカケツいだ形です。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
     nextHands: {103: "a"},
     hands: {

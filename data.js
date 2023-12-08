@@ -602,7 +602,7 @@ const datas = [{
     title: "第17型",
     offence: true,
     answer: 0,
-    memo: "黒の小目からの一間ジマリに白が入り、⑤とナナメに動きました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●❷●┼┤<br>┼●┼❹①③┼┤<br>┼┼┼┼┼┼⑤┤<br>┼┴┴┴┴┴┴┘</div>黒❶と眼形を作らせず、白②④とハネカケツいだ形です。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
+    memo: "黒の小目からの一間ジマリに白が入り、⑤とナナメに動きました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●❷●┼┤<br>┼●┼❹①③┼┤<br>┼┼┼┼┼┼⑤┤<br>┼┴┴┴┴┴┴┘</div>黒❶に対して白②④とハネカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
     nextHands: {103: "a"},
     hands: {
@@ -675,6 +675,7 @@ const datas = [{
     title: "第18型",
     offence: true,
     answer: 0,
+    memo: "第17型で、白がハネカケツギではなく、コスんだ形です。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴┴④┴┘</div>",
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| -------W-+",
     nextHands: {94: "a"},
     hands: {
@@ -707,6 +708,7 @@ const datas = [{
     title: "第19型",
     offence: true,
     answer: 1,
+    memo: "第17型で外ダメがあいている形。",
     setup: "*********| *********| *********| *********| *********| ******B**| *****B*BB| ***B*BWW*| **B*BW**W| ------W--+",
     nextHands: {97: "a"},
     hands: {

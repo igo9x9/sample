@@ -675,7 +675,7 @@ const datas = [{
     title: "第18型",
     offence: true,
     answer: 0,
-    memo: "第17型で、白がハネカケツギではなく、コスんだ形です。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴┴④┴┘</div>",
+    memo: "第17型で、白がハネカケツギではなくコスんだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴┴④┴┘</div>",
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| -------W-+",
     nextHands: {94: "a"},
     hands: {
@@ -708,7 +708,7 @@ const datas = [{
     title: "第19型",
     offence: true,
     answer: 1,
-    memo: "第17型で外ダメがあいている形。",
+    memo: "第17型で外ダメがあいていたら、という形。",
     setup: "*********| *********| *********| *********| *********| ******B**| *****B*BB| ***B*BWW*| **B*BW**W| ------W--+",
     nextHands: {97: "a"},
     hands: {
@@ -741,6 +741,7 @@ const datas = [{
     title: "第20型",
     offence: false,
     answer: 0,
+    memo: "第19型の一手前の形。どうすべきだったのか。",
     setup: "*********| *********| *********| *********| *********| ******W**| *****W*WW| ***W*WBB*| ****WB**B| ---------+",
     nextHands: {106: "a"},
     hands: {
@@ -1282,10 +1283,18 @@ const datas = [{
         },
         c: {
             removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [{104:"-"}],
+            nextHands: {95: "d"},
+            message: "",
+            status: "continue"
+        },
+        d: {
+            removeWhiteStones: [],
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "",
+            message: "セキではない。",
             status: "correct"
         },
         f: {
@@ -1301,7 +1310,7 @@ const datas = [{
             nextWhiteHand: 107,
             removeBlackStones: [],
             nextHands: {},
-            message: "",
+            message: "ツゲない。",
             status: "incorrect"
         },
         p: {
@@ -1311,6 +1320,38 @@ const datas = [{
             nextHands: {},
             message: "第33型を参照。コウになる。",
             status: "incorrect"
+        },
+    }
+},{
+    title: "第32型 変化",
+    offence: true,
+    answer: 0,
+    setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
+    nextHands: {96: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {107: "b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {106: "c"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
         },
     }
 },{
@@ -1781,6 +1822,7 @@ const datas = [{
     title: "第45型",
     offence: true,
     answer: 1,
+    memo: "第44型でカケツぐのはなぜ不正解か、を問う問題。",
     setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ****BBBWW| ****BWW**| -------W-+",
     nextHands: {97: "a"},
     hands: {

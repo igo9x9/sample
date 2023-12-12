@@ -602,7 +602,7 @@ const datas = [{
     title: "第17型",
     offence: true,
     answer: 0,
-    memo: "黒の小目からの一間ジマリに白が入り、⑤とナナメに動きました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●❷●┼┤<br>┼●┼❹①③┼┤<br>┼┼┼┼┼┼⑤┤<br>┼┴┴┴┴┴┴┘</div>黒❶に対して白②④とハネカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
+    memo: "黒が❶としたときに、<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼┼┼┼┼○┤<br>┼┴┴┴┴┴┴┘</div>白②④とハネカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●●┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
     nextHands: {103: "a"},
     hands: {
@@ -1358,6 +1358,7 @@ const datas = [{
     title: "第33型",
     offence: false,
     answer: 2,
+    memo: "第32型での攻め方を誤った形。",
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| **W*WBB**W ----B----+",
     nextHands: {86: "a"},
     hands: {
@@ -1494,6 +1495,7 @@ const datas = [{
     title: "第36型 白手順ミス",
     offence: true,
     answer: 0,
+    memo: "白が応手を誤った場合。",
     setup: "*********| *********| *********| *********| *******B*| ********BB *****BBBW| ***B*BWWW| ****BWWWBW -------B-+",
     nextHands: {107: "a"},
     hands: {
@@ -1558,6 +1560,7 @@ const datas = [{
     title: "第38型",
     offence: false,
     answer: 0,
+    memo: "第37型での攻め方を誤った場合。",
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| ***W*WBBB| ****WB***| ----W-B-W+",
     nextHands: {96: "a"},
     hands: {

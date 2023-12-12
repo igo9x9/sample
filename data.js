@@ -2065,7 +2065,7 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 94,
             removeBlackStones: [],
-            nextHands: {75:"b"},
+            nextHands: {75:"b", 96:"p"},
             message: "",
             status: "continue"
         },
@@ -2073,7 +2073,80 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 86,
             removeBlackStones: [],
-            nextHands: {96: "c"},
+            nextHands: {96: "c", 105:"f"},
+            message: "",
+            status: "continue"
+        },
+        c: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "",
+            status: "correct"
+        },
+        f: {
+            removeWhiteStones: [],
+            nextWhiteHand: 106,
+            removeBlackStones: [],
+            nextHands: {96: "g"},
+            message: "",
+            status: "continue"
+        },
+        g: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "本編には無い手順。",
+            status: "correct"
+        },
+        p: {
+            removeWhiteStones: [],
+            nextWhiteHand: 97,
+            removeBlackStones: [],
+            nextHands: {107: "q"},
+            message: "",
+            status: "continue"
+        },
+        q: {
+            removeWhiteStones: [],
+            nextWhiteHand: 75,
+            removeBlackStones: [],
+            nextHands: {105: "r"},
+            message: "",
+            status: "continue"
+        },
+        r: {
+            removeWhiteStones: [],
+            nextWhiteHand: null,
+            removeBlackStones: [],
+            nextHands: {},
+            message: "本編には無い手順。",
+            status: "correct"
+        },
+    }
+},{
+    title: "第52型 白手順ミス",
+    offence: false,
+    answer: 0,
+    memo: "ハサミツケはどうか、という問題。",
+    setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWB| ****WB*BB| ****WBW**| ---------+",
+    nextHands: {83: "a"},
+    hands: {
+        a: {
+            removeWhiteStones: [],
+            nextWhiteHand: 104,
+            removeBlackStones: [],
+            nextHands: {95:"b"},
+            message: "",
+            status: "continue"
+        },
+        b: {
+            removeWhiteStones: [],
+            nextWhiteHand: 105,
+            removeBlackStones: [],
+            nextHands: {97: "c"},
             message: "",
             status: "continue"
         },

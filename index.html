@@ -185,13 +185,13 @@
         </div>
 
         <div class="my-2 d-flex justify-content-between">
-            <button class="btn btn-secondary" data-bind="enable: canGoPrevQuestion, click: goPrevQuestion">
+            <button class="btn" data-bind="css: {'btn-secondary':canGoPrevQuestion, 'btn-outline-secondary': !canGoPrevQuestion()}, enable: canGoPrevQuestion, click: goPrevQuestion">
                 &lt; 前問題
             </button>
-            <button class="btn btn-secondary" data-bind="enable: question().moved, click:question().restartManual">
+            <button class="btn" data-bind="css: {'btn-secondary':question().moved, 'btn-outline-secondary': !question().moved()}, enable: question().moved, click:question().restartManual">
                 やり直す
             </button>
-            <button class="btn btn-dark" data-bind="enable: canGoNextQuestion, click: goNextQuestion">
+            <button class="btn" data-bind="css: {'btn-dark':canGoNextQuestion, 'btn-outline-secondary': !canGoNextQuestion()}, enable:canGoNextQuestion, click: goNextQuestion">
                 次問題 &gt;
             </button>
         </div>

@@ -2130,7 +2130,7 @@ const datas = [{
     title: "第52型 白手順ミス",
     offence: false,
     answer: 0,
-    memo: "ハサミツケはどうか、という問題。",
+    memo: "ハサミツケはなぜ誤りか、という問題。",
     setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWB| ****WB*BB| ****WBW**| ---------+",
     nextHands: {83: "a"},
     hands: {
@@ -2171,6 +2171,7 @@ const datas = [{
     title: "第53型",
     offence: false,
     answer: 0,
+    memo: "第52型で攻め方を誤った場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●●●●○┤<br>┼●○❸○○┤<br>┼●○②┼┼┤<br>┴┴❶┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWB| ****WBWBB| ****WBB**| -----W---+",
     nextHands: {106: "a"},
     hands: {
@@ -2219,6 +2220,7 @@ const datas = [{
     title: "第54型",
     offence: true,
     answer: 0,
+    memo: "第52型のマガリがスソアキに変わった形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼┼┼┤<br>┼●●●●ａ┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *******B*| *********| ****BBBB*| ****BW*WW| **B*BW***| ---------+",
     nextHands: {104: "a"},
     hands: {

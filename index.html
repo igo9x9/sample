@@ -158,7 +158,7 @@
 
         <div class="mt-2 d-flex justify-content-center" data-bind="with: question">
             <div data-bind="foreach: contents().split('')">
-                <!-- ko if: $index() >= 32 -->
+                <!-- ko if: $index() > 32 -->
                 <!-- ko if: $data != " " -->
                     <img style="display:block;float:left;width:30px;height:30px" data-bind="attr:{src: $parent.getImageFileName($index())}, click:function(){$parent.putPlayer($index())}">
                 <!-- /ko -->

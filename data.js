@@ -2098,7 +2098,7 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "本編には無い手順。",
+            message: "本編には無い手順だが正解。",
             status: "correct"
         },
         p: {
@@ -2122,7 +2122,7 @@ const datas = [{
             nextWhiteHand: null,
             removeBlackStones: [],
             nextHands: {},
-            message: "本編には無い手順。",
+            message: "本編には無い手順だが正解。",
             status: "correct"
         },
     }
@@ -2146,7 +2146,7 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 105,
             removeBlackStones: [],
-            nextHands: {97: "c"},
+            nextHands: {97: "c", 106: "d"},
             message: "",
             status: "continue"
         },
@@ -2157,6 +2157,14 @@ const datas = [{
             nextHands: {},
             message: "",
             status: "correct"
+        },
+        d: {
+            removeWhiteStones: [],
+            nextWhiteHand: 103,
+            removeBlackStones: [],
+            nextHands: {97: "c"},
+            message: "",
+            status: "continue"
         },
     }
 },{
@@ -2234,7 +2242,7 @@ const datas = [{
             removeWhiteStones: [],
             nextWhiteHand: 86,
             removeBlackStones: [],
-            nextHands: {105: "d"},
+            nextHands: {105: "d", 96: "d"},
             message: "",
             status: "continue"
         },
@@ -2251,6 +2259,7 @@ const datas = [{
     title: "第55型",
     offence: true,
     answer: 1,
+    memo: "第52型でａのダメがあいている場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●ａ●●○┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *******B*| ****B***B| ****B*BBW| ****BW*WW| **B*BW***| ---------+",
     nextHands: {104: "a"},
     hands: {
@@ -2299,6 +2308,7 @@ const datas = [{
     title: "第56型",
     offence: false,
     answer: 0,
+    memo: "第55型で攻め方を誤った場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●┼●●○┤<br>┼●○❸○○┤<br>┼●○④┼┼┤<br>┴┴❶②┴❺┘</div>",
     setup: "*********| *********| *********| *********| *******W*| ****W***W| ****W*WWB| ****WBWBB| **W*WBB**| -----WB-W+",
     nextHands: {96: "a"},
     hands: {
@@ -2363,6 +2373,7 @@ const datas = [{
     title: "第57型",
     offence: true,
     answer: 0,
+    memo: "第55型にａのサガリがある場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼●┼┤<br>┼●┼┼┼●ａ<br>┼●┼●●○┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *******B*| ****B***BB ****B*BBW| ****BW*WW| **B*BW***| ---------+",
     nextHands: {104: "a"},
     hands: {

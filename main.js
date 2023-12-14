@@ -300,11 +300,11 @@ const Question = function(data, id, setBackground, setScore) {
     self.levelText = function() {
         switch (self.level()) {
             case 1:
-                return "初級";
+                return "★";
             case 2:
-                return "中級";
+                return "★★";
             case 3:
-                return "高級";
+                return "★★★";
         }
         return "不明";
     };

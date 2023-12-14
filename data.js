@@ -3288,7 +3288,7 @@ const datas = [{
         },
     }
 },{
-    title: "第82型 一合マス基本",
+    title: "第82型 一合マス",
     level: 3,
     offence: true,
     answer: 1,

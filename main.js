@@ -300,9 +300,9 @@ const Question = function(data, id, setBackground, setScore) {
     self.levelText = function() {
         switch (self.level()) {
             case 1:
-                return "★";
+                return "★☆☆";
             case 2:
-                return "★★";
+                return "★★☆";
             case 3:
                 return "★★★";
         }

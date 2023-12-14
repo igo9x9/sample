@@ -285,6 +285,7 @@ const Question = function(data, id, setBackground, setScore) {
     self.bookmark = ko.observable(false);
     self.firstStage = ko.observable(true);
     self.memo = ko.observable(data.memo);
+    self.level = ko.observable(data.level);
 
     const firstStageAnswerNo = data.answer;
     self.isOffence = data.offence;
@@ -294,6 +295,18 @@ const Question = function(data, id, setBackground, setScore) {
             status: self.status(),
             bookmark: self.bookmark(),
         }));
+    };
+
+    self.levelText = function() {
+        switch (self.level()) {
+            case 1:
+                return "初級";
+            case 2:
+                return "中級";
+            case 3:
+                return "高級";
+        }
+        return "不明";
     };
 
     self.choiseFirstStageAnswer = function(answerNo) {

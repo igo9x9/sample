@@ -1,5 +1,6 @@
 const datas = [{
     title: "第1型",
+    level: 1,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *******B*| ********B| *****BBBWW *****BWWW| -----BW--+",
@@ -24,6 +25,7 @@ const datas = [{
     }
 },{
     title: "第2型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******W*| ********W| *****WWWBB *****WBBB| ------B-W+",
@@ -56,6 +58,7 @@ const datas = [{
     }
 },{
     title: "第4型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******WW| *******WB| *****WWWB| *****WBBB| ---------+",
@@ -72,6 +75,7 @@ const datas = [{
     }
 },{
     title: "第5型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******BB| *******BW| *****BBBW| *****BWWW| ------W--+",
@@ -96,6 +100,7 @@ const datas = [{
     }
 },{
     title: "第6型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******B*| ********B| ****BBBBWW ****BWWW*| ---------+",
@@ -128,6 +133,7 @@ const datas = [{
     }
 },{
     title: "第7型",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "小目の小ケイマジマリの中に入り込んだ時にできる形。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -169,6 +175,7 @@ const datas = [{
     }
 },{
     title: "第7型 変化",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "小目の小ケイマジマリの中に入り込んだ時にできる形。白が⑥と外からオサえました。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼④┼┤<br>┼┼②○❸❺┤<br>┼┼⑥❶┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -226,6 +233,7 @@ const datas = [{
     }
 },{
     title: "第8型",
+    level: 1,
     offence: true,
     answer: 0,
     memo: "第7型での守り方を誤り、サガってしまった形。",
@@ -251,6 +259,7 @@ const datas = [{
     }
 },{
     title: "第9型",
+    level: 2,
     offence: true,
     answer: 1,
     memo: "第7型で、白①と広げてから③とカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼●❷┤<br>┼┼┼┼●①┤<br>┼┼●●○○┤<br>┼┼●○┼┼┤<br>┴┴┴┴③┴┘<br></div>",
@@ -284,6 +293,7 @@ const datas = [{
     }
 },{
     title: "第10型",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "第7型からの生き形に対して、白が①とサガった形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼○┼┤<br>┼┼○○●●┤<br>┼┼○●┼┼┤<br>┴┴①┴●┴┘<br></div>",
@@ -333,6 +343,7 @@ const datas = [{
     }
 },{
     title: "第11型",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "第7型とは逆を白がオサえた形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼○┼┤<br>┼┼┼┼○①┤<br>┼┼○○●●┤<br>┼┼┼●┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -366,6 +377,7 @@ const datas = [{
     }
 },{
     title: "第12型",
+    level: 2,
     offence: true,
     answer: 1,
     memo: "第11型の生き方を間違えた形。",
@@ -407,6 +419,7 @@ const datas = [{
     }
 },{
     title: "第13型",
+    level: 2,
     offence: true,
     answer: 1,
     memo: "第11型の生き形に、❶のサガりがある形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┤<br>┼┼┼●●❶<br>┼●●○○┤<br>┼┼○┼○┤<br>┴┴┴┴┴┘</div>",
@@ -480,6 +493,7 @@ const datas = [{
     }
 },{
     title: "第14型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BB| ***B*BBWW| ******WBW| ---------+",
@@ -536,6 +550,7 @@ const datas = [{
     }
 },{
     title: "第15型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| ******B**| *******BBB ***B*BBWW| ******W**| --------W+",
@@ -576,6 +591,7 @@ const datas = [{
     }
 },{
     title: "第16型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *******BB| *****BBWW| ***B*BW**W -------W-+",
@@ -600,6 +616,7 @@ const datas = [{
     }
 },{
     title: "第17型",
+    level: 3,
     offence: true,
     answer: 0,
     memo: "黒が❶としたときに、<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼┼┼┼┼○┤<br>┼┴┴┴┴┴┴┘</div>白②④とハネカケツいだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●●┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴④┴┴┘</div>",
@@ -633,6 +650,7 @@ const datas = [{
     }
 },{
     title: "第17型 変化",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW**W| ------W--+",
@@ -673,6 +691,7 @@ const datas = [{
     }
 },{
     title: "第18型",
+    level: 1,
     offence: true,
     answer: 0,
     memo: "第17型で、白がハネカケツギではなくコスんだ形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┼┤<br>┼┼┼●●●❶┤<br>┼●┼●○○┼┤<br>┼┼❸②┼┼○┤<br>┼┴┴┴┴④┴┘</div>",
@@ -706,6 +725,7 @@ const datas = [{
     }
 },{
     title: "第19型",
+    level: 2,
     offence: true,
     answer: 1,
     memo: "第17型で外ダメがあいていたら、という形。",
@@ -739,6 +759,7 @@ const datas = [{
     }
 },{
     title: "第20型",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "第19型の一手前の形。どうすべきだったのか。",
@@ -772,6 +793,7 @@ const datas = [{
     }
 },{
     title: "第21型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ****B*WW*| ****BW**W| ---------+",
@@ -804,6 +826,7 @@ const datas = [{
     }
 },{
     title: "第22型",
+    level: 1,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| ******BBB| ****BBWW*| ****BW*W*| ------W--+",
@@ -860,6 +883,7 @@ const datas = [{
     }
 },{
     title: "第23型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| *********| *****BBB*| ***B*BWW*| **B*BW*W*| ---------+",
@@ -892,6 +916,7 @@ const datas = [{
     }
 },{
     title: "第23型 変化",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| *********| *****BBB*| ***B*BWW*| **B*BW*W*| ---------+",
@@ -924,6 +949,7 @@ const datas = [{
     }
 },{
     title: "第24型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *******B*| *********| *****BBB*| *******W*| ***B*BBW*| ******W**| ---------+",
@@ -956,8 +982,10 @@ const datas = [{
     }
 },{
     title: "第25型",
+    level: 1,
     offence: true,
     answer: 0,
+    memo: "外ダメがあいていない場合。",
     setup: "*********| *********| *********| *********| *********| *********| *****BBBBB *****BWWWW *****BW**| -----BW--+",
     nextHands: {96: "a"},
     hands: {
@@ -980,8 +1008,10 @@ const datas = [{
     }
 },{
     title: "第26型",
+    level: 1,
     offence: true,
     answer: 1,
+    memo: "外ダメが１つあいている場合。",
     setup: "*********| *********| *********| *********| *********| *********| *****BBBBB *****BWWWW *****BW**| ------W--+",
     nextHands: {107: "a"},
     hands: {
@@ -1004,8 +1034,10 @@ const datas = [{
     }
 },{
     title: "第27型",
+    level: 1,
     offence: false,
     answer: 0,
+    memo: "外ダメが２つあいていて急所にオカれた場合。",
     setup: "*********| *********| *********| *********| *********| *********| *****WWWW| *****WBBBB *****WB**| ------B-W+",
     nextHands: {96: "a"},
     hands: {
@@ -1036,6 +1068,7 @@ const datas = [{
     }
 },{
     title: "第28型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| *****BWWW| ***B*BW**| ---------+",
@@ -1068,6 +1101,7 @@ const datas = [{
     }
 },{
     title: "第28型 変化",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| *****BWWW| ***B*BW**| ---------+",
@@ -1124,6 +1158,7 @@ const datas = [{
     }
 },{
     title: "第28型 生き方",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| *****WBBB| ***W*WB**| ---------+",
@@ -1164,6 +1199,7 @@ const datas = [{
     }
 },{
     title: "第29型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| ********BW *****BBBW| *****BWWW| ***B*BW**| ---------+",
@@ -1196,8 +1232,10 @@ const datas = [{
     }
 },{
     title: "第30型",
+    level: 1,
     offence: false,
     answer: 0,
+    memo: "第28型との違いに注目。ハネが役立ちます。",
     setup: "*********| *********| *********| *********| ********W| ********WB *****WWWBW *****WBBB| ***W*WB**| ---------+",
     nextHands: {107: "a"},
     hands: {
@@ -1220,6 +1258,7 @@ const datas = [{
     }
 },{
     title: "第31型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWW| ***W*WBBB| ****WBB**| ---------+",
@@ -1260,6 +1299,7 @@ const datas = [{
     }
 },{
     title: "第32型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
@@ -1324,6 +1364,7 @@ const datas = [{
     }
 },{
     title: "第32型 変化",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BWW**| ----W----+",
@@ -1356,6 +1397,7 @@ const datas = [{
     }
 },{
     title: "第33型",
+    level: 2,
     offence: false,
     answer: 2,
     memo: "第32型での攻め方を誤った形。",
@@ -1413,6 +1455,7 @@ const datas = [{
     }
 },{
     title: "第34型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWBW ***W*WBBB| ****WBB**| ---------+",
@@ -1437,6 +1480,7 @@ const datas = [{
     }
 },{
     title: "第35型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *******W*| ********W| *****WWWB| ***W*WBBB| ****WBB*W| ---------+",
@@ -1461,6 +1505,7 @@ const datas = [{
     }
 },{
     title: "第36型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *******B*| ********BB *****BBBW| ***B*BWWW| ****BWW**| ---------+",
@@ -1493,6 +1538,7 @@ const datas = [{
     }
 },{
     title: "第36型 白手順ミス",
+    level: 2,
     offence: true,
     answer: 0,
     memo: "白が応手を誤った場合。",
@@ -1518,6 +1564,7 @@ const datas = [{
     }
 },{
     title: "第37型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| *****BBBW| ***B*BWWW| ****BW***| ----B-W--+",
@@ -1558,6 +1605,7 @@ const datas = [{
     }
 },{
     title: "第38型",
+    level: 1,
     offence: false,
     answer: 0,
     memo: "第37型での攻め方を誤った場合。",
@@ -1591,6 +1639,7 @@ const datas = [{
     }
 },{
     title: "第39型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| ******BBW| ***BBBWWW| ***BWW***| ---B-----+",
@@ -1639,6 +1688,7 @@ const datas = [{
     }
 },{
     title: "第40型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| ******BBB| ***BBBWWW| ***BWW***| ---------+",
@@ -1679,6 +1729,7 @@ const datas = [{
     }
 },{
     title: "第41型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| ******BBBB ***BBBWWW| ***BWW***| ---B----W+",
@@ -1719,6 +1770,7 @@ const datas = [{
     }
 },{
     title: "第42型",
+    level: 2,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| ********W| *********| ******WWWB ***WWWBBB| ***WBB***| ----W----+",
@@ -1751,6 +1803,7 @@ const datas = [{
     }
 },{
     title: "第43型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *******B*| ******B**| *******B*| ****BBBWW| ****BWW**| ---------+",
@@ -1807,6 +1860,7 @@ const datas = [{
     }
 },{
     title: "第44型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| ******W**| *******WW| ****WWWBB| ****WBB**| ---------+",
@@ -1823,6 +1877,7 @@ const datas = [{
     }
 },{
     title: "第45型",
+    level: 2,
     offence: true,
     answer: 1,
     memo: "第44型でカケツぐのはなぜ不正解か、を問う問題。",
@@ -1856,6 +1911,7 @@ const datas = [{
     }
 },{
     title: "第46型",
+    level: 2,
     offence: true,
     answer: 2,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBBB ****BWWWWW ****BW***| ----BW---+",
@@ -1888,6 +1944,7 @@ const datas = [{
     }
 },{
     title: "第47型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| ****BBBBB| ****BWWWW| ****BW***| ----B----+",
@@ -1928,6 +1985,7 @@ const datas = [{
     }
 },{
     title: "第48型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBBB ****BWWWW| **B*BW***| ---------+",
@@ -1968,6 +2026,7 @@ const datas = [{
     }
 },{
     title: "第50型",
+    level: 3,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWW| ****BW***| ---------+",
@@ -2016,6 +2075,7 @@ const datas = [{
     }
 },{
     title: "第51型",
+    level: 3,
     offence: false,
     answer: 2,
     setup: "*********| *********| *********| *********| *******W*| ********W| ****WWWWBW ****WB*BB| ****WB***| ---------+",
@@ -2056,6 +2116,7 @@ const datas = [{
     }
 },{
     title: "第52型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ********B| ****BBBBW| ****BW*WW| ****BW***| ---------+",
@@ -2128,6 +2189,7 @@ const datas = [{
     }
 },{
     title: "第52型 白手順ミス",
+    level: 2,
     offence: false,
     answer: 0,
     memo: "ハサミツケはなぜ誤りか、という問題。",
@@ -2169,6 +2231,7 @@ const datas = [{
     }
 },{
     title: "第53型",
+    level: 2,
     offence: false,
     answer: 0,
     memo: "第52型で攻め方を誤った場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●●●●○┤<br>┼●○❸○○┤<br>┼●○②┼┼┤<br>┴┴❶┴┴┴┘</div>",
@@ -2218,6 +2281,7 @@ const datas = [{
     }
 },{
     title: "第54型",
+    level: 2,
     offence: true,
     answer: 0,
     memo: "第52型のマガリがスソアキに変わった形。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼┼┤<br>┼┼┼┼┼┼┤<br>┼●●●●ａ┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -2259,6 +2323,7 @@ const datas = [{
     }
 },{
     title: "第55型",
+    level: 3,
     offence: true,
     answer: 1,
     memo: "第52型でａのダメがあいている場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●ａ●●○┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -2308,6 +2373,7 @@ const datas = [{
     }
 },{
     title: "第56型",
+    level: 2,
     offence: false,
     answer: 0,
     memo: "第55型で攻め方を誤った場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼┼●┤<br>┼●┼┼┼●┤<br>┼●┼●●○┤<br>┼●○❸○○┤<br>┼●○④┼┼┤<br>┴┴❶②┴❺┘</div>",
@@ -2373,6 +2439,7 @@ const datas = [{
     }
 },{
     title: "第57型",
+    level: 3,
     offence: true,
     answer: 0,
     memo: "第55型にａのサガリがある場合。<div style='line-height:1rem;margin:10px'>┼┼┼┼●┼┤<br>┼●┼┼┼●ａ<br>┼●┼●●○┤<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
@@ -2438,6 +2505,7 @@ const datas = [{
     }
 },{
     title: "第58型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWB| ****BW**WW ---------+",
@@ -2462,6 +2530,7 @@ const datas = [{
     }
 },{
     title: "第59型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *******B*| ****BB*B*| ****BWWW*| ****BW***| ---------+",
@@ -2494,6 +2563,7 @@ const datas = [{
     }
 },{
     title: "第60型",
+    level: 2,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *******W*| *********| *****WWW*| ****WBBB*| ****WWB**| ---------+",
@@ -2534,6 +2604,7 @@ const datas = [{
     }
 },{
     title: "第61型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ****BWWWB| ****B***WW -------W-+",
@@ -2558,6 +2629,7 @@ const datas = [{
     }
 },{
     title: "第62型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****WWWWW| ****WBBBW| ****W***BB ---------+",
@@ -2590,6 +2662,7 @@ const datas = [{
     }
 },{
     title: "第63型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBBB ****BWWWBW ****B***WW ------W--+",
@@ -2614,6 +2687,7 @@ const datas = [{
     }
 },{
     title: "第64型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ***BBWWWB| ***BW***WW ---------+",
@@ -2670,6 +2744,7 @@ const datas = [{
     }
 },{
     title: "第65型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *****B**B| *****B*B*| ***BBWWWBB ***BW***WW ---------+",
@@ -2710,6 +2785,7 @@ const datas = [{
     }
 },{
     title: "第66型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| **BBBWWWB| **BWW***WW --B------+",
@@ -2742,6 +2818,7 @@ const datas = [{
     }
 },{
     title: "第67型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ***BBWWWB| ***BW***W| ----W----+",
@@ -2782,6 +2859,7 @@ const datas = [{
     }
 },{
     title: "第68型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ***BBWWWBW ***BW***W| ----W----+",
@@ -2814,6 +2892,7 @@ const datas = [{
     }
 },{
     title: "第69型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *********| *****BBBB| ***BBWWWBW ***BW***W| -----W---+",
@@ -2846,6 +2925,7 @@ const datas = [{
     }
 },{
     title: "第70型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ***BBBBBB| ***BW*WWB| ***BW***WW ---------+",
@@ -2878,6 +2958,7 @@ const datas = [{
     }
 },{
     title: "第71型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| *********| *******B*| ****BBB*B| ***B**WWB| ***BW***WW ---------+",
@@ -2910,6 +2991,7 @@ const datas = [{
     }
 },{
     title: "第72型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| ********B| ***BBBBB*| **B*W*WWBB **BW****WW ---------+",
@@ -2942,6 +3024,7 @@ const datas = [{
     }
 },{
     title: "第73型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| ****BW***| -----W---+",
@@ -2966,6 +3049,7 @@ const datas = [{
     }
 },{
     title: "第74型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| ********B| *****B***| *****B*BB| ***B*BWWW| ****BW***| -----W---+",
@@ -2998,6 +3082,7 @@ const datas = [{
     }
 },{
     title: "第75型",
+    level: 2,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWWB ***W*WBBBW ****WB***| -----B---+",
@@ -3022,6 +3107,7 @@ const datas = [{
     }
 },{
     title: "第76型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| **B*BW***| ------W--+",
@@ -3062,6 +3148,7 @@ const datas = [{
     }
 },{
     title: "第77型",
+    level: 3,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| ********B| *********| *****BBBB| ***B*BWWW| ****BW***| ------W--+",
@@ -3094,6 +3181,7 @@ const datas = [{
     }
 },{
     title: "第78型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| ********W| *********| *****WWWWB ***W*WBBBW ****WB***| ------B--+",
@@ -3118,6 +3206,7 @@ const datas = [{
     }
 },{
     title: "第79型",
+    level: 1,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******W*| ***WW*W**| ***WBBBWW| ***W***BB| ---------+",
@@ -3142,6 +3231,7 @@ const datas = [{
     }
 },{
     title: "第80型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *******B*| ***BB*B**| ***BWWWBB| *******WW| ---------+",
@@ -3166,6 +3256,7 @@ const datas = [{
     }
 },{
     title: "第81型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *******B*| ***BBBB**| ***BWWWBB| ***B***WW| ******W**| ---------+",
@@ -3198,6 +3289,7 @@ const datas = [{
     }
 },{
     title: "第82型 一合マス基本",
+    level: 3,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| ********B| *********| *****BBBB| *****BWWW| *****BW**| ***B*BW**| ---------+",
@@ -3246,6 +3338,7 @@ const datas = [{
     }
 },{
     title: "第83型",
+    level: 2,
     offence: false,
     answer: 2,
     setup: "*********| *********| *********| ********W| *********| *****WWWW| *****WBBB| *****WB**| ***W*WBW*| ---------+",
@@ -3278,6 +3371,7 @@ const datas = [{
     }
 },{
     title: "第84型 セキ",
+    level: 2,
     offence: false,
     answer: 1,
     setup: "*********| *********| *********| ********W| *********| *****WWWW| *****WBBB| *****WB**| ***W*WB**| --------W+",
@@ -3310,6 +3404,7 @@ const datas = [{
     }
 },{
     title: "第84型 無条件生き",
+    level: 2,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| ********W| *********| *****WWWW| *****WBBB| *****WB**| ***W*WB**| --------W+",
@@ -3366,6 +3461,7 @@ const datas = [{
     }
 },{
     title: "第85型",
+    level: 3,
     offence: false,
     answer: 2,
     setup: "*********| *********| *********| ********W| *********| *****WWWW| *****WBBBW *****WB**| ***W*WB**| ---------+",
@@ -3414,6 +3510,7 @@ const datas = [{
     }
 },{
     title: "第86型",
+    level: 3,
     offence: false,
     answer: 2,
     setup: "*********| *********| *********| ********W| *********| *****WWWWB *****WBBB| *****WB**| ***W*WB*W| ---------+",
@@ -3486,6 +3583,7 @@ const datas = [{
     }
 },{
     title: "第87型",
+    level: 3,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| ********B| *********| *****BBBB| ******WWW| *****BW**| ***B*BW**| ---------+",
@@ -3526,6 +3624,7 @@ const datas = [{
     }
 },{
     title: "第88型",
+    level: 3,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| ********B| *********| *****BBBBW ******WWW| *****BW**| ***B*BW**| ---------+",
@@ -3574,6 +3673,7 @@ const datas = [{
     }
 },{
     title: "第89型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| ********B| *********| ******BBB| *****B*WW| *****BW**| ***B*BW**| ---------+",
@@ -3606,6 +3706,7 @@ const datas = [{
     }
 },{
     title: "第89型 変化",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| ********B| *********| ******BBB| *****B*WW| *****BW**| ***B*BW**| ---------+",
@@ -3646,6 +3747,7 @@ const datas = [{
     }
 },{
     title: "第90型",
+    level: 2,
     offence: false,
     answer: 0,
     setup: "*********| *********| *********| ********W| *********| *****WWWW| *****WBBB| ***W*WB**| ****WBB*W| ---------+",
@@ -3686,6 +3788,7 @@ const datas = [{
     }
 },{
     title: "第91型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| ********B| *********| *****BBBB| *****BWWW| *****BW**| ***B*B**W| ---------+",
@@ -3726,6 +3829,7 @@ const datas = [{
     }
 },{
     title: "第92型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *****BBBBB *****BWWW| *****BW**| ****B*BWW| ------B--+",
@@ -3758,6 +3862,7 @@ const datas = [{
     }
 },{
     title: "第93型",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| ******BBBB *****B*WWW *****BW**| *****BBWW| ---------+",
@@ -3790,6 +3895,7 @@ const datas = [{
     }
 },{
     title: "第94型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *****BBBB| *****BWWB| ***B*BW*W| ****BWW**| ---------+",
@@ -3830,6 +3936,7 @@ const datas = [{
     }
 },{
     title: "第94型 変化",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *****BBBB| *****BWWB| ***B*BW*W| ****BWW**| ---------+",
@@ -3862,6 +3969,7 @@ const datas = [{
     }
 },{
     title: "第95型",
+    level: 3,
     offence: false,
     answer: 2,
     setup: "*********| *********| *********| *********| *********| ****WWWWW| ******BBW| ****WWB*B| ****WBB**W ---------+",
@@ -3926,6 +4034,7 @@ const datas = [{
     }
 },{
     title: "第96型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *******B*| *********| ****BB*BB| ******WWB| ****BBW*W| ****BWW**| ---------+",
@@ -3958,6 +4067,7 @@ const datas = [{
     }
 },{
     title: "第97型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBB| ***BWWWWW| ***B*****| ---------+",
@@ -3998,6 +4108,7 @@ const datas = [{
     }
 },{
     title: "第98型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBB| ***BWWWWW| ***B*W***| ----BBW--+",
@@ -4030,6 +4141,7 @@ const datas = [{
     }
 },{
     title: "第99型",
+    level: 2,
     offence: true,
     answer: 1,
     setup: "*********| *********| *********| *********| ********B| *********| ***BBBBBBW ***BWWWWW| ***B*W***| ----BBW--+",
@@ -4054,6 +4166,7 @@ const datas = [{
     }
 },{
     title: "第100型",
+    level: 2,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ***BBBBB*| *B*BWW***| **BWW**W*| ---------+",
@@ -4094,6 +4207,7 @@ const datas = [{
     }
 },{
     title: "第101型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ***BBBBBB| *B*BWW**W| **BWW***W| --B------+",
@@ -4182,6 +4296,7 @@ const datas = [{
     }
 },{
     title: "第102型",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ***BBBBBBB *B*BWW**W| **BWW***W| ---------+",

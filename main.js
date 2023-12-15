@@ -224,6 +224,9 @@ const App = function() {
     }
 
     load();
+
+    const containerEl = document.getElementById("container");
+    containerEl.style.display = "block";
 };
 
 const Free = function(data) {

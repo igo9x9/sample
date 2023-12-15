@@ -2712,6 +2712,7 @@ const datas = [{
     }
 },{
     title: "第64型 変化",
+    level: 1,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ****BBBBB| ***BBWWWB| ***BW***WW ---------+",
@@ -4353,6 +4354,7 @@ const datas = [{
     }
 },{
     title: "第102型 変化",
+    level: 3,
     offence: true,
     answer: 0,
     setup: "*********| *********| *********| *********| *********| *********| ***BBBBBBB *B*BWW**W| **BWW***W| ---------+",

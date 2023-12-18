@@ -215,24 +215,25 @@
             </button>
         </div>
 
-        <div class="my-4 d-flex justify-content-between">
-            <button class="btn" data-bind="css: {'btn-secondary':canGoPrevQuestion, 'btn-outline-secondary': !canGoPrevQuestion()}, enable: canGoPrevQuestion, click: goPrevQuestion">
-                &lt; 前問題
-            </button>
-            <button class="btn" data-bind="css: {'btn-secondary':question().moved, 'btn-outline-secondary': !question().moved()}, enable: question().moved, click:question().restartManual">
-                やり直す
-            </button>
-            <button class="btn" data-bind="css: {'btn-dark':canGoNextQuestion, 'btn-outline-secondary': !canGoNextQuestion()}, enable:canGoNextQuestion, click: goNextQuestion">
-                次問題 &gt;
-            </button>
-        </div>
-
-        <div class="my-3" data-bind="visible:question().memo">
+        <div data-bind="visible:question().memo" style="margin-bottom: 60px;">
             <hr>
             <strong>補足</strong>
             <div data-bind="html:question().memo"></div>
         </div>
 
+        <nav class="navbar fixed-bottom" data-bind="style: {backgroundColor:backgroundColor}">
+            <div class="container-fluid d-flex justify-content-between" style="width: 330px;">
+                <button class="btn" data-bind="css: {'btn-secondary':canGoPrevQuestion, 'btn-outline-secondary': !canGoPrevQuestion()}, enable: canGoPrevQuestion, click: goPrevQuestion">
+                    &lt; 前問題
+                </button>
+                <button class="btn" data-bind="css: {'btn-secondary':question().moved, 'btn-outline-secondary': !question().moved()}, enable: question().moved, click:question().restartManual">
+                    やり直す
+                </button>
+                <button class="btn" data-bind="css: {'btn-dark':canGoNextQuestion, 'btn-outline-secondary': !canGoNextQuestion()}, enable:canGoNextQuestion, click: goNextQuestion">
+                    次問題 &gt;
+                </button>
+            </div>
+        </nav>
         <!-- /ko -->
 
     </div>

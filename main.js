@@ -8,7 +8,8 @@ const App = function() {
     const self = this;
 
     const BACKGROUND_COLOR_DEFAULT = "#ECF0F1";
-    const BACKGROUND_COLOR_CORRECT = "#a4b0be";
+    const BACKGROUND_COLOR_CORRECT = "#ECF0F1";
+    // const BACKGROUND_COLOR_CORRECT = "#a4b0be";
     const BACKGROUND_COLOR_INCORRECT = "#f8d7da";
     self.backgroundColor = ko.observable(BACKGROUND_COLOR_DEFAULT);
     const setBackground = {

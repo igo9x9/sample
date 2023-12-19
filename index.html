@@ -164,7 +164,7 @@
             （最高記録：<strong data-bind="text:hightScore"></strong>）
         </div>
 
-        <div class="mt-2 d-flex justify-content-center" data-bind="with: question">
+        <div class="mt-2 d-flex justify-content-center" data-bind="with: question" style="position: relative;">
             <div data-bind="foreach: contents().split('')">
                 <!-- ko if: $index() > 32 -->
                 <!-- ko if: $data != " " -->
@@ -175,6 +175,7 @@
                 <!-- /ko -->
                 <!-- /ko -->
             </div>
+            <img src="img/sumi.png" style="position: absolute;left:30px;top:20px;width:250px;opacity: 70%;" data-bind="visible: status()==='correct'">
         </div>
 
         <div class="rounded mt-2 p-2" data-bind="with:question" style="height: 70px; border:2px solid black;background-color: #fff;">

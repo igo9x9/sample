@@ -2119,6 +2119,7 @@ const datas = [{
     level: 2,
     offence: true,
     answer: 0,
+    memo: "第51型で、ａをハネると万年コウになることが分かっている。<div style='line-height:1rem;margin:10px'>┼┼┼┼●┼┤<br>┼┼┼┼┼●┤<br>┼●●●●○ａ<br>┼●○┼○○┤<br>┼●○┼┼┼┤<br>┴┴┴┴┴┴┘</div>",
     setup: "*********| *********| *********| *********| *******B*| ********B| ****BBBBW| ****BW*WW| ****BW***| ---------+",
     nextHands: {104: "a"},
     hands: {
@@ -2748,6 +2749,7 @@ const datas = [{
     level: 2,
     offence: true,
     answer: 0,
+    memo: "第64型と比べると、白の三子の外ダメがあいた代わりに、白二子の外ダメが詰まった形。",
     setup: "*********| *********| *********| *********| *********| *****B**B| *****B*B*| ***BBWWWBB ***BW***WW ---------+",
     nextHands: {106: "a"},
     hands: {

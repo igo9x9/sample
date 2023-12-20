@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="日本棋院出版の「新・早わかり死活小事典」を暗記するためのWebアプリです。ゲーム感覚で死活を覚えられます。" />
+    <meta name="description" content="日本棋院出版の「新・早わかり死活小事典」を暗記するためのWebアプリです。" />
     <link rel="shortcut icon" href="img/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>「新・早わかり死活小事典」を暗記する</title>
+    <title>「新・早わかり死活小事典」を丸暗記</title>
 </head>
 <body data-bind="style: {backgroundColor:backgroundColor}">
 
-    <div class="mt-3 container" style="width: 330px; display:none;" id="container">
+    <div class="mt-3 container" style="max-width: 500px; display:none;" id="container">
 
         <!-- ko if: page()==='title' -->
 
@@ -32,7 +32,7 @@
 
         <!-- ko if: page()==='mokuji' -->
         <nav class="navbar navbar-expand fixed-top navbar-dark bg-dark">
-            <div class="container-fluid" style="width: 330px;">
+            <div class="container-fluid" style="max-width: 500px;">
                 <span class="navbar-brand mb-0 h1">隅の死活 目次</span>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown dropstart">
@@ -97,7 +97,7 @@
         <div class="mt-2 d-flex justify-content-center" data-bind="with: free">
             <div data-bind="foreach: contents">
                 <!-- ko if: $data != " " -->
-                    <img style="display:block;float:left;width:30px;height:30px" data-bind="attr:{src: $parent.getImageFileName($data)}, click: function(){$parent.putPlayer($index())}">
+                    <img style="display:block;float:left;width:10%" data-bind="attr:{src: $parent.getImageFileName($data)}, click: function(){$parent.putPlayer($index())}">
                 <!-- /ko -->
                 <!-- ko if: $data == " " -->
                     <br style="clear: both;">
@@ -111,8 +111,9 @@
         <!-- /ko -->
 
         <!-- ko if: page()==='question' -->
+
         <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
-            <div class="container-fluid" style="width: 330px;">
+            <div class="container-fluid" style="max-width: 500px;">
                 <span class="navbar-brand mb-0 h1">
                     <span style="font-size:0.8rem"><span data-bind="text:question().levelText()"></span></span>
                     <span data-bind="text: question().title" style="vertical-align: middle;"></span>
@@ -137,14 +138,14 @@
                                     </svg>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <!-- <li><a class="dropdown-item" href="#" data-bind="
+                                    <li><a class="dropdown-item" href="#" data-bind="
                                         click: question().toggleBookmark,
                                         text: question().bookmark() ? 'マークを外す' : 'マークを付ける'">
                                         </a>
                                     </li>
                                     <li><a class="dropdown-item" href="#" data-bind="click: toggleFreeMode">検討する</a>
                                     </li>
-                                    <li><hr class="dropdown-divider"></li> -->
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#" data-bind="click: clearHightScore">最高記録をクリア</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#" data-bind="click: showMokuji">目次へ戻る</a></li>
@@ -168,15 +169,15 @@
             <div data-bind="foreach: contents().split('')">
                 <!-- ko if: $index() > 32 -->
                 <!-- ko if: $data != " " -->
-                    <img style="display:block;float:left;width:30px;height:30px" data-bind="attr:{src: $parent.getImageFileName($index())}, click:function(){$parent.putPlayer($index())}">
+                    <img style="display:block;float:left;width:10%;cursor: pointer;" data-bind="attr:{src: $parent.getImageFileName($index())}, click:function(){$parent.putPlayer($index())}">
                 <!-- /ko -->
                 <!-- ko if: $data == " " -->
                     <br style="clear: both;">
                 <!-- /ko -->
                 <!-- /ko -->
             </div>
-            <img src="img/sumi.png" style="position: absolute;left:30px;top:20px;width:250px;opacity: 70%;" data-bind="visible: status()==='correct'">
-            <img src="img/ng.png" style="position: absolute;left:30px;top:20px;width:250px;opacity: 70%;" data-bind="visible: status()==='incorrect'">
+            <img src="img/sumi.png" style="position: absolute;top:20px;width:250px;opacity: 70%;" data-bind="visible: status()==='correct'">
+            <img src="img/ng.png" style="position: absolute;top:20px;width:250px;opacity: 70%;" data-bind="visible: status()==='incorrect'">
         </div>
 
         <div class="rounded mt-2 p-2" data-bind="with:question" style="height: 70px; border:2px solid black;background-color: #fff;">
@@ -195,26 +196,15 @@
             <div data-bind="html: message"></div>
         </div>
 
-        <div class="mt-2 d-flex justify-content-end">
-            <button class="btn btn-secondary btn-sm mx-2" data-bind="click: question().toggleBookmark">
-                <!-- ko if: question().bookmark() -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16" style="vertical-align: 0px;">
-                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                    </svg>
-                    マークをはずす
-                <!-- /ko -->
-                <!-- ko if: !question().bookmark() -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="vertical-align: 0px;">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                    </svg>
-                    マークを付ける
-                <!-- /ko -->
+        <div class="mt-3 container-fluid d-flex justify-content-between" style="max-width: 500px;padding:0;">
+            <button class="btn" data-bind="css: {'btn-secondary':canGoPrevQuestion, 'btn-outline-secondary': !canGoPrevQuestion()}, enable: canGoPrevQuestion, click: goPrevQuestion">
+                &lt; 前の問題
             </button>
-            <button class="btn btn-secondary btn-sm" data-bind="click: toggleFreeMode">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16" style="vertical-align: 0px;">
-                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-                </svg>
-                検討する
+            <button class="btn" data-bind="css: {'btn-secondary':question().moved, 'btn-outline-secondary': !question().moved()}, enable: question().moved, click:question().restartManual">
+                やり直す
+            </button>
+            <button class="btn" data-bind="css: {'btn-dark':canGoNextQuestion, 'btn-outline-secondary': !canGoNextQuestion()}, enable:canGoNextQuestion, click: goNextQuestion">
+                次の問題 &gt;
             </button>
         </div>
 
@@ -224,19 +214,6 @@
             <div data-bind="html:question().memo"></div>
         </div>
 
-        <nav class="navbar fixed-bottom" data-bind="style: {backgroundColor:backgroundColor}">
-            <div class="container-fluid d-flex justify-content-between" style="width: 330px;">
-                <button class="btn" data-bind="css: {'btn-secondary':canGoPrevQuestion, 'btn-outline-secondary': !canGoPrevQuestion()}, enable: canGoPrevQuestion, click: goPrevQuestion">
-                    &lt; 前問題
-                </button>
-                <button class="btn" data-bind="css: {'btn-secondary':question().moved, 'btn-outline-secondary': !question().moved()}, enable: question().moved, click:question().restartManual">
-                    やり直す
-                </button>
-                <button class="btn" data-bind="css: {'btn-dark':canGoNextQuestion, 'btn-outline-secondary': !canGoNextQuestion()}, enable:canGoNextQuestion, click: goNextQuestion">
-                    次問題 &gt;
-                </button>
-            </div>
-        </nav>
         <!-- /ko -->
 
     </div>

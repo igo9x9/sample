@@ -337,17 +337,19 @@ const Question = function(data, id, setBackground, setScore) {
         nextHands = data.nextHands;
         self.firstStage(true);
         self.contents(marks);
-        self.message("");
         self.gameover(false);
         if (self.status() === "correct") {
             self.moved(true);
             setBackground.correct();
+            self.message("<span style='color:blue'>正解済み</span>");
         } else if (self.status() === "incorrect") {
             self.moved(true);
             setBackground.incorrect();
+            self.message("<span style='color:red'>不正解</span>");
         } else {
             self.moved(false);
             setBackground.default();
+            self.message("");
         }
         self.save();
     };

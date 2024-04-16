@@ -599,7 +599,7 @@ phina.define('MapScene', {
         this.update = null;
 
         //バトル後に戻って来る情報を保存
-        tmpDate.layer2 = this.layer2.children;
+//        tmpDate.layer2 = this.layer2.children;
 
         //バトル画面に遷移
         this.nextScene('ButtleScene', {playerInfo: tmpDate.playerInfo});

@@ -382,6 +382,7 @@ phina.define("Goban", {
                         self._setPositionOnGrid(area, x, y);
                         self._freeAreas.push(area);
                     } else {
+			    /*
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             self.flare("Miss");
                             const stone = self.putBlackStone(x, y);
@@ -392,6 +393,7 @@ phina.define("Goban", {
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._freeAreas.push(area);
+			*/
                     }
                 }
             });

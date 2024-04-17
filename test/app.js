@@ -28,6 +28,7 @@ ASSETS = {
         "hospital": "images/hospital.png",
         "tatefuda": "images/tatefuda.png",
         "koala": "images/koala.png",
+        "flower": "images/flower.png",
     },
 };
 
@@ -39,14 +40,14 @@ phina.define('TitleScene', {
     init: function(options) {
         this.superInit(options);
 
-        this.backgroundColor = "black";
+        this.backgroundColor = "white";
 
         Label({
             text: 'うさこの',
             x: 320,
             y: 400,
             fontSize: 50,
-            fill: "white",
+            fill: "black",
         }).addChildTo(this);
         Label({
             text: '死活クエスト',
@@ -54,8 +55,8 @@ phina.define('TitleScene', {
             y: 480,
             fontSize: 60,
             fill: "yellow",
-            strokeWidth: 1,
-            stroke: "yellow",
+            strokeWidth: 10,
+            stroke: "black",
         }).addChildTo(this);
         Player().setPosition(200,400).addChildTo(this);
 
@@ -157,12 +158,8 @@ phina.define('MapScene', {
             for (var j = 0; j < rows.length; j +=1) {
                 var item = rows[j];
                 
-                if (item === "0") {
+                if (item === "0" || item === "S") {
                     FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
-                }
-                if (item === "S") {
-                    // 家
-                    HomeBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (item === "T") {
                     // 立札
@@ -194,29 +191,14 @@ phina.define('MapScene', {
                     WallBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (item === "2") {
-                    BlackBox().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
-                }
-                if (item === "5") {
-                    //5にメインフィールドへの移動ブロック
-                    MoveBlock(mapMoveDate.caveEntry).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
-                }
-                if (item === "6") {
-                    //6に洞窟への移動ブロック
-                    MoveBlock(mapMoveDate.caveExit).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
-                }
-                if (item === "7") {
-                    //7にメインフィールドへの移動ブロック
-                    MoveBlock(mapMoveDate.shopEntry).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
-                }
-                if (item === "8") {
-                    //8にショップへの移動ブロック
-                    MoveBlock(mapMoveDate.shopExit).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    //1に草
+                    FlowerBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (newGame) {
                     if (item === "S") {
                         //9はマップ上の主人公の位置なので保存する
                         playerInfo.x = stageX.span(j);
-                        playerInfo.y = stageY.span(i) + 80;
+                        playerInfo.y = stageY.span(i) + 40;
                     }
                 }
             }
@@ -271,7 +253,7 @@ phina.define('MapScene', {
         
         //ブロックとの衝突判定
         this.layer2.children.some(function(block) {
-            if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
+            if (block.className === 'FloorBlock' || block.className === "FlowerBlock" || block.className === "BridgeBlock") {
                 return;
             }
             if (Collision.testRectRect(block, rect)) {
@@ -317,7 +299,7 @@ phina.define('MapScene', {
         
         //ブロックとの衝突判定
         this.layer2.children.some(function(block) {
-            if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
+            if (block.className === 'FloorBlock' || block.className === "FlowerBlock" || block.className === "BridgeBlock") {
                 return;
             }
             if (Collision.testRectRect(block, rect)) {
@@ -771,6 +753,17 @@ phina.define('FloorBlock', {
 });
 
 //-------------------------
+// 花クラス
+//-------------------------
+phina.define('FlowerBlock', {
+    superClass: 'Sprite',
+    
+    init: function() {
+      this.superInit("flower", BOX_WIDTH, BOX_HEIGHT);
+    },
+});
+  
+//-------------------------
 // 水クラス
 //-------------------------
 phina.define('WaterBlock', {
@@ -857,12 +850,12 @@ var STAGE = {
   "1WW0S0100000000000000000001",
   "1WW0001000H0000000000000001",
   "11100T100000000000000000001",
-  "100000000000T00000000000001",
-  "100000000000000000000000001",
-  "100000000000000000000000001",
-  "100000000000000000000000001",
-  "100000000000000000000000001",
-  "100000000000000000000000001",
+  "122000000000T00000000000001",
+  "122000000000000000000000001",
+  "100002000000000000000000001",
+  "100020000000000000000000001",
+  "102000000000000000000000001",
+  "100002000000000000000000001",
   "100000000000000000000000001",
   "111111111111111111111111111",
  ]

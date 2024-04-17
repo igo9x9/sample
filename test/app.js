@@ -1,5 +1,6 @@
 phina.globalize();
 
+
 // 設定
 var
 PLAYER_SPEED    =  5,

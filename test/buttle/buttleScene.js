@@ -14,12 +14,12 @@ phina.define("ButtleScene", {
 		
 		this.statusBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
-            height: this.gridX.unitWidth * 2,
+            height: this.gridX.unitWidth * 1.5,
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 30,
             x: this.gridX.center(),
-            y: 630,
+            y: 690,
             cornerRadius: 2,
 		}).addChildTo(this);
 
@@ -44,12 +44,12 @@ phina.define("ButtleScene", {
 
         const msgBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
-            height: this.gridX.unitWidth * 6,
+            height: this.gridX.unitWidth * 5,
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 30,
             x: this.gridX.center(),
-            y: 820,
+            y: 850,
             cornerRadius: 2,
         }).addChildTo(this);
 
@@ -64,12 +64,13 @@ phina.define("ButtleScene", {
         const enemy = {
         	name: questions[enemyIndex].name,
         	steps: questions[enemyIndex].steps,
-        	rotate: Math.floor(Math.random() * 4),
+        	rotate: 0,
+        	// rotate: Math.floor(Math.random() * 4),
         };
 
         this.updateButtleComment(enemy.name + ' が現れた！');
  
-        const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5));
+        const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5) + 20);
         
         goban.on("Collect", function() {
 	        // self.addButtleComment("ナイス！");
@@ -180,7 +181,7 @@ phina.define("ButtleScene", {
     addButtleComment: function(text) {
         let messageList = (this.messageLabel.text).split("\n");
         messageList.push(text);
-        this.messageLabel.text = messageList.slice(messageList.length - 6 > 0 ? messageList.length - 6 : 0).join("\n");
+        this.messageLabel.text = messageList.slice(messageList.length - 5 > 0 ? messageList.length - 5 : 0).join("\n");
     },
 });
 
@@ -228,7 +229,7 @@ phina.define("ClickableArea", {
 phina.define("Goban", {
     superClass: "RectangleShape",
 
-    _grid: Grid({width: 400, columns: 8}),
+    _grid: Grid({width: 500, columns: 8}),
 
     _cells: [],
     _stones: [],
@@ -265,8 +266,8 @@ phina.define("Goban", {
     init: function(steps, rotate) {
 
         this.superInit({
-            width: 400,
-            height: 400,
+            width: 500,
+            height: 500,
             // stroke: "white",
             strokeWidth:0,
             // fill: "#daa520",
@@ -295,42 +296,28 @@ phina.define("Goban", {
         });
         self._cells = [];
 
+        var ban = RectangleShape({
+            width: self._grid.width + self._grid.unitWidth*2,
+            height: self._grid.width + self._grid.unitWidth*2,
+            fill: '#daa520',
+            strokeWidth: 0,
+        }).addChildTo(self);
+        // self._setPositionOnGrid(ban, self._grid.center(), self._grid.center());
+
         (9).times(function(spanX) {
-
-            (9).times(function(spanY) {
-
-                var cell = RectangleShape({
-                    width: self._grid.unitWidth,
-                    height: self._grid.unitWidth,
-                    fill: '#daa520',
-                    strokeWidth: 0,
-                }).addChildTo(self);
-                self._setPositionOnGrid(cell, spanX, spanY);
-                self._cells.push(cell);
-
-                // var startPoint = Vector2(-1 * self._grid.unitWidth/2, 0),
-                //     endPoint = Vector2(self._grid.unitWidth/2, 0);
-                
-                // if (spanX === 8) {
-                //     endPoint = Vector2(0, 0);
-                // }
-
-                // PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
-
-                // startPoint = Vector2(0, -1 * self._grid.unitWidth/2);
-                // endPoint = Vector2(0, self._grid.unitWidth/2);
-
-                // if (spanY === 8) {
-                //     endPoint = Vector2(0, 0);
-                // }
-
-                // PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
-
-                // if (spanX === 5 && spanY === 5) {
-                //     CircleShape({radius:5, fill: "black", strokeWidth: 1}).addChildTo(cell);
-                // }
-              });
+            var startPoint = Vector2((spanX - 4) * self._grid.unitWidth, -1 * self._grid.width/2),
+                endPoint = Vector2((spanX - 4) * self._grid.unitWidth, self._grid.width/2);
+            
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(ban);
         });
+
+        (9).times(function(spanY) {
+            var startPoint = Vector2(-1 * self._grid.width/2, (spanY - 4) * self._grid.unitWidth),
+                endPoint = Vector2(self._grid.width/2, (spanY - 4) * self._grid.unitWidth);
+            
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(ban);
+        });
+
     },
     nextStep: function() {
         const self = this;
@@ -375,23 +362,22 @@ phina.define("Goban", {
                 } else {
                     if (item === "N") {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
-                            // self.tweener.by({y:15},30).by({y:-15},30).by({y:10},20).by({y:-10},20).by({y:5},10).by({y:-5},10).play();
                             self.flare("Collect");
                         	self.nextStep();
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._freeAreas.push(area);
                     } else {
-                        // const area = ClickableArea(self._grid.unitWidth, item, function() {
-                        //     self.flare("Miss");
-                        //     const stone = self.putBlackStone(x, y);
-                        //     setTimeout(function() {
-                        //         // stone.tweener.to({x: 1000, y: -100}, 300).call(stone.remove).play();
-                        //         stone.remove();
-                        //     }, 100);
-                        // }).addChildTo(self);
-                        // self._setPositionOnGrid(area, x, y);
-                        // self._freeAreas.push(area);
+                        const area = ClickableArea(self._grid.unitWidth, item, function() {
+                            self.flare("Miss");
+                            const stone = self.putBlackStone(x, y);
+                            setTimeout(function() {
+                                // stone.tweener.to({x: 1000, y: -100}, 300).call(stone.remove).play();
+                                stone.remove();
+                            }, 100);
+                        }).addChildTo(self);
+                        self._setPositionOnGrid(area, x, y);
+                        self._freeAreas.push(area);
                     }
                 }
             });
@@ -400,4 +386,3 @@ phina.define("Goban", {
 
     }
 });
-

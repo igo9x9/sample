@@ -60,12 +60,11 @@ phina.define("ButtleScene", {
         }).addChildTo(msgBox);
         
         const enemyIndex = Math.floor(Math.random() * questions.length);
-        // const enemyIndex = questions.findIndex((q) =>  q.name==="辺の死活第13型変化");
+        // const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第7型変化");
         const enemy = {
         	name: questions[enemyIndex].name,
         	steps: questions[enemyIndex].steps,
-        	rotate: 0,
-        	// rotate: Math.floor(Math.random() * 4),
+        	rotate: Math.floor(Math.random() * 4),
         };
 
         this.updateButtleComment(enemy.name + ' が現れた！');
@@ -322,14 +321,16 @@ phina.define("Goban", {
     nextStep: function() {
         const self = this;
         this.stepNum += 1;
-        this.setStones(this._steps[this.stepNum]);
+        setTimeout(function() {
+            self.setStones(self._steps[self.stepNum]);
+        }, 500);
         this.rotate();
         this.nextTurnIsBlack = !this.nextTurnIsBlack;
-        if (!this.nextTurnIsBlack && (this.stepNum < this._steps.length - 1)) {
-            setTimeout(function() {
-                self.nextStep();
-            }, 500);
-        }
+        // if (!this.nextTurnIsBlack && (this.stepNum < this._steps.length - 1)) {
+        //     setTimeout(function() {
+        //         self.nextStep();
+        //     }, 500);
+        // }
         if (this.stepNum === this._steps.length - 1) {
         	this.flare("Complete");
         }
@@ -363,6 +364,7 @@ phina.define("Goban", {
                     if (item === "N") {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             self.flare("Collect");
+                            const stone = self.putBlackStone(x, y);
                         	self.nextStep();
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
@@ -386,3 +388,4 @@ phina.define("Goban", {
 
     }
 });
+

@@ -89,7 +89,7 @@ phina.define("HospitalScene", {
                 updateHpLabel();
                 phase = 9;
             } else if (phase === 9) {
-                self.exit();
+                self.exit({playerInfo: self._playerInfo});
             }
         });
 

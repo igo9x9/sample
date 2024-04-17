@@ -288,10 +288,10 @@ phina.define("Goban", {
         const self = this;
 
         this._cells.forEach(function(cell) {
-            cell.setPosition(1000,1000);
-            setTimeout(function() {
+            // cell.setPosition(1000,1000);
+            // setTimeout(function() {
                 cell.remove();
-            }, 100);
+            // }, 100);
         });
         self._cells = [];
 
@@ -323,14 +323,9 @@ phina.define("Goban", {
         this.stepNum += 1;
         setTimeout(function() {
             self.setStones(self._steps[self.stepNum]);
-        }, 500);
+        }, 200);
         this.rotate();
         this.nextTurnIsBlack = !this.nextTurnIsBlack;
-        // if (!this.nextTurnIsBlack && (this.stepNum < this._steps.length - 1)) {
-        //     setTimeout(function() {
-        //         self.nextStep();
-        //     }, 500);
-        // }
         if (this.stepNum === this._steps.length - 1) {
         	this.flare("Complete");
         }

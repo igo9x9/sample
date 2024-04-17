@@ -308,27 +308,27 @@ phina.define("Goban", {
                 self._setPositionOnGrid(cell, spanX, spanY);
                 self._cells.push(cell);
 
-                var startPoint = Vector2(-1 * self._grid.unitWidth/2, 0),
-                    endPoint = Vector2(self._grid.unitWidth/2, 0);
+                // var startPoint = Vector2(-1 * self._grid.unitWidth/2, 0),
+                //     endPoint = Vector2(self._grid.unitWidth/2, 0);
                 
-                if (spanX === 8) {
-                    endPoint = Vector2(0, 0);
-                }
+                // if (spanX === 8) {
+                //     endPoint = Vector2(0, 0);
+                // }
 
-                PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
+                // PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
 
-                startPoint = Vector2(0, -1 * self._grid.unitWidth/2);
-                endPoint = Vector2(0, self._grid.unitWidth/2);
+                // startPoint = Vector2(0, -1 * self._grid.unitWidth/2);
+                // endPoint = Vector2(0, self._grid.unitWidth/2);
 
-                if (spanY === 8) {
-                    endPoint = Vector2(0, 0);
-                }
+                // if (spanY === 8) {
+                //     endPoint = Vector2(0, 0);
+                // }
 
-                PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
+                // PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(cell);
 
-                if (spanX === 5 && spanY === 5) {
-                    CircleShape({radius:5, fill: "black", strokeWidth: 1}).addChildTo(cell);                    
-                }
+                // if (spanX === 5 && spanY === 5) {
+                //     CircleShape({radius:5, fill: "black", strokeWidth: 1}).addChildTo(cell);
+                // }
               });
         });
     },
@@ -382,18 +382,16 @@ phina.define("Goban", {
                         self._setPositionOnGrid(area, x, y);
                         self._freeAreas.push(area);
                     } else {
-			    /*
-                        const area = ClickableArea(self._grid.unitWidth, item, function() {
-                            self.flare("Miss");
-                            const stone = self.putBlackStone(x, y);
-                            setTimeout(function() {
-                                // stone.tweener.to({x: 1000, y: -100}, 300).call(stone.remove).play();
-                                stone.remove();
-                            }, 100);
-                        }).addChildTo(self);
-                        self._setPositionOnGrid(area, x, y);
-                        self._freeAreas.push(area);
-			*/
+                        // const area = ClickableArea(self._grid.unitWidth, item, function() {
+                        //     self.flare("Miss");
+                        //     const stone = self.putBlackStone(x, y);
+                        //     setTimeout(function() {
+                        //         // stone.tweener.to({x: 1000, y: -100}, 300).call(stone.remove).play();
+                        //         stone.remove();
+                        //     }, 100);
+                        // }).addChildTo(self);
+                        // self._setPositionOnGrid(area, x, y);
+                        // self._freeAreas.push(area);
                     }
                 }
             });

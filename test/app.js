@@ -32,7 +32,6 @@ ASSETS = {
     },
 };
 
-
 // タイトルシーン
 phina.define('TitleScene', {
     superClass: 'DisplayScene',
@@ -45,20 +44,20 @@ phina.define('TitleScene', {
         Label({
             text: 'うさこの',
             x: 320,
-            y: 400,
-            fontSize: 50,
+            y: 420,
+            fontSize: 40,
             fill: "black",
         }).addChildTo(this);
         Label({
-            text: '死活クエスト',
+            text: '囲碁死活クエスト',
             x: 320,
-            y: 480,
-            fontSize: 60,
-            fill: "yellow",
-            strokeWidth: 10,
-            stroke: "black",
+            y: 500,
+            fontSize: 50,
+            fill: "black",
+            // strokeWidth: 10,
+            // stroke: "black",
         }).addChildTo(this);
-        Player().setPosition(200,400).addChildTo(this);
+        Player().setPosition(200,420).addChildTo(this);
 
     
         // データ初期化
@@ -260,9 +259,9 @@ phina.define('MapScene', {
                 if (block.className === 'HospitalBlock') {
                     this.nextScene('HospitalScene');
                 }
-                if (block.className === "TatefudaBlock") {
-                    block.read();
-                }
+                // if (block.className === "TatefudaBlock") {
+                //     block.read();
+                // }
                 if (player.vx > 0) {
                     //右に移動中に衝突
                     player.vx = 0;
@@ -829,7 +828,9 @@ phina.main(function() {
     });
     App.fps = FPS;
     // App.enableStats();
+
     App.run();
+
 });
 
 

@@ -1,6 +1,5 @@
 phina.globalize();
 
-
 // 設定
 var
 PLAYER_SPEED    =  5,
@@ -32,6 +31,7 @@ ASSETS = {
     },
 };
 
+
 // タイトルシーン
 phina.define('TitleScene', {
     superClass: 'DisplayScene',
@@ -62,11 +62,6 @@ phina.define('TitleScene', {
     
         // データ初期化
         tmpDate.playerInfo = {hp:10, carotte:0, x:null, y:null};
-        tmpDate.nextMapLabel = null;
-        tmpDate.nowMapLabel = null;
-        tmpDate.layer1 = null;
-        tmpDate.layer2 = null;
-        tmpDate.mapMoveDate = null;
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -77,87 +72,85 @@ phina.define('TitleScene', {
 // マップシーン
 //-------------------------
 phina.define('MapScene', {
-  superClass: 'DisplayScene',
+    superClass: 'DisplayScene',
 
-  /**
-   * コンストラクタ
-   */
-  init: function(options) {
-    this.superInit(options);
+    /**
+     * コンストラクタ
+     */
+    init: function(params) {
+        this.superInit(params);
     
-    //背景色
-    this.backgroundColor = '#aaa';
+        //背景色
+        this.backgroundColor = '#aaa';
     
-    //X軸のグリッドを作成
-    this.stageX = Grid({
-        width  : this.gridX.width,
-        columns: COLUMNS_COUNT_X,
-        offset : BOX_WIDTH / 2,
-    });
-    
-    //Y軸のグリッドを作成
-    this.stageY = Grid({
-        width  : this.gridY.width,
-        columns: COLUMNS_COUNT_Y,
-        offset : BOX_WIDTH / 2,
-    });
-    
-    //ステージ生成
-    this.setStage();
-    
-    //タッチポイント
-    this.touchPointX = null;
-    this.touchPointY = null;
-    this.touchCircle = null;
-  },
+        //X軸のグリッドを作成
+        this.stageX = Grid({
+            width  : this.gridX.width,
+            columns: COLUMNS_COUNT_X,
+            offset : BOX_WIDTH / 2,
+        });
+        
+        //Y軸のグリッドを作成
+        this.stageY = Grid({
+            width  : this.gridY.width,
+            columns: COLUMNS_COUNT_Y,
+            offset : BOX_WIDTH / 2,
+        });
+        
+        //ステージ生成
+        this.setStage(params.playerInfo);
+        
+        //タッチポイント
+        this.touchPointX = null;
+        this.touchPointY = null;
+        this.touchCircle = null;
+    },
   
-  /**
-   * ステージ作成
-   */
-  setStage: function() {
-    var stageX = this.stageX;
-    var stageY = this.stageY;
-    
-    //マップのレイヤー
-    var layer2 = DisplayElement().addChildTo(this);//当たり判定のあるもの
+    /**
+     * ステージ作成
+     */
+    setStage: function(playerInfo) {
+        var stageX = this.stageX;
+        var stageY = this.stageY;
 
-    var statusBox = RectangleShape({
-        fill: '#000',
-        stroke: "#fff",
-        strokeWidth: 20,
-        x: 10,
-        y: -50,
-        width: 500,
-        height: 50,
-    }).setOrigin(0, 0).addChildTo(this);
+        let newGame = true;
 
-    var statusLabel = Label({
-        text: 'HP : ' + tmpDate.playerInfo.hp + "  にんじん : " + tmpDate.playerInfo.carotte,
-        fill: '#fff',
-        x: 10,
-        y: 5,
-    }).setOrigin(0, 0).addChildTo(statusBox);
-    statusBox.tweener.moveTo(10, 10, 500, "easeOutQuad").play();
+        if (!playerInfo) {
+            playerInfo = tmpDate.playerInfo;
+        } else {
+            newGame = false;
+        }
 
-    //他の画面から来た時用にシェードを用意
-    this.offShade();
-    
-    //プレイヤー生成
-    var player = Player().addChildTo(this);
-    
-    //表示するマップのラベルを準備
-    var stage = STAGE.main;
-    tmpDate.nowMapLabel = 'main';
-    if (tmpDate.mapMoveDate != null) {
-        //遷移後のマップラベルがあればそれを表示
-        stage = STAGE[tmpDate.mapMoveDate.nextMapLabel];
-        tmpDate.nowMapLabel = tmpDate.mapMoveDate.nextMapLabel;
-    }
-    
-    if (tmpDate.layer2 != null) {
-        //マップの位置データがあった場合はそれを使う
-        layer2.children = tmpDate.layer2;
-    } else {
+        //マップのレイヤー
+        var layer2 = DisplayElement().addChildTo(this);//当たり判定のあるもの
+
+        var statusBox = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 20,
+            x: 10,
+            y: -50,
+            width: 500,
+            height: 50,
+        }).setOrigin(0, 0).addChildTo(this);
+
+        var statusLabel = Label({
+            text: 'HP : ' + playerInfo.hp + "  にんじん : " + playerInfo.carotte,
+            fill: '#fff',
+            x: 10,
+            y: 5,
+        }).setOrigin(0, 0).addChildTo(statusBox);
+        statusBox.tweener.moveTo(10, 10, 500, "easeOutQuad").play();
+
+        //他の画面から来た時用にシェードを用意
+        this.offShade();
+        
+        //プレイヤー生成
+        var player = Player().addChildTo(this);
+        
+        //表示するマップのラベルを準備
+        var stage = STAGE.main;
+        
         //ステージ情報を元にマップチップを配置
         for (var i = 0; i < stage.length; i += 1) {
             var rows = stage[i].split("");
@@ -219,133 +212,143 @@ phina.define('MapScene', {
                     //8にショップへの移動ブロック
                     MoveBlock(mapMoveDate.shopExit).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
-                if (tmpDate.playerInfo.x == null) {
+                if (newGame) {
                     if (item === "S") {
                         //9はマップ上の主人公の位置なので保存する
-                        tmpDate.playerInfo.x = stageX.span(j);
-                        tmpDate.playerInfo.y = stageY.span(i) + 80;
+                        playerInfo.x = stageX.span(j);
+                        playerInfo.y = stageY.span(i) + 80;
                     }
                 }
             }
         }
-      
-        //マップデータ上の９だった場所が中心になるようにマップを移動
-        layer2.children.each(function(block) {
-            block.x += stageX.span(COLUMNS_COUNT_X / 2) - tmpDate.playerInfo.x;
-            block.y += stageY.span(COLUMNS_COUNT_Y / 2) - tmpDate.playerInfo.y;
-        });
 
-    }
-  
-    if (tmpDate.playerInfo !== null) {
-        //プレイヤーの向きデータが保存されていた向きを調整
-        player.direction = tmpDate.playerInfo.direction;
-    }
-    
-    //プレイヤーはいつだって真ん中
-    player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
-    
-    //クラス内で参照できるようにする
-    this.player = player;
-    this.layer2 = layer2;
-  },
-  
-  /**
-   * x軸のあたり判定
-   */
-  collisionX: function() {
-    var player = this.player;
-    
-    if (player.vx == 0) {
-        return;
-    }
-    
-    var newx = player.left + player.vx;
-    var rect = Rect(newx + 20, player.top + 20, player.width / 4, player.height / 2);
-    var hit = false;
-    
-    //ブロックとの衝突判定
-    this.layer2.children.some(function(block) {
-        if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
-            return;
+        if (newGame) {
+            // マップデータ上の９だった場所が中心になるようにマップを移動
+            layer2.children.each(function(block) {
+                block.x += stageX.span(COLUMNS_COUNT_X / 2) - playerInfo.x;
+                block.y += stageY.span(COLUMNS_COUNT_Y / 2) - playerInfo.y;
+            });
         }
-        if (Collision.testRectRect(block, rect)) {
-            if (block.className === 'HospitalBlock') {
-                tmpDate.layer2 = this.layer2.children;
-                this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
-            }
-            if (block.className === "TatefudaBlock") {
-                block.read();
-            }
-            if (player.vx > 0) {
-                //右に移動中に衝突
-                player.vx = 0;
-            } else {
-                //左に移動中に衝突
-                if (player.vx < 0) {
-                    player.vx = 0;
-                }
-            }
-            hit = true;
+
+        //プレイヤーはいつだって真ん中
+        player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
+
+         //クラス内で参照できるようにする
+        this.player = player;
+        this.layer2 = layer2;
+        if (!newGame) {
+            this.setMapLeftTop(mapLeftTop);
         }
-    }.bind(this));
-    if (!hit) {
-        //マップチップを動かす
+
+    },
+
+    // マップブロックの左上の座標を得る
+    getMapLeftTop: function() {
+        return {x: this.layer2.children[0].x, y: this.layer2.children[0].y};
+    },
+
+    // マップブロックの左上の座標を指定して、マップ全体をずらす
+    setMapLeftTop: function(point) {
         this.layer2.children.each(function(block) {
-            block.x += -this.player.vx;
+            block.x += point.x - 32;
+            block.y += point.y - 32;
         }, this);
-    }
-  },
-  
-  /**
-   * y軸のあたり判定
-   */
-  collisionY: function() {
-    var player = this.player;
-    
-    if (player.vy == 0) {
-        return;
-    }
-    
-    var newy = player.top + player.vy;
-    var rect = Rect(player.left + 20, newy + 20, player.width / 4, player.height / 2);
-    var hit = false;
-    
-    //ブロックとの衝突判定
-    this.layer2.children.some(function(block) {
-        if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
-            return;
-        }
-        if (Collision.testRectRect(block, rect)) {
-            if (block.className === 'HospitalBlock') {
-                tmpDate.layer2 = this.layer2.children;
-                this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
-            }
-            if (block.className === "TatefudaBlock") {
-                block.read();
-            }
-            if (player.vy > 0) {
-                //上に移動中に衝突
-                player.vy = 0;
-            } else {
-                if (player.vy < 0) {
-                    //下に移動中に衝突
-                    player.vy = 0;
-                }
-            }
-            hit = true;
-        }
-    }.bind(this));
-    if (!hit) {
-        //マップチップを動かす
-        this.layer2.children.each(function(block) {
-            block.y += -this.player.vy;
-        }, this);
-    }
-  },
+    },
   
     /**
-     * プライヤーの動作
+     * x軸のあたり判定
+     */
+    collisionX: function() {
+        var player = this.player;
+        
+        if (player.vx == 0) {
+            return;
+        }
+    
+        var newx = player.left + player.vx;
+        var rect = Rect(newx + 20, player.top + 20, player.width / 4, player.height / 2);
+        var hit = false;
+        
+        //ブロックとの衝突判定
+        this.layer2.children.some(function(block) {
+            if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
+                return;
+            }
+            if (Collision.testRectRect(block, rect)) {
+                if (block.className === 'HospitalBlock') {
+                    this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
+                }
+                if (block.className === "TatefudaBlock") {
+                    block.read();
+                }
+                if (player.vx > 0) {
+                    //右に移動中に衝突
+                    player.vx = 0;
+                } else {
+                    //左に移動中に衝突
+                    if (player.vx < 0) {
+                        player.vx = 0;
+                    }
+                }
+                hit = true;
+            }
+        }.bind(this));
+        if (!hit) {
+            //マップチップを動かす
+            this.layer2.children.each(function(block) {
+                block.x += -this.player.vx;
+            }, this);
+        }
+    },
+    
+    /**
+     * y軸のあたり判定
+     */
+    collisionY: function() {
+        var player = this.player;
+        
+        if (player.vy == 0) {
+            return;
+        }
+        
+        var newy = player.top + player.vy;
+        var rect = Rect(player.left + 20, newy + 20, player.width / 4, player.height / 2);
+        var hit = false;
+        
+        //ブロックとの衝突判定
+        this.layer2.children.some(function(block) {
+            if (block.className === 'FloorBlock' || block.className === "BridgeBlock") {
+                return;
+            }
+            if (Collision.testRectRect(block, rect)) {
+                if (block.className === 'HospitalBlock') {
+                    this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
+                }
+                if (block.className === "TatefudaBlock") {
+                    block.read();
+                }
+                if (player.vy > 0) {
+                    //上に移動中に衝突
+                    player.vy = 0;
+                } else {
+                    if (player.vy < 0) {
+                        //下に移動中に衝突
+                        player.vy = 0;
+                    }
+                }
+                hit = true;
+            }
+        }.bind(this));
+        if (!hit) {
+            //マップチップを動かす
+            this.layer2.children.each(function(block) {
+                block.y += -this.player.vy;
+            }, this);
+        }
+    },
+  
+    /**
+     * プレイヤーの動作
      */
     movePlayer: function(app) {
         var player = this.player;
@@ -531,9 +534,11 @@ phina.define('MapScene', {
             easing = 'easeInOutBounce';
         }
 
+        mapLeftTop = this.getMapLeftTop();
+
         //シェードを開いた後に画面遷移
         this.onShade(function() {
-            self.exit(nextLabel, param);
+            self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
         }, 'easeInOutBounce');
     },
   
@@ -598,9 +603,6 @@ phina.define('MapScene', {
     plungeButtle: function() {
         //更新を止める
         this.update = null;
-
-        //バトル後に戻って来る情報を保存
-        // tmpDate.layer2 = this.layer2.children;
 
         //バトル画面に遷移
         this.nextScene('ButtleScene', {playerInfo: tmpDate.playerInfo});
@@ -846,12 +848,9 @@ phina.main(function() {
 //-------------------------
 var tmpDate = {
     playerInfo  : null,
-    nowMapLabel : null,
-    nextMapLabel: null,
-    layer1      : null,
-    layer2      : null,
-    mapMoveDate : null,
 }
+
+var mapLeftTop = {x: 32, y: 32};
 
 //マップチップ
 var STAGE = {
@@ -869,33 +868,5 @@ var STAGE = {
   "100000000000000000000000001",
   "100000000000000000000000001",
   "111111111111111111111111111",
- ],
- //お店
- shop: [
-  [2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1],
-  [2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,7,0,0,0,0,0,0,0,1],
-  [2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1],
-  [2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7],
-  [2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
- ],
- //洞窟
- cave: [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5],
-  [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
- ],
+ ]
 };

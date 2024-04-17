@@ -276,7 +276,7 @@ phina.define('MapScene', {
             }
             if (Collision.testRectRect(block, rect)) {
                 if (block.className === 'HospitalBlock') {
-                    this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
+                    this.nextScene('HospitalScene');
                 }
                 if (block.className === "TatefudaBlock") {
                     block.read();
@@ -322,7 +322,7 @@ phina.define('MapScene', {
             }
             if (Collision.testRectRect(block, rect)) {
                 if (block.className === 'HospitalBlock') {
-                    this.nextScene('HospitalScene', {playerInfo: tmpDate.playerInfo});
+                    this.nextScene('HospitalScene');
                 }
                 if (block.className === "TatefudaBlock") {
                     block.read();
@@ -487,10 +487,7 @@ phina.define('MapScene', {
         if (key.getKeyDown('b')) {
             this.plungeButtle();
         }
-        if (key.getKeyDown('s')) {
-            //ステータスを確認
-            this.nextScene('TitleScene')
-        }
+
     },
   
     touchMark: function(x, y) {
@@ -525,7 +522,7 @@ phina.define('MapScene', {
     /**
      * 引数のラベルの画面へ遷移
      */
-    nextScene: function(nextLabel, param) {
+    nextScene: function(nextLabel) {
         var self = this;
 
         //動き方を決める
@@ -539,7 +536,7 @@ phina.define('MapScene', {
         //シェードを開いた後に画面遷移
         this.onShade(function() {
             self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
-        }, 'easeInOutBounce');
+        }, easing);
     },
   
     /**
@@ -605,7 +602,7 @@ phina.define('MapScene', {
         this.update = null;
 
         //バトル画面に遷移
-        this.nextScene('ButtleScene', {playerInfo: tmpDate.playerInfo});
+        this.nextScene('ButtleScene');
     },
   
   /**

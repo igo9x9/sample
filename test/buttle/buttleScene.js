@@ -328,14 +328,10 @@ phina.define("Goban", {
     setStones: function(step) {
         const self = this;
 
-        // this._stones.forEach(function(stone) {
-        //     stone.remove();
-        // });
-        // self._stones = [];
-
-        this._freeAreas.forEach(function(area) {
-            area.remove();
+        this._stones.forEach(function(stone) {
+            stone.remove();
         });
+        self._stones = [];
         self._freeAreas = [];
 
         (9).times(function(y) {
@@ -343,14 +339,12 @@ phina.define("Goban", {
             (9).times(function(x) {
                 const item = raws[x];
 
-                self._stones.shift();
-
                 if (item === "W") {
                     self.putWhiteStone(x, y);
                 } else if (item === "w") {
                     setTimeout(function() {
                         self.putWhiteStone(x, y);
-                    }, 400);
+                    }, 500);
                 } else if (item === "B") {
                     self.putBlackStone(x, y);
                 } else {
@@ -358,7 +352,9 @@ phina.define("Goban", {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             self.putBlackStone(x, y);
                             self.flare("Collect");
-                        	self.nextStep();
+                            setTimeout(function() {
+                                self.nextStep();
+                            }, 10);
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._stones.push(area);

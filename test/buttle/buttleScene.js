@@ -231,7 +231,7 @@ phina.define("Goban", {
     _grid: Grid({width: 500, columns: 8}),
 
     _cells: [],
-    _stones: [],
+    _stones: Array.from(Array(9), () => new Array(9)),
     _freeAreas: [],
     
     freeze: function() {
@@ -245,14 +245,16 @@ phina.define("Goban", {
     putBlackStone: function(x, y) {
         const stone = BlackStone(this._grid.unitWidth / 2 - 1).addChildTo(this);
         this._setPositionOnGrid(stone, x, y);
-        this._stones.push(stone);
+        // this._stones.push(stone);
+        this._stones[y][x] = stone;
         return stone;
     },
 
     putWhiteStone: function(x, y) {
         const stone = WhiteStone(this._grid.unitWidth / 2 - 1).addChildTo(this);
         this._setPositionOnGrid(stone, x, y);
-        this._stones.push(stone);
+        // this._stones.push(stone);
+        this._stones[y][x] = stone;
         return stone;
     },
 
@@ -275,7 +277,7 @@ phina.define("Goban", {
         this.stepNum = 0;
         
         this.drawGoban();
-        this.setStones(steps[this.stepNum]);
+        this.setStones(steps[0], null);
         this.rotate();
 
     },
@@ -319,24 +321,32 @@ phina.define("Goban", {
     nextStep: function() {
         const self = this;
         this.stepNum += 1;
-        self.setStones(self._steps[self.stepNum]);
+        self.setStones(self._steps[self.stepNum], self._steps[self.stepNum - 1]);
         if (this.stepNum === this._steps.length - 1) {
         	this.flare("Complete");
         }
     },
-    setStones: function(step) {
+    setStones: function(step, laststep) {
         const self = this;
 
-        this._stones.forEach(function(stone) {
-            stone.remove();
-        });
-        self._stones = [];
+        // this._stones.forEach(function(stone) {
+        //     stone.remove();
+        // });
+        // self._stones = [];
         self._freeAreas = [];
 
         (9).times(function(y) {
             const raws = step[y].split("");
             (9).times(function(x) {
                 const item = raws[x];
+
+                if (!!laststep && laststep[y].split("")[x] === item) {
+                    return;
+                }
+
+                if (!!self._stones[y][x]) {
+                    self._stones[y][x].remove();
+                }
 
                 if (item === "W") {
                     self.putWhiteStone(x, y);
@@ -356,7 +366,8 @@ phina.define("Goban", {
                             }, 100);
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
-                        self._stones.push(area);
+                        // self._stones.push(area);
+                        self._stones[y][x] = area;
                         self._freeAreas.push(area);
                     } else {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
@@ -368,7 +379,8 @@ phina.define("Goban", {
                             self.flare("Miss");
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
-                        self._stones.push(area);
+                        // self._stones.push(area);
+                        self._stones[y][x] = area;
                         self._freeAreas.push(area);
                     }
             }

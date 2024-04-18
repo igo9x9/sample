@@ -61,7 +61,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        tmpDate.playerInfo = {hp:10, carotte:0, x:null, y:null};
+        tmpDate.playerInfo = {hp:5, carotte:0, x:null, y:null};
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -164,10 +164,10 @@ phina.define('MapScene', {
                     // 立札
                     let text;
                     switch (i) {
-                        case 8:
+                        case 3:
                             text = "「うさこのいえ」";
                             break;
-                        case 9:
+                        case 4:
                             text = "ぴよ";
                             break;
                     }

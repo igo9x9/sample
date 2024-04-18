@@ -129,7 +129,7 @@ phina.define("ButtleScene", {
                 strokeWidth: 20,
             }).addChildTo(self)
             .setPosition(-700, self.gridY.center() / 2)
-            .tweener.to({x: self.gridX.center()}, 300, "easeOutExpo")
+            .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
             .wait(400)
             .to({x: self.gridX.center() + 600}, 200, "easeOutQuad")
             .play();
@@ -320,7 +320,6 @@ phina.define("Goban", {
         const self = this;
         this.stepNum += 1;
         self.setStones(self._steps[self.stepNum]);
-        // this.rotate();
         if (this.stepNum === this._steps.length - 1) {
         	this.flare("Complete");
         }
@@ -354,7 +353,7 @@ phina.define("Goban", {
                             self.flare("Collect");
                             setTimeout(function() {
                                 self.nextStep();
-                            }, 10);
+                            }, 100);
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._stones.push(area);

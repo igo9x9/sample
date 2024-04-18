@@ -59,8 +59,8 @@ phina.define("ButtleScene", {
             x: -250,
         }).addChildTo(msgBox);
         
-        const enemyIndex = Math.floor(Math.random() * questions.length);
-        // const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第7型変化");
+        // const enemyIndex = Math.floor(Math.random() * questions.length);
+        const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第38型");
         const enemy = {
         	name: questions[enemyIndex].name,
         	steps: questions[enemyIndex].steps,
@@ -321,9 +321,7 @@ phina.define("Goban", {
     nextStep: function() {
         const self = this;
         this.stepNum += 1;
-        setTimeout(function() {
-            self.setStones(self._steps[self.stepNum]);
-        }, 200);
+        self.setStones(self._steps[self.stepNum]);
         this.rotate();
         this.nextTurnIsBlack = !this.nextTurnIsBlack;
         if (this.stepNum === this._steps.length - 1) {
@@ -353,6 +351,10 @@ phina.define("Goban", {
                 const item = raws[x];
                 if (item === "W") {
                     self.putWhiteStone(x, y);
+                } else if (item === "w") {
+                    setTimeout(function() {
+                        self.putWhiteStone(x, y);
+                    }, 300);
                 } else if (item === "B") {
                     self.putBlackStone(x, y);
                 } else {

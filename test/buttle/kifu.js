@@ -492,5 +492,190 @@ const questions = [
                 "  WBBBW  ",
             ]
         ]
-    }
+    },
+    {
+        level: 1,
+        name: "辺の死活第34型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBW",
+                " W  WBBB ",
+                "   WBB N ",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBW",
+                " W  WBBB ",
+                "   WBB B ",
+                "         ",
+            ]
+        ]
+    },
+    {
+        level: 1,
+        name: "辺の死活第35型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                " W  WBBB ",
+                "   WBB WN",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                " W  WBBB ",
+                "   WBB WB",
+                "      NW ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                " W  WBBB ",
+                "   WBB WB",
+                "      BW ",
+            ]
+        ]
+    },
+    {
+        level: 1,
+        name: "辺の死活第35型変化",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                " W  WBBB ",
+                "   WBB WN",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                " W  WBBB ",
+                "   WBBNWB",
+                "      W  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBN",
+                " W  WBBB ",
+                "   WBBBWB",
+                "      WW ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBB",
+                " W  WBBB ",
+                "   WBBBWB",
+                "      WW ",
+            ]
+        ]
+    },
+    {
+        level: 1,
+        name: "辺の死活第38型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWB ",
+                "  W WBBB ",
+                "   WB  N ",
+                "   W B W ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBW",
+                "  W WBBB ",
+                "   WB  B ",
+                "   W BNW ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBW",
+                "  W WBBB ",
+                "   WBW B ",
+                "   W BBWN",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "      W  ",
+                "       W ",
+                "    WWWBW",
+                "  W WBBB ",
+                "   WBW B ",
+                "   W BB B",
+            ]
+        ]
+    },
+    {
+        level: 1,
+        name: "辺の死活第44型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     W   ",
+                "      WW ",
+                "   WWWBB ",
+                "   WBB N ",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     W   ",
+                "      WW ",
+                "   WWWBB ",
+                "   WBB B ",
+                "         ",
+            ]
+        ]
+    },
 ];

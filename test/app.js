@@ -114,6 +114,8 @@ phina.define('MapScene', {
     setStage: function(playerInfo) {
         var stageX = this.stageX;
         var stageY = this.stageY;
+        
+        const self = this;
 
         let newGame = true;
 
@@ -145,7 +147,13 @@ phina.define('MapScene', {
         statusBox.tweener.moveTo(10, 10, 500, "easeOutQuad").play();
 
         //他の画面から来た時用にシェードを用意
-        this.offShade();
+        this.offShade(function() {
+            if (lastLevel !== playerInfo.level) {
+                // レベルアップ
+                App.pushScene(MessageScene("レベルアップ！" + levelText(playerInfo.level) + " に昇格した！"));
+                lastLevel = playerInfo.level;
+            }
+        });
         
         //プレイヤー生成
         var player = Player().addChildTo(this);
@@ -556,7 +564,7 @@ phina.define('MapScene', {
     /**
      * シェードが閉じる
      */
-    offShade: function() {
+    offShade: function(callback) {
         var circle = CircleShape({
             fill: '#000',
             stroke: 0,
@@ -569,8 +577,11 @@ phina.define('MapScene', {
         .to({
             radius: 1
         }, 600, 'easeOutExpo')
-            .call(function() {
+        .call(function() {
             this.remove();
+            if (typeof callback === 'function') {
+                callback();
+            }
         });
     },
   

@@ -30,7 +30,7 @@ phina.define("ButtleScene", {
         }).addChildTo(this.statusBox);
         
         function updateHpLabel() {
-            self.hpLabel.text = "うさこ"  + "（" + levelText(self._playerInfo.level) + "）" + " HP:" + self._playerInfo.hp + "  にんじん:" + self._playerInfo.carotte;
+            self.hpLabel.text = "うさこ" + "  HP:" + self._playerInfo.hp + "  にんじん:" + self._playerInfo.carotte;
             if (self._playerInfo.hp <= 3) {
                 self.hpLabel.fill = "red";
                 self.statusBox.stroke = "red";
@@ -61,7 +61,8 @@ phina.define("ButtleScene", {
         
         const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
-//         const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第15型変化");
+        // const nowQuestions = questions.filter((q) => q.hp > 0);
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第16型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -395,16 +396,3 @@ phina.define("Goban", {
 
     }
 });
-
-function levelText(level) {
-    switch (level) {
-        case 1:
-            return "10級";
-        case 2:
-            return "5級";
-        case 3:
-            return "初段";
-        default:
-            return "最強";
-    }
-}

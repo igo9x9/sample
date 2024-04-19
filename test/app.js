@@ -132,25 +132,38 @@ phina.define('MapScene', {
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 20,
-            x: 10,
-            y: -50,
-            width: 500,
+            x: this.gridX.center(),
+            y: -100,
+            width: this.gridX.width - 30,
             height: 50,
-        }).setOrigin(0, 0).addChildTo(this);
+        }).addChildTo(this);
 
         var statusLabel = Label({
             text:  levelText(playerInfo.level) + '  HP : ' + playerInfo.hp + "  にんじん : " + playerInfo.carotte,
             fill: '#fff',
             x: 10,
-            y: 6,
-        }).setOrigin(0, 0).addChildTo(statusBox);
-        statusBox.tweener.moveTo(10, 10, 500, "easeOutQuad").play();
+            y: 0,
+        }).addChildTo(statusBox);
+        statusBox.tweener.moveTo(this.gridX.center(), 40, 500, "easeOutQuad").play();
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
             if (lastLevel !== playerInfo.level) {
                 // レベルアップ
-                App.pushScene(MessageScene("レベルアップ！" + levelText(playerInfo.level) + " に昇格した！"));
+                Label({
+                    text: "LEVEL UP !",
+                    fontSize: 100,
+                    fontWeight: 800,
+                    fill: "white",
+                    stroke: "red",
+                    strokeWidth: 20,
+                }).addChildTo(self)
+                .setPosition(-700, self.gridY.center()*2/3)
+                .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+                .wait(800)
+                .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
+                .play();
+    
                 lastLevel = playerInfo.level;
             }
         });
@@ -230,15 +243,6 @@ phina.define('MapScene', {
         if (!newGame) {
             this.setMapLeftTop(mapLeftTop);
         }
-/*
-        setTimeout(function() {
-            if (lastLevel !== playerInfo.level) {
-                // レベルアップ
-                App.pushScene(MessageScene("レベルアップ！" + levelText(playerInfo.level) + " に昇格した！"));
-                lastLevel = playerInfo.level;
-            }
-        }, 1000);
-*/
     },
 
     // マップブロックの左上の座標を得る
@@ -854,6 +858,18 @@ phina.main(function() {
 
 });
 
+function levelText(level) {
+    switch (level) {
+        case 1:
+            return "五級";
+        case 2:
+            return "三級";
+        case 3:
+            return "初段";
+        default:
+            return "名人";
+    }
+}
 
 //-------------------------
 // データ管理

@@ -10,9 +10,9 @@ phina.define("ButtleScene", {
         this.superInit(param);
         this.backgroundColor = 'black';
 
-		this._playerInfo = param.playerInfo;
-		
-		this.statusBox = RectangleShape({
+        this._playerInfo = param.playerInfo;
+        
+        this.statusBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
             height: this.gridX.unitWidth * 1.5,
             fill: '#000',
@@ -21,7 +21,7 @@ phina.define("ButtleScene", {
             x: this.gridX.center(),
             y: 690,
             cornerRadius: 2,
-		}).addChildTo(this);
+        }).addChildTo(this);
 
         this.hpLabel = Label({
             fill: '#fff',
@@ -30,7 +30,7 @@ phina.define("ButtleScene", {
         }).addChildTo(this.statusBox);
         
         function updateHpLabel() {
-            self.hpLabel.text = "うさこ      HP : " + self._playerInfo.hp + "   にんじん : " + self._playerInfo.carotte;
+            self.hpLabel.text = "うさこ"  + "（" + levelText(self._playerInfo.level) + "）" + " HP:" + self._playerInfo.hp + "  にんじん:" + self._playerInfo.carotte;
             if (self._playerInfo.hp <= 3) {
                 self.hpLabel.fill = "red";
                 self.statusBox.stroke = "red";
@@ -59,12 +59,13 @@ phina.define("ButtleScene", {
             x: -250,
         }).addChildTo(msgBox);
         
-        const enemyIndex = Math.floor(Math.random() * questions.length);
-        // const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第15型変化");
+        const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
+        const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
+//         const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第15型変化");
         const enemy = {
-        	name: questions[enemyIndex].name,
-        	steps: questions[enemyIndex].steps,
-        	rotate: Math.floor(Math.random() * 4),
+            name: nowQuestions[enemyIndex].name,
+            steps: nowQuestions[enemyIndex].steps,
+            rotate: Math.floor(Math.random() * 4),
         };
 
         this.updateButtleComment(enemy.name + ' が現れた！');
@@ -72,7 +73,7 @@ phina.define("ButtleScene", {
         const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5) + 20);
         
         goban.on("Collect", function() {
-	        // self.addButtleComment("ナイス！");
+            // self.addButtleComment("ナイス！");
         });
 
         goban.on("Miss", function() {
@@ -118,7 +119,7 @@ phina.define("ButtleScene", {
         });
 
         goban.on("Complete", function() {
-	        goban.freeze();
+            goban.freeze();
 
             const messageLabel = Label({
                 text: "正解",
@@ -135,30 +136,40 @@ phina.define("ButtleScene", {
             .play();
     
             setTimeout(function() {
-                self.addButtleComment(enemy.name + " を倒した！");
-                if (Math.random() > 0.8) {
-                    self._playerInfo.carotte += 1;
-                    self.addButtleComment("にんじんを1本もらった");
-                    updateHpLabel();
+                nowQuestions[enemyIndex].hp -= 1;
+                if (nowQuestions[enemyIndex].hp === 0) {
+                    self.addButtleComment(enemy.name + " を倒した！");
+                    if (Math.random() > 0.6) {
+                        self._playerInfo.carotte += 1;
+                        self.addButtleComment("にんじんを1本もらった");
+                        updateHpLabel();
+                    }
+                    const enemyNum = nowQuestions.filter((q) => q.level === self._playerInfo.level && q.hp > 0).length;
+                    if (enemyNum === 0) {
+                        self._playerInfo.level += 1;
+                    }
+
+                } else {
+                    self.addButtleComment(enemy.name + " は逃げ出した！");
                 }
             }, 1000);
 
             const winLabel = Label
 
             setTimeout(function() {
-//		        goban.tweener.by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 500).by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 300).play();
-	        }, 200);
-	        
-	        const exitBox = RectangleShape({
-	        	width: self.width,
-	        	height: self.height,
-	        	x: self.gridX.center(),
-	        	y: self.gridY.center(),
-	        }).hide().setInteractive(true).addChildTo(self);
+//              goban.tweener.by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 500).by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 300).play();
+            }, 200);
+            
+            const exitBox = RectangleShape({
+                width: self.width,
+                height: self.height,
+                x: self.gridX.center(),
+                y: self.gridY.center(),
+            }).hide().setInteractive(true).addChildTo(self);
 
             exitBox.on("pointstart", function() {
-	        	self.exit({playerInfo: self._playerInfo});
-	        });
+                self.exit({playerInfo: self._playerInfo});
+            });
         });
 
 
@@ -319,7 +330,7 @@ phina.define("Goban", {
         this.stepNum += 1;
         self.setStones(self._steps[self.stepNum], self._steps[self.stepNum - 1]);
         if (this.stepNum === this._steps.length - 1) {
-        	this.flare("Complete");
+            this.flare("Complete");
         }
     },
     setStones: function(step, laststep) {
@@ -366,7 +377,7 @@ phina.define("Goban", {
                         self._freeAreas.push(area);
                     } else {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
-                            const stone = self.putBlackStone(x, y);
+                            const stone = self.putBlackStone(x, y, true);
                             setTimeout(function() {
                                 stone.remove();
                             }, 100);
@@ -385,3 +396,15 @@ phina.define("Goban", {
     }
 });
 
+function levelText(level) {
+    switch (level) {
+        case 1:
+            return "10級";
+        case 2:
+            return "5級";
+        case 3:
+            return "初段";
+        default:
+            return "最強";
+    }
+}

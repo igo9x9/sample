@@ -60,7 +60,7 @@ phina.define("ButtleScene", {
         }).addChildTo(msgBox);
         
         const enemyIndex = Math.floor(Math.random() * questions.length);
-        // const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第38型");
+        // const enemyIndex = questions.findIndex((q) =>  q.name==="隅の死活第15型変化");
         const enemy = {
         	name: questions[enemyIndex].name,
         	steps: questions[enemyIndex].steps,
@@ -242,18 +242,18 @@ phina.define("Goban", {
         App.flare('changescene');        
     },
 
-    putBlackStone: function(x, y) {
+    putBlackStone: function(x, y, justNow) {
         const stone = BlackStone(this._grid.unitWidth / 2 - 1).addChildTo(this);
         this._setPositionOnGrid(stone, x, y);
-        // this._stones.push(stone);
-        this._stones[y][x] = stone;
+        if (!justNow) {
+            this._stones[y][x] = stone;
+        }
         return stone;
     },
 
     putWhiteStone: function(x, y) {
         const stone = WhiteStone(this._grid.unitWidth / 2 - 1).addChildTo(this);
         this._setPositionOnGrid(stone, x, y);
-        // this._stones.push(stone);
         this._stones[y][x] = stone;
         return stone;
     },
@@ -288,10 +288,7 @@ phina.define("Goban", {
         const self = this;
 
         this._cells.forEach(function(cell) {
-            // cell.setPosition(1000,1000);
-            // setTimeout(function() {
-                cell.remove();
-            // }, 100);
+            cell.remove();
         });
         self._cells = [];
 
@@ -301,7 +298,6 @@ phina.define("Goban", {
             fill: '#daa520',
             strokeWidth: 0,
         }).addChildTo(self);
-        // self._setPositionOnGrid(ban, self._grid.center(), self._grid.center());
 
         (9).times(function(spanX) {
             var startPoint = Vector2((spanX - 4) * self._grid.unitWidth, -1 * self._grid.width/2),
@@ -329,10 +325,6 @@ phina.define("Goban", {
     setStones: function(step, laststep) {
         const self = this;
 
-        // this._stones.forEach(function(stone) {
-        //     stone.remove();
-        // });
-        // self._stones = [];
         self._freeAreas = [];
 
         (9).times(function(y) {
@@ -353,33 +345,34 @@ phina.define("Goban", {
                 } else if (item === "w") {
                     setTimeout(function() {
                         self.putWhiteStone(x, y);
+                        App.flare('whitestone-ready');
                     }, 500);
                 } else if (item === "B") {
                     self.putBlackStone(x, y);
                 } else {
                     if (item === "N") {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
-                            self.putBlackStone(x, y);
+                            stone = self.putBlackStone(x, y, true);
                             self.flare("Collect");
-                            setTimeout(function() {
-                                self.nextStep();
-                            }, 100);
+                            self.nextStep();
+                            const fn = function() {
+                                stone.remove();
+                                App.off("whitestone-ready", fn);
+                            };
+                            App.on("whitestone-ready", fn);
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
-                        // self._stones.push(area);
                         self._stones[y][x] = area;
                         self._freeAreas.push(area);
                     } else {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             const stone = self.putBlackStone(x, y);
                             setTimeout(function() {
-                                // stone.tweener.to({x: 1000, y: -100}, 300).call(stone.remove).play();
                                 stone.remove();
                             }, 100);
                             self.flare("Miss");
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
-                        // self._stones.push(area);
                         self._stones[y][x] = area;
                         self._freeAreas.push(area);
                     }

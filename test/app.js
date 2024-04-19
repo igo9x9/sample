@@ -32,6 +32,8 @@ ASSETS = {
     },
 };
 
+let lastLevel = 1;
+
 // タイトルシーン
 phina.define('TitleScene', {
     superClass: 'DisplayScene',
@@ -61,7 +63,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        tmpDate.playerInfo = {hp:5, carotte:0, x:null, y:null};
+        tmpDate.playerInfo = {level:1, hp:5, carotte:0, x:null, y:null};
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -135,10 +137,10 @@ phina.define('MapScene', {
         }).setOrigin(0, 0).addChildTo(this);
 
         var statusLabel = Label({
-            text: 'HP : ' + playerInfo.hp + "  にんじん : " + playerInfo.carotte,
+            text:  levelText(playerInfo.level) + '  HP : ' + playerInfo.hp + "  にんじん : " + playerInfo.carotte,
             fill: '#fff',
             x: 10,
-            y: 5,
+            y: 6,
         }).setOrigin(0, 0).addChildTo(statusBox);
         statusBox.tweener.moveTo(10, 10, 500, "easeOutQuad").play();
 
@@ -220,7 +222,15 @@ phina.define('MapScene', {
         if (!newGame) {
             this.setMapLeftTop(mapLeftTop);
         }
-
+/*
+        setTimeout(function() {
+            if (lastLevel !== playerInfo.level) {
+                // レベルアップ
+                App.pushScene(MessageScene("レベルアップ！" + levelText(playerInfo.level) + " に昇格した！"));
+                lastLevel = playerInfo.level;
+            }
+        }, 1000);
+*/
     },
 
     // マップブロックの左上の座標を得る

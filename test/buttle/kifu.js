@@ -710,6 +710,44 @@ const questions = [
         ]
     },
     {
+        level: 2,
+        name: "隅の死活第16型",
+        hp: 2,
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "      BB ",
+                "    BBWW ",
+                "  B BW  W",
+                "      WN ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "      BB ",
+                "    BBWW ",
+                "  B BW wW",
+                "    N WB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "      BB ",
+                "    BBWW ",
+                "  B BW wW",
+                "    B WB ",
+            ]
+        ]
+    },
+    {
         level: 1,
         name: "隅の死活第18型",
         hp: 2,

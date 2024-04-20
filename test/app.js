@@ -160,6 +160,22 @@ phina.define('MapScene', {
                 }).addChildTo(self)
                 .setPosition(-700, self.gridY.center()*2/3)
                 .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+                .wait(400)
+                .call(function() {
+                    Label({
+                        text: levelText(playerInfo.level) + " に昇格",
+                        fontSize: 100,
+                        fontWeight: 800,
+                        fill: "red",
+                        stroke: "white",
+                        strokeWidth: 20,
+                    }).addChildTo(self)
+                    .setPosition(-700, self.gridY.center())
+                    .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+                    .wait(600)
+                    .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
+                    .play();
+                })
                 .wait(800)
                 .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
                 .play();

@@ -71,7 +71,7 @@ phina.define("HospitalScene", {
         this.on("pointstart", function() {
 
             if (phase === 0) {
-                if (self._playerInfo.hp === 10) {
+                if (self._playerInfo.hp === 5) {
                     self.updateMessage("コアラ先生\n「けがをしたらおいで。」");
                     phase = 9;
                 } else if (self._playerInfo.carotte < 3) {
@@ -82,7 +82,7 @@ phina.define("HospitalScene", {
                     phase = 1;
                 }
             } else if (phase === 1) {
-                self._playerInfo.hp = 10;
+                self._playerInfo.hp = 5;
                 updateHpLabel();
                 self.updateMessage("コアラ先生\n「ほれ、治したよ。\nお代はにんじん3本じゃ。」");
                 self._playerInfo.carotte -= 3;

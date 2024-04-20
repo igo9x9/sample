@@ -11,6 +11,8 @@ phina.define("ButtleScene", {
         this.backgroundColor = 'black';
 
         this._playerInfo = param.playerInfo;
+
+        this.miss = false;
         
         this.statusBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
@@ -62,7 +64,7 @@ phina.define("ButtleScene", {
         const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第16型");
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第17型変化");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -78,6 +80,7 @@ phina.define("ButtleScene", {
         });
 
         goban.on("Miss", function() {
+            self.miss = true;
             goban.tweener.by({y:-30},300).by({y:80},100).call(function(){
                 self.statusBox.tweener.by({y:10},20).by({y:-20},20).by({y:20},20).by({y:-10},20).play();
             }).by({y:-50},100).call(function() {
@@ -137,7 +140,9 @@ phina.define("ButtleScene", {
             .play();
     
             setTimeout(function() {
-                nowQuestions[enemyIndex].hp -= 1;
+                if (!self.miss) {
+                    nowQuestions[enemyIndex].hp -= 1;
+                }
                 if (nowQuestions[enemyIndex].hp === 0) {
                     self.addButtleComment(enemy.name + " を倒した！");
                     if (Math.random() > 0.6) {

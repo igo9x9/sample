@@ -64,6 +64,11 @@ phina.define('TitleScene', {
     
         // データ初期化
         tmpDate.playerInfo = {level:1, hp:5, carotte:0, x:null, y:null};
+        lastLevel = 1;
+
+        questions.forEach(function(q) {
+            q.hp = 1;
+        });
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -164,7 +169,7 @@ phina.define('MapScene', {
                 .call(function() {
                     Label({
                         text: levelText(playerInfo.level) + " に昇格",
-                        fontSize: 100,
+                        fontSize: 90,
                         fontWeight: 800,
                         fill: "red",
                         stroke: "white",
@@ -877,11 +882,15 @@ phina.main(function() {
 function levelText(level) {
     switch (level) {
         case 1:
-            return "五級";
+            return "初級";
         case 2:
-            return "三級";
+            return "中級";
         case 3:
-            return "初段";
+            return "上級";
+        case 4:
+            return "強者";
+        case 5:
+            return "達人";
         default:
             return "名人";
     }

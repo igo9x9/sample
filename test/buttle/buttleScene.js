@@ -1,10 +1,8 @@
-/*
- * バトルシーン
- */
 phina.define("ButtleScene", {
     superClass: 'DisplayScene',
+
     _playerInfo: null,
-    // 初期化
+
     init: function(param) {
         const self = this;
         this.superInit(param);
@@ -64,7 +62,7 @@ phina.define("ButtleScene", {
         const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第17型変化");
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第26型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -75,10 +73,6 @@ phina.define("ButtleScene", {
  
         const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5) + 20);
         
-        goban.on("Collect", function() {
-            // self.addButtleComment("ナイス！");
-        });
-
         goban.on("Miss", function() {
             self.miss = true;
             goban.tweener.by({y:-30},300).by({y:80},100).call(function(){
@@ -91,7 +85,7 @@ phina.define("ButtleScene", {
 
                 if (self._playerInfo.hp <= 0) {
                     goban.alpha = 0.5;
-                    // goban.tweener.to({y:1000,alpha:0}, 1000).play();
+
                     const messageLabel = Label({
                         text: "GAME\nOVER",
                         fontSize: 150,
@@ -147,7 +141,7 @@ phina.define("ButtleScene", {
                     self.addButtleComment(enemy.name + " を倒した！");
                     if (Math.random() > 0.6) {
                         self._playerInfo.carotte += 1;
-                        self.addButtleComment("にんじんを1本もらった");
+                        self.addButtleComment("にんじんを1本くれた");
                         updateHpLabel();
                     }
                     const enemyNum = nowQuestions.filter((q) => q.level === self._playerInfo.level && q.hp > 0).length;
@@ -156,16 +150,12 @@ phina.define("ButtleScene", {
                     }
 
                 } else {
-                    self.addButtleComment(enemy.name + " は逃げ出した！");
+                    self.addButtleComment(enemy.name + " は逃げた！");
                 }
             }, 1000);
 
             const winLabel = Label
 
-            setTimeout(function() {
-//              goban.tweener.by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 500).by({rotation: 360, scaleX: -0.5, scaleY: -0.5,}, 300).play();
-            }, 200);
-            
             const exitBox = RectangleShape({
                 width: self.width,
                 height: self.height,

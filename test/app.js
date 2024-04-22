@@ -69,6 +69,12 @@ phina.define('TitleScene', {
         questions.forEach(function(q) {
             q.hp = 1;
         });
+
+        console.log("Level1 :" + questions.filter((q) => q.level === 1).length)
+        console.log("Level2 :" + questions.filter((q) => q.level === 2).length)
+        console.log("Level3 :" + questions.filter((q) => q.level === 3).length)
+        console.log("Level4 :" + questions.filter((q) => q.level === 4).length)
+        console.log("Level5 :" + questions.filter((q) => q.level === 5).length)
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -154,37 +160,7 @@ phina.define('MapScene', {
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
             if (lastLevel !== playerInfo.level) {
-                // レベルアップ
-                Label({
-                    text: "LEVEL UP !",
-                    fontSize: 100,
-                    fontWeight: 800,
-                    fill: "white",
-                    stroke: "red",
-                    strokeWidth: 20,
-                }).addChildTo(self)
-                .setPosition(-700, self.gridY.center()*2/3)
-                .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
-                .wait(400)
-                .call(function() {
-                    Label({
-                        text: levelText(playerInfo.level) + " に昇格",
-                        fontSize: 90,
-                        fontWeight: 800,
-                        fill: "red",
-                        stroke: "white",
-                        strokeWidth: 20,
-                    }).addChildTo(self)
-                    .setPosition(-700, self.gridY.center())
-                    .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
-                    .wait(600)
-                    .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
-                    .play();
-                })
-                .wait(800)
-                .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
-                .play();
-    
+                App.pushScene(LevelUpScene());
                 lastLevel = playerInfo.level;
             }
         });
@@ -786,6 +762,53 @@ phina.define("MessageScene", {
     },
 });
 
+/*
+ * レベルアップシーン
+ */
+phina.define("LevelUpScene", {
+    superClass: 'DisplayScene',
+    init: function() {
+        this.superInit();
+        var self = this;
+
+        this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+
+        // レベルアップ
+        Label({
+            text: "LEVEL UP !",
+            fontSize: 100,
+            fontWeight: 800,
+            fill: "white",
+            stroke: "red",
+            strokeWidth: 20,
+        }).addChildTo(self)
+        .setPosition(-700, self.gridY.center())
+        .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+        .wait(400)
+        .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
+        .call(function() {
+            Label({
+                text: levelText(tmpDate.playerInfo.level) + " になった",
+                fontSize: 90,
+                fontWeight: 800,
+                fill: "red",
+                stroke: "white",
+                strokeWidth: 20,
+            }).addChildTo(self)
+            .setPosition(-700, self.gridY.center())
+            .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+            .wait(500)
+            .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
+            .call(function() {
+                self.exit();            
+            })
+            .play();
+        })
+        .play();
+
+    },
+});
+
 //-------------------------
 // 草クラス
 //-------------------------
@@ -829,22 +852,6 @@ phina.define('BridgeBlock', {
       this.superInit("stone", BOX_WIDTH, BOX_HEIGHT);
     },
 });
-
-//-------------------------
-// 画面切り替えブロッククラス
-//-------------------------
-phina.define('MoveBlock', {
-    superClass: 'Sprite',
-  
-    init: function(mapMoveDate) {
-        this.superInit("door", BOX_WIDTH, BOX_HEIGHT);
-
-        //移動先のマップラベル
-        this.mapMoveDate = mapMoveDate;
-    },
-});
-
-let App;
 
 //-------------------------
 // アプリ起動
@@ -908,33 +915,28 @@ var mapLeftTop = {x: 32, y: 32};
 //マップチップ
 var STAGE = {
     main: [
-        "111111111111111111111111111111111111111111111111111111111111111",
-        "11WW S 1                  1                     1              ",
-        "1WW   1   H               1                     1              ",
-        "111  T1                   1                     1              1",
-        "122         T             1                     1              1",
-        "122                       1                     1              1",
-        "1    2                    1                     1              1",
-        "1   2                     1                     1              1",
-        "1 2                       111111111111111111111 1              1",
-        "1    2                    1                   1 1              1",
-        "1                         1                   1 1              1",
-        "1111111111111 11111111111111                  1                1",
-        "1           1 1111111111111111 1111111111111111 1111111111111111",
-        "1           1 1111111111111111                1 1",
-        "1                   1111111111                1 1",
-        "1    11111111111111 1111111111                  1",
-        "1                 1 1111111111                1 1",
-        "1                 1 111111111111111111111111111 1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                         1                     1",
-        "1                                               1",
-        "1111111111111111111111111111111111111111111111111",
+        "111111111111111111111111111111111111111111111111111111",
+        "11WW  1              1                1              1",
+        "1WWS  1              1                1              1",
+        "111  T1              1                1              1",
+        "1   222              1                               1",
+        "1                    1                1              1",
+        "1                    1                1              1",
+        "1                    1                1              1",
+        "11111111111 11111111111111111 111111111111111111211111",
+        "1         2 2        1                1         2    1",
+        "1                    1                1         2    1",
+        "1                    1                1              1",
+        "1                    1                1              1",
+        "1                    1                1        2     1",
+        "122                  1                1      22      1",
+        "1112111111111111111111111111111111111111111111 1111111",
+        "1   2                1                1              1",
+        "1                  221                1              1",
+        "1         H                           1              1",
+        "1                   21               222             1",
+        "1                    1                1              1",
+        "1                    1                1              1",
+        "111111111111111111111111111111111111111111111111111111",
     ]
 };

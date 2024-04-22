@@ -62,7 +62,7 @@ phina.define("ButtleScene", {
         const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第26型");
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第39型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -339,12 +339,25 @@ phina.define("Goban", {
             (9).times(function(x) {
                 const item = raws[x];
 
-                if (!!laststep && laststep[y].split("")[x] === item) {
+                const lastItem = !!laststep ? laststep[y].split("")[x] : null;
+
+                if (lastItem === item) {
                     return;
                 }
 
                 if (!!self._stones[y][x]) {
-                    self._stones[y][x].remove();
+                    // 前回は黒石だったのに今回は違う（つまり取られた）場合、
+                    // すぐにremoveするのではなく、白石が置かれた後にremoveする
+                    if (lastItem === "B") {
+                        const blackstone = self._stones[y][x];
+                        const fn = function() {
+                            blackstone.remove();
+                            App.off("whitestone-ready", fn);
+                        };
+                        App.on("whitestone-ready", fn);
+                    } else {
+                        self._stones[y][x].remove();
+                    }
                 }
 
                 if (item === "W") {

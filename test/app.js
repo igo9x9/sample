@@ -19,20 +19,27 @@ DIRECTION = {
 ASSETS = {
     image: {
         'player': 'images/player.png',
+        'player2': 'images/player2.png',
         "floor": "images/floor.png",
         "wall": "images/wall.png",
         "home": "images/home.png",
         "water": "images/water.png",
-        "stone": "images/stone.png",
+        "tree": "images/tree.png",
         "fox": "images/fox.png",
         "hospital": "images/hospital.png",
         "tatefuda": "images/tatefuda.png",
         "koala": "images/koala.png",
         "flower": "images/flower.png",
+        "hole1": "images/hole1.png",
+        "hole2": "images/hole2.png",
+        "npc1": "images/npc1.png",
+        "npc2": "images/npc2.png",
     },
 };
 
 let lastLevel = 1;
+let lastMap = 0;
+let lastDirection = DIRECTION.DOWN;
 
 // タイトルシーン
 phina.define('TitleScene', {
@@ -51,7 +58,7 @@ phina.define('TitleScene', {
             fill: "black",
         }).addChildTo(this);
         Label({
-            text: '囲碁死活クエスト',
+            text: '囲碁死活ダンジョン',
             x: 320,
             y: 500,
             fontSize: 50,
@@ -63,7 +70,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        tmpDate.playerInfo = {level:1, hp:5, carotte:0, x:null, y:null};
+        tmpDate.playerInfo = {map:0, level:1, hp:5, carotte:0, x:null, y:null};
         lastLevel = 1;
 
         questions.forEach(function(q) {
@@ -92,9 +99,6 @@ phina.define('MapScene', {
      */
     init: function(params) {
         this.superInit(params);
-    
-        //背景色
-        this.backgroundColor = '#22B14C';
     
         //X軸のグリッドを作成
         this.stageX = Grid({
@@ -129,11 +133,25 @@ phina.define('MapScene', {
         const self = this;
 
         let newGame = true;
+        let mapToMap = false;
 
         if (!playerInfo) {
             playerInfo = tmpDate.playerInfo;
         } else {
             newGame = false;
+        }
+
+        if (playerInfo.map !== lastMap) {
+            mapToMap = true;
+            lastMap = playerInfo.map;
+            lastDirection = DIRECTION.DOWN;
+        }
+
+        //背景色
+        if (playerInfo.map === 0) {
+            this.backgroundColor = '#22B14C';
+        } else {
+            this.backgroundColor = '#606060';
         }
 
         //マップのレイヤー
@@ -150,12 +168,21 @@ phina.define('MapScene', {
         }).addChildTo(this);
 
         var statusLabel = Label({
-            text:  levelText(playerInfo.level) + '  HP : ' + playerInfo.hp + "  にんじん : " + playerInfo.carotte,
+            text:  levelText(playerInfo.level) + '  HP : ' + playerInfo.hp + "／" + (playerInfo.level * 5) + "  にんじん : " + playerInfo.carotte,
             fill: '#fff',
             x: 10,
             y: 0,
         }).addChildTo(statusBox);
         statusBox.tweener.moveTo(this.gridX.center(), 40, 500, "easeOutQuad").play();
+
+        if (playerInfo.map !==0 ) {
+            Label({
+                text: "地下" + playerInfo.map + "階",
+                fill: "#fff",
+                x: 550,
+                y: 930,
+            }).addChildTo(this);
+        }
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
@@ -166,10 +193,10 @@ phina.define('MapScene', {
         });
         
         //プレイヤー生成
-        var player = Player().addChildTo(this);
+        var player = Player(lastDirection).addChildTo(this);
         
         //表示するマップのラベルを準備
-        var stage = STAGE.main;
+        var stage = STAGE["B" + playerInfo.map];
         
         //ステージ情報を元にマップチップを配置
         for (var i = 0; i < stage.length; i += 1) {
@@ -177,21 +204,15 @@ phina.define('MapScene', {
             for (var j = 0; j < rows.length; j +=1) {
                 var item = rows[j];
                 
+                if ((item === " " || item === "S") && playerInfo.map !== 0) {
+                    FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                }
                 if (item === "0" || item === "S") {
                     // FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
-                if (item === "T") {
-                    // 立札
-                    let text;
-                    switch (i) {
-                        case 3:
-                            text = "「うさこのいえ」";
-                            break;
-                        case 4:
-                            text = "ぴよ";
-                            break;
-                    }
-                    TatefudaBlock(text).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                if (item.match(/[a-z]/)) {
+                    // NPC                    
+                    NPCBlock(item).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (item === "H") {
                     // 病院
@@ -205,7 +226,11 @@ phina.define('MapScene', {
                     // 橋
                     BridgeBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
-                if (item === "1") {
+                if (item === "1" && playerInfo.map === 0) {
+                    //1に木
+                    TreeBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                }
+                if (item === "1" && playerInfo.map !== 0) {
                     //1に壁
                     WallBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
@@ -213,7 +238,11 @@ phina.define('MapScene', {
                     //2に花
                     FlowerBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
-                if (newGame) {
+                if (item === "E") {
+                    //Eに穴
+                    HoleBlock(playerInfo.map).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                }
+                if (newGame || mapToMap) {
                     if (item === "S") {
                         //9はマップ上の主人公の位置なので保存する
                         playerInfo.x = stageX.span(j);
@@ -223,7 +252,7 @@ phina.define('MapScene', {
             }
         }
 
-        if (newGame) {
+        if (newGame || mapToMap) {
             // マップデータ上の９だった場所が中心になるようにマップを移動
             layer2.children.each(function(block) {
                 block.x += stageX.span(COLUMNS_COUNT_X / 2) - playerInfo.x;
@@ -231,13 +260,25 @@ phina.define('MapScene', {
             });
         }
 
-        //プレイヤーはいつだって真ん中
-        player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
+        if (mapToMap) {
+            player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), 0)
+                .tweener.to({y:stageY.span(COLUMNS_COUNT_Y / 2)}, 400)
+                .call(function() {
+                    const player2 = Player2();
+                    player.hide();
+                    player2.setPosition(player.x, player.y).addChildTo(self)
+                        .tweener.wait(200).call(function() {player.show();player2.remove();}).play();
+                })
+                .play();
+        } else {
+            //プレイヤーはいつだって真ん中
+            player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
+        }
 
          //クラス内で参照できるようにする
         this.player = player;
         this.layer2 = layer2;
-        if (!newGame) {
+        if (!newGame && !mapToMap) {
             this.setMapLeftTop(mapLeftTop);
         }
     },
@@ -259,7 +300,8 @@ phina.define('MapScene', {
      * x軸のあたり判定
      */
     collisionX: function() {
-        var player = this.player;
+        const player = this.player;
+        const self = this;
         
         if (player.vx == 0) {
             return;
@@ -277,6 +319,20 @@ phina.define('MapScene', {
             if (Collision.testRectRect(block, rect)) {
                 if (block.className === 'HospitalBlock') {
                     this.nextScene('HospitalScene');
+                }
+                if (block.className === 'HoleBlock') {
+                    this.update = null;
+                    tmpDate.playerInfo.map += 1;
+                    player.tweener
+                        .to({x:block.x, y:block.y - 70}, 500, "easeOutQuart")
+                        .to({y:block.y,alpha:0.5}, 100)
+                        .call(function() {
+                            player.hide();
+                            self.nextScene('MapScene');
+                        }).play();
+                }
+                if (block.className === "NPCBlock") {
+                    block.say();
                 }
                 // if (block.className === "TatefudaBlock") {
                 //     block.read();
@@ -305,7 +361,8 @@ phina.define('MapScene', {
      * y軸のあたり判定
      */
     collisionY: function() {
-        var player = this.player;
+        const player = this.player;
+        const self = this;
 
         if (player.vy == 0) {
             return;
@@ -327,6 +384,21 @@ phina.define('MapScene', {
                 if (block.className === "TatefudaBlock") {
                     block.read();
                 }
+                if (block.className === "NPCBlock") {
+                    block.say();
+                }
+                if (block.className === 'HoleBlock') {
+                    this.update = null;
+                    tmpDate.playerInfo.map += 1;
+                    player.tweener
+                        .to({x:block.x, y:block.y - 70}, 500, "easeOutQuart")
+                        .to({y:block.y,alpha:0.5}, 100)
+                        .call(function() {
+                            player.hide();
+                            self.nextScene('MapScene');
+                        }).play();
+                }
+
                 if (player.vy > 0) {
                     //上に移動中に衝突
                     player.vy = 0;
@@ -533,6 +605,10 @@ phina.define('MapScene', {
 
         mapLeftTop = this.getMapLeftTop();
 
+        console.log(lastDirection);
+        lastDirection = this.player.direction;
+        console.log(lastDirection);
+
         //シェードを開いた後に画面遷移
         this.onShade(function() {
             self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
@@ -590,6 +666,9 @@ phina.define('MapScene', {
      * ランダムでバトルに突入
      */
     randomButtle: function() {
+        if (tmpDate.playerInfo.level > Math.ceil(tmpDate.playerInfo.map / 3)) {
+            return;
+        }
         var r = Random.randint(1, 200);
         if (r === 200) {
             // @@
@@ -621,7 +700,7 @@ phina.define('MapScene', {
     //x軸のあたり判定
     this.collisionX();
     
-    if (this.player.isMove) {
+    if (this.player.isMove && tmpDate.playerInfo.map !== 0) {
       //移動中は一定の確率でバトルに突入
       this.randomButtle();
     }
@@ -634,17 +713,21 @@ phina.define('MapScene', {
 phina.define('Player', {
     superClass: 'Sprite',
   
-    init: function() {
+    init: function(direction) {
         this.superInit("player", 64, 64);
 
         //キャラクターへのタッチを許可
         this.setInteractive(true);
 
         //向き
-        this.direction = DIRECTION.DOWN;
-
         //画像の向き
-        this.frameIndex = DIRECTION.DOWN;
+        if (direction !== undefined) {
+            this.direction = direction;
+            this.frameIndex = direction;
+        } else {
+            this.direction = DIRECTION.DOWN;
+            this.frameIndex = DIRECTION.DOWN;
+        }
 
         //移動フラグ
         this.isMove = false;
@@ -687,6 +770,17 @@ phina.define('WallBlock', {
 });
 
 //-------------------------
+// 木クラス
+//-------------------------
+phina.define('TreeBlock', {
+    superClass: 'Sprite',
+    
+    init: function() {
+      this.superInit("tree", BOX_WIDTH, BOX_HEIGHT);
+    },
+  });
+  
+//-------------------------
 // 家クラス
 //-------------------------
 phina.define('HomeBlock', {
@@ -709,16 +803,48 @@ phina.define('HospitalBlock', {
 });
 
 //-------------------------
-// 立札クラス
+// 穴クラス
 //-------------------------
-phina.define('TatefudaBlock', {
+phina.define('HoleBlock', {
+    superClass: 'Sprite',
+    
+    init: function(map) {
+        if (map === 0) {
+            this.superInit("hole1", BOX_WIDTH, BOX_HEIGHT);
+        } else {
+            this.superInit("hole2", BOX_WIDTH, BOX_HEIGHT);
+        }
+    }
+});
+
+//-------------------------
+// NPCクラス
+//-------------------------
+phina.define('NPCBlock', {
     superClass: 'Sprite',
     _text: "",
-    init: function(text) {
-      this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-      this._text = text;
+    init: function(npc_id) {
+        switch(npc_id) {
+            case "a":
+                this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "村人\n「地下は深いほど敵が強いらしい。\n問題も難しくなるし、\n受けるダメージも大きいよ」";
+                break;
+            case "b":
+                this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "村人\n「上の階には戻れないから、\n慎重に進んでね」";
+                break;
+            case "o":
+                this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "「囲碁の村」";
+                break;
+            case "p":
+                this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "「地下ダンジョン入り口」";
+                break;
+            default:
+        }
     },
-    read: function() {
+    say: function() {
         App.pushScene(MessageScene(this._text));
     }
 });
@@ -810,6 +936,18 @@ phina.define("LevelUpScene", {
 });
 
 //-------------------------
+// しゃがんだ主人公クラス
+//-------------------------
+phina.define('Player2', {
+    superClass: 'Sprite',
+    
+    init: function() {
+      this.superInit("player2", BOX_WIDTH, BOX_HEIGHT);
+    },
+  });
+
+  
+//-------------------------
 // 草クラス
 //-------------------------
 phina.define('FloorBlock', {
@@ -895,11 +1033,13 @@ function levelText(level) {
         case 3:
             return "上級";
         case 4:
-            return "強者";
+            return "猛者";
         case 5:
             return "達人";
-        default:
+        case 6:
             return "名人";
+        default:
+            return "伝説";
     }
 }
 
@@ -914,29 +1054,72 @@ var mapLeftTop = {x: 32, y: 32};
 
 //マップチップ
 var STAGE = {
-    main: [
-        "111111111111111111111111111111111111111111111111111111",
-        "11WW  1              1                1              1",
-        "1WWS  1              1                1              1",
-        "111  T1              1                1              1",
-        "1   222              1                               1",
-        "1                    1                1              1",
-        "1                    1                1              1",
-        "1                    1                1              1",
-        "11111111111 11111111111111111 111111111111111111211111",
-        "1         2 2        1                1         2    1",
-        "1                    1                1         2    1",
-        "1                    1                1              1",
-        "1                    1                1              1",
-        "1                    1                1        2     1",
-        "122                  1                1      22      1",
-        "1112111111111111111111111111111111111111111111 1111111",
-        "1   2                1                1              1",
-        "1                  221                1              1",
-        "1         H                           1              1",
-        "1                   21               222             1",
-        "1                    1                1              1",
-        "1                    1                1              1",
-        "111111111111111111111111111111111111111111111111111111",
-    ]
+    B0: [
+        "1111111111111111",
+        "1 o     a     21",
+        "1 S  2      b  1",
+        "1        2p2   1",
+        "1  2     2E2   1",
+        "1        222   1",
+        "1    2       2 1",
+        "1111111111111111",
+    ],
+    B1: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B2: [
+        "1111111111",
+        "1 E      1",
+        "1        1",
+        "1      S 1",
+        "1        1",
+        "1111111111",
+    ],
+    B3: [
+        "111111111111111111111",
+        "1 S                 1",
+        "1                   1",
+        "11111111111111111   1",
+        "XXXXXXXXXXXXXXXX1   1",
+        "XXXXXXXXXXXXXXXX1 E 1",
+        "XXXXXXXXXXXXXXXX11111",
+    ],
+    B4: [
+        "1111111111111111",
+        "1 E            1",
+        "1     1     S  1",
+        "1              1",
+        "1111111111111111",
+    ],
+    B5: [
+        "1111111111111",
+        "1S          1",
+        "1 111111111 1",
+        "11  E 1   1 1",
+        "1  1111 1 1 1",
+        "1       1   1",
+        "1111111111111",
+    ],
+    B6: [
+        "111111111111111111111111111",
+        "1                         1",
+        "1  11111111111111111      1",
+        "1      1XXXXX1     1      1",
+        "11111  1XXXXX1  E  1      1",
+        "1      1XXXXX1     1      1",
+        "1      1XXXXX1            1",
+        "1  S   1XXXX111111111111111",
+        "1      1X1111      1      1",
+        "1      1X1         1111   1",
+        "111    1X1111111          1",
+        "XX1    1XXXXXXX11111111   1",
+        "111    1111111111111      1",
+        "1                         1",
+        "111111111111111111111111111",
+    ],
 };

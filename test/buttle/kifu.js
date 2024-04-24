@@ -222,7 +222,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第7型",
         steps: [
             [
@@ -618,7 +618,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第14型",
         steps: [
             [
@@ -1098,7 +1098,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第26型",
         steps: [
             [
@@ -1463,7 +1463,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBB ",
+                "    BBBW ",
                 "  B BWWW ",
                 "   BWW N ",
                 "         ",
@@ -1473,7 +1473,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBB ",
+                "    BBBW ",
                 "  B BWWW ",
                 "   BWW Bw",
                 "      N  ",
@@ -1483,7 +1483,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBBw",
+                "    BBBWw",
                 "  B BWWW ",
                 "   BWW BW",
                 "      B N",
@@ -1493,7 +1493,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBBW",
+                "    BBBWW",
                 "  B BWWW ",
                 "   BWW BW",
                 "      B B",
@@ -1510,7 +1510,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBB ",
+                "    BBBW ",
                 "  B BWWW ",
                 "   BWW N ",
                 "         ",
@@ -1520,7 +1520,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBB ",
+                "    BBBW ",
                 "  B BWWW ",
                 "   BWW Bw",
                 "      N  ",
@@ -1530,7 +1530,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBB ",
+                "    BBBW ",
                 "  B BWWW ",
                 "   BWWwBW",
                 "      BN ",
@@ -1540,7 +1540,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBBw",
+                "    BBBWw",
                 "  B BWWW ",
                 "   BWWWBW",
                 "    N BB ",
@@ -1550,7 +1550,7 @@ const questions = [
                 "         ",
                 "         ",
                 "       BB",
-                "    BBBBW",
+                "    BBBWW",
                 "  B BWWW ",
                 "   BWWWBW",
                 "    B BB ",

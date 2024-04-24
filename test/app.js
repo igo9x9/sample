@@ -34,6 +34,8 @@ ASSETS = {
         "hole2": "images/hole2.png",
         "npc1": "images/npc1.png",
         "npc2": "images/npc2.png",
+        "npc3": "images/npc3.png",
+        "npc4": "images/npc4.png",
     },
 };
 
@@ -72,16 +74,13 @@ phina.define('TitleScene', {
         // データ初期化
         tmpDate.playerInfo = {map:0, level:1, hp:5, carotte:0, x:null, y:null};
         lastLevel = 1;
+        lastMap = 0;
+        lastDirection = DIRECTION.DOWN;
 
         questions.forEach(function(q) {
             q.hp = 1;
         });
 
-        console.log("Level1 :" + questions.filter((q) => q.level === 1).length)
-        console.log("Level2 :" + questions.filter((q) => q.level === 2).length)
-        console.log("Level3 :" + questions.filter((q) => q.level === 3).length)
-        console.log("Level4 :" + questions.filter((q) => q.level === 4).length)
-        console.log("Level5 :" + questions.filter((q) => q.level === 5).length)
     },
     onpointstart: function() {
         this.exit('MapScene');
@@ -99,7 +98,13 @@ phina.define('MapScene', {
      */
     init: function(params) {
         this.superInit(params);
-    
+
+        console.log("Level1 :" + questions.filter((q) => q.level === 1 && q.hp > 0).length)
+        console.log("Level2 :" + questions.filter((q) => q.level === 2 && q.hp > 0).length)
+        console.log("Level3 :" + questions.filter((q) => q.level === 3 && q.hp > 0).length)
+        console.log("Level4 :" + questions.filter((q) => q.level === 4 && q.hp > 0).length)
+        console.log("Level5 :" + questions.filter((q) => q.level === 5 && q.hp > 0).length)
+        
         //X軸のグリッドを作成
         this.stageX = Grid({
             width  : this.gridX.width,
@@ -176,10 +181,11 @@ phina.define('MapScene', {
         statusBox.tweener.moveTo(this.gridX.center(), 40, 500, "easeOutQuad").play();
 
         if (playerInfo.map !==0 ) {
+            const enemyLevel = Math.ceil(playerInfo.map / 3);
             Label({
-                text: "地下" + playerInfo.map + "階",
+                text: "地下" + playerInfo.map + "階  " + "死活レベル" + enemyLevel + " 残り" + questions.filter((q) => q.level === enemyLevel && q.hp > 0).length + "問",
                 fill: "#fff",
-                x: 550,
+                x: 380,
                 y: 930,
             }).addChildTo(this);
         }
@@ -605,9 +611,7 @@ phina.define('MapScene', {
 
         mapLeftTop = this.getMapLeftTop();
 
-        console.log(lastDirection);
         lastDirection = this.player.direction;
-        console.log(lastDirection);
 
         //シェードを開いた後に画面遷移
         this.onShade(function() {
@@ -666,11 +670,12 @@ phina.define('MapScene', {
      * ランダムでバトルに突入
      */
     randomButtle: function() {
-        if (tmpDate.playerInfo.level > Math.ceil(tmpDate.playerInfo.map / 3)) {
-            return;
-        }
         var r = Random.randint(1, 200);
         if (r === 200) {
+            const enemyLevel = Math.ceil(tmpDate.playerInfo.map / 3);
+            if (questions.filter((q) => q.level === enemyLevel && q.hp > 0).length === 0) {
+                return;
+            }
             // @@
            this.plungeButtle();
         }
@@ -827,11 +832,19 @@ phina.define('NPCBlock', {
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "村人\n「地下は深いほど敵が強いらしい。\n問題も難しくなるし、\n受けるダメージも大きいよ」";
+                this._text = "村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ」";
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
                 this._text = "村人\n「上の階には戻れないから、\n慎重に進んでね」";
+                break;
+            case "c":
+                this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "村人\n「ダンジョンに行くのかい？\nがんばれよ！」";
+                break;
+            case "d":
+                this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
+                this._text = "村人\n「レベルを上げずに進み過ぎると\nちょっとのミスであの世行き。\nレベル上げも大事よ。」";
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
@@ -1055,12 +1068,18 @@ var mapLeftTop = {x: 32, y: 32};
 //マップチップ
 var STAGE = {
     B0: [
-        "1111111111111111",
-        "1 o     a     21",
-        "1 S  2      b  1",
-        "1        2p2   1",
-        "1  2     2E2   1",
-        "1        222   1",
+        "XXXXXX11111",
+        "XXXXXX12E21",
+        "XXXXXX12221",
+        "XXXXXX11211",
+        "XXXXXXX121",
+        "XXXXXXX121",
+        "1111111121111111",
+        "1      p2     21",
+        "1  a 2  2   b  1",
+        "1       2  2   1",
+        "1  2     c    d1",
+        "1    o  S      1",
         "1    2       2 1",
         "1111111111111111",
     ],
@@ -1121,5 +1140,197 @@ var STAGE = {
         "111    1111111111111      1",
         "1                         1",
         "111111111111111111111111111",
+    ],
+    B7: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B8: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B9: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B10: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B11: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B12: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B13: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B14: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B15: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B16: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B17: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B18: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B19: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B20: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B21: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B22: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B23: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B24: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B25: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B26: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B27: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B28: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B29: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B30: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1        1",
+        "1111111111",
     ],
 };

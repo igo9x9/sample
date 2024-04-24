@@ -58,14 +58,16 @@ phina.define("ButtleScene", {
             align:"left",
             x: -250,
         }).addChildTo(msgBox);
-        
-        const nowQuestions = questions.filter((q) => q.level === self._playerInfo.level && q.hp > 0);
+       
+        const ememyLevel = Math.ceil(self._playerInfo.map / 3);
+        const nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
         // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第39型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
+            level: nowQuestions[enemyIndex].level,
             rotate: Math.floor(Math.random() * 4),
         };
 
@@ -79,9 +81,13 @@ phina.define("ButtleScene", {
                 self.statusBox.tweener.by({y:10},20).by({y:-20},20).by({y:20},20).by({y:-10},20).play();
             }).by({y:-50},100).call(function() {
 
-                self._playerInfo.hp -= 1;
+                const damage = enemy.level;
+
+                self._playerInfo.hp -= damage;
+                self._playerInfo.hp = self._playerInfo.hp < 0 ? 0 : self._playerInfo.hp;
+
+                self.addButtleComment(damage + "のダメージを受けた！");
                 updateHpLabel();
-                self.addButtleComment("1のダメージを受けた！");
 
                 if (self._playerInfo.hp <= 0) {
                     goban.alpha = 0.5;
@@ -144,9 +150,10 @@ phina.define("ButtleScene", {
                         self.addButtleComment("にんじんを1本くれた");
                         updateHpLabel();
                     }
-                    const enemyNum = nowQuestions.filter((q) => q.level === self._playerInfo.level && q.hp > 0).length;
+                    const enemyLevel = Math.ceil(self._playerInfo.map / 3);
+                    const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
                     if (enemyNum === 0) {
-                        self._playerInfo.level += 1;
+                        self._playerInfo.level = enemyLevel + 1;
                     }
 
                 } else {

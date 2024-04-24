@@ -3,6 +3,8 @@ phina.define("ButtleScene", {
 
     _playerInfo: null,
 
+    _end: false,
+
     init: function(param) {
         const self = this;
         this.superInit(param);
@@ -154,11 +156,13 @@ phina.define("ButtleScene", {
                     const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
                     if (enemyNum === 0) {
                         self._playerInfo.level = enemyLevel + 1;
+                        self._playerInfo.hp = self._playerInfo.level * 5;
                     }
 
                 } else {
                     self.addButtleComment(enemy.name + " は逃げた！");
                 }
+                self._end = true;
             }, 1000);
 
             const winLabel = Label
@@ -171,7 +175,9 @@ phina.define("ButtleScene", {
             }).hide().setInteractive(true).addChildTo(self);
 
             exitBox.on("pointstart", function() {
-                self.exit({playerInfo: self._playerInfo});
+                if (self._end) {
+                    self.exit({playerInfo: self._playerInfo});
+                }
             });
         });
 
@@ -339,7 +345,7 @@ phina.define("Goban", {
     setStones: function(step, laststep) {
         const self = this;
 
-        self._freeAreas = [];
+        // self._freeAreas = [];
 
         (9).times(function(y) {
             const raws = step[y].split("");

@@ -193,9 +193,9 @@ phina.define('MapScene', {
             let msg = "地下" + playerInfo.map + "階  " + "難易度" + enemyLevel;
             const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
             if (enemyNum > 0) {
-                msg += " あと" + enemyNum + "問でﾚﾍﾞﾙｱｯﾌﾟ";
+                msg += " 残り" + enemyNum + "問";
             } else {
-                msg += " 全問正解済み";
+                msg += " 全問クリア";
             }
             Label({
                 text: msg,
@@ -954,25 +954,12 @@ phina.define("LevelUpScene", {
         }).addChildTo(self)
         .setPosition(-700, self.gridY.center())
         .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
-        .wait(400)
+        .call(function() {
+            App.pushScene(MessageScene("うさこは" + levelText(tmpDate.playerInfo.level) + " になった！\n最大HPが " + tmpDate.playerInfo.hp + " に上がった！"));
+        })
         .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
         .call(function() {
-            Label({
-                text: levelText(tmpDate.playerInfo.level) + " になった",
-                fontSize: 90,
-                fontWeight: 800,
-                fill: "red",
-                stroke: "white",
-                strokeWidth: 20,
-            }).addChildTo(self)
-            .setPosition(-700, self.gridY.center())
-            .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
-            .wait(500)
-            .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
-            .call(function() {
-                self.exit();            
-            })
-            .play();
+            self.exit();
         })
         .play();
 
@@ -1071,25 +1058,25 @@ phina.main(function() {
 function levelText(level) {
     switch (level) {
         case 1:
-            return "20級";
+            return "レベル1";
         case 2:
-            return "10級";
+            return "レベル2";
         case 3:
-            return "五級";
+            return "レベル3";
         case 4:
-            return "二級";
+            return "レベル4";
         case 5:
-            return "初段";
+            return "レベル5";
         case 6:
-            return "二段";
+            return "レベル6";
         case 7:
-            return "五段";
+            return "レベル7";
         case 8:
-            return "九段";
+            return "レベル8";
         case 9:
-            return "名人";
+            return "レベル9";
         default:
-            return "仙人";
+            return "レベルMAX";
     }
 }
 

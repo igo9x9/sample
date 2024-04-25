@@ -61,7 +61,7 @@ phina.define("ButtleScene", {
             x: -250,
         }).addChildTo(msgBox);
        
-        const ememyLevel = Math.ceil(self._playerInfo.map / 3);
+        const ememyLevel = self._playerInfo.map;
         const nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
@@ -152,7 +152,7 @@ phina.define("ButtleScene", {
                         self.addButtleComment("にんじんを1本もらった");
                         updateHpLabel();
                     }
-                    const enemyLevel = Math.ceil(self._playerInfo.map / 3);
+                    const enemyLevel = self._playerInfo.map;
                     const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
                     if (enemyNum === 0) {
                         self._playerInfo.level = enemyLevel + 1;

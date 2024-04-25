@@ -65,7 +65,7 @@ phina.define("ButtleScene", {
         const nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第39型");
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第42型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -149,7 +149,7 @@ phina.define("ButtleScene", {
                     self.addButtleComment(enemy.name + " を倒した！");
                     if (Math.random() > 0.6) {
                         self._playerInfo.carotte += 1;
-                        self.addButtleComment("にんじんを1本くれた");
+                        self.addButtleComment("にんじんを1本もらった");
                         updateHpLabel();
                     }
                     const enemyLevel = Math.ceil(self._playerInfo.map / 3);

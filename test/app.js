@@ -99,12 +99,20 @@ phina.define('MapScene', {
     init: function(params) {
         this.superInit(params);
 
-        console.log("Level1 :" + questions.filter((q) => q.level === 1 && q.hp > 0).length)
-        console.log("Level2 :" + questions.filter((q) => q.level === 2 && q.hp > 0).length)
-        console.log("Level3 :" + questions.filter((q) => q.level === 3 && q.hp > 0).length)
-        console.log("Level4 :" + questions.filter((q) => q.level === 4 && q.hp > 0).length)
-        console.log("Level5 :" + questions.filter((q) => q.level === 5 && q.hp > 0).length)
-        
+        console.log("レベル  1,  2,  3,  4,  5,  6,  7,  8,  9, 10");
+        console.log(
+            "残数  " +
+            questions.filter((q) => q.level === 1 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 2 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 3 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 4 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 5 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 6 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 7 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 8 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 9 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 10 && q.hp > 0).length.toString().padStart(3, " "));
+
         //X軸のグリッドを作成
         this.stageX = Grid({
             width  : this.gridX.width,
@@ -182,10 +190,17 @@ phina.define('MapScene', {
 
         if (playerInfo.map !==0 ) {
             const enemyLevel = Math.ceil(playerInfo.map / 3);
+            let msg = "地下" + playerInfo.map + "階  " + "難易度" + enemyLevel;
+            const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
+            if (enemyNum > 0) {
+                msg += " あと" + enemyNum + "問でﾚﾍﾞﾙｱｯﾌﾟ";
+            } else {
+                msg += " 全問正解済み";
+            }
             Label({
-                text: "地下" + playerInfo.map + "階  " + "死活レベル" + enemyLevel + " 残り" + questions.filter((q) => q.level === enemyLevel && q.hp > 0).length + "問",
+                text: msg,
                 fill: "#fff",
-                x: 380,
+                x: this.gridX.center(),
                 y: 930,
             }).addChildTo(this);
         }
@@ -1040,19 +1055,25 @@ phina.main(function() {
 function levelText(level) {
     switch (level) {
         case 1:
-            return "初級";
+            return "20級";
         case 2:
-            return "中級";
+            return "10級";
         case 3:
-            return "上級";
+            return "五級";
         case 4:
-            return "猛者";
+            return "二級";
         case 5:
-            return "達人";
+            return "初段";
         case 6:
+            return "二段";
+        case 7:
+            return "五段";
+        case 8:
+            return "九段";
+        case 9:
             return "名人";
         default:
-            return "伝説";
+            return "仙人";
     }
 }
 
@@ -1084,12 +1105,12 @@ var STAGE = {
         "1111111111111111",
     ],
     B1: [
-        "1111111111",
-        "1        1",
-        "1   S    1",
-        "1        1",
-        "1      E 1",
-        "1111111111",
+        "1111111111111",
+        "1  S        1",
+        "1           1",
+        "1           1",
+        "1         E 1",
+        "1111111111111",
     ],
     B2: [
         "1111111111",
@@ -1100,13 +1121,13 @@ var STAGE = {
         "1111111111",
     ],
     B3: [
-        "111111111111111111111",
-        "1 S                 1",
-        "1                   1",
-        "11111111111111111   1",
-        "XXXXXXXXXXXXXXXX1   1",
-        "XXXXXXXXXXXXXXXX1 E 1",
-        "XXXXXXXXXXXXXXXX11111",
+        "11111111111111111",
+        "1 S             1",
+        "1               1",
+        "1111111111111   1",
+        "XXXXXXXXXXXX1   1",
+        "XXXXXXXXXXXX1 E 1",
+        "XXXXXXXXXXXX11111",
     ],
     B4: [
         "1111111111111111",
@@ -1117,29 +1138,20 @@ var STAGE = {
     ],
     B5: [
         "1111111111111",
+        "1  S        1",
+        "1           1",
+        "1           1",
+        "1         E 1",
+        "1111111111111",
+    ],
+    B6: [
+        "1111111111111",
         "1S          1",
         "1 111111111 1",
         "11  E 1   1 1",
         "1  1111 1 1 1",
         "1       1   1",
         "1111111111111",
-    ],
-    B6: [
-        "111111111111111111111111111",
-        "1                         1",
-        "1  11111111111111111      1",
-        "1      1XXXXX1     1      1",
-        "11111  1XXXXX1  E  1      1",
-        "1      1XXXXX1     1      1",
-        "1      1XXXXX1            1",
-        "1  S   1XXXX111111111111111",
-        "1      1X1111      1      1",
-        "1      1X1         1111   1",
-        "111    1X1111111          1",
-        "XX1    1XXXXXXX11111111   1",
-        "111    1111111111111      1",
-        "1                         1",
-        "111111111111111111111111111",
     ],
     B7: [
         "1111111111",
@@ -1158,12 +1170,21 @@ var STAGE = {
         "1111111111",
     ],
     B9: [
-        "1111111111",
-        "1        1",
-        "1   S    1",
-        "1        1",
-        "1      E 1",
-        "1111111111",
+        "111111111111111111111111111",
+        "1                         1",
+        "1  11111111111111111      1",
+        "1      1XXXXX1     1      1",
+        "11111  1XXXXX1  E  1      1",
+        "1      1XXXXX1     1      1",
+        "1      1XXXXX1            1",
+        "1  S   1XXXX111111111111111",
+        "1      1X1111      1      1",
+        "1      1X1         1111   1",
+        "111    1X1111111          1",
+        "XX1    1XXXXXXX11111111   1",
+        "111    1111111111111      1",
+        "1                         1",
+        "111111111111111111111111111",
     ],
     B10: [
         "1111111111",

@@ -135,6 +135,10 @@ phina.define('MapScene', {
         this.touchPointY = null;
         this.touchCircle = null;
     },
+    
+    updateStatusLabel() {
+        this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP : ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5) + "  にんじん : " + tmpDate.playerInfo.carotte;
+    },
   
     /**
      * ステージ作成
@@ -152,6 +156,7 @@ phina.define('MapScene', {
             playerInfo = tmpDate.playerInfo;
         } else {
             newGame = false;
+            tmpDate.playerInfo = playerInfo;
         }
 
         if (playerInfo.map !== lastMap) {
@@ -180,12 +185,12 @@ phina.define('MapScene', {
             height: 50,
         }).addChildTo(this);
 
-        var statusLabel = Label({
-            text:  levelText(playerInfo.level) + '  HP : ' + playerInfo.hp + "／" + (playerInfo.level * 5) + "  にんじん : " + playerInfo.carotte,
+        self.statusLabel = Label({
             fill: '#fff',
             x: 10,
             y: 0,
         }).addChildTo(statusBox);
+        self.updateStatusLabel();
         statusBox.tweener.moveTo(this.gridX.center(), 40, 500, "easeOutQuad").play();
 
         if (playerInfo.map !==0 ) {
@@ -861,7 +866,9 @@ phina.define('NPCBlock', {
     _text: "",
     _message: null,
     _wait: false,
+    _done: false,
     init: function(npc_id) {
+        const self = this;
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
@@ -873,7 +880,17 @@ phina.define('NPCBlock', {
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
-                this._message = QuestionMessage("村人\n「ダンジョンに行くのかい？」", ()=>SimpleMessage("「がんばれよ！」"), ()=>SimpleMessage("「そうかい」"));
+                const yes = ()=>{
+                    if (!self._done) {
+                        tmpDate.playerInfo.carotte += 1;
+                        App._scenes[1].updateStatusLabel();
+                        self._done = true;
+                        return SimpleMessage("「がんばれよ！」", SimpleMessage("にんじんを1本くれた。"));
+                    } else {
+                        return SimpleMessage("「がんばれよ！」");
+                    }
+                };
+                this._message = QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);

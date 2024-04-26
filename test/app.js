@@ -73,6 +73,7 @@ phina.define('TitleScene', {
     
         // データ初期化
         tmpDate.playerInfo = {map:0, level:1, hp:5, carotte:0, x:null, y:null};
+        // tmpDate.playerInfo = {map:3, level:3, hp:50, carotte:0, x:null, y:null};
         lastLevel = 1;
         lastMap = 0;
         lastDirection = DIRECTION.DOWN;
@@ -872,7 +873,9 @@ phina.define('NPCBlock', {
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ。", SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。", SimpleMessage("…でも逆に言えば\n間違えずに解答できるのなら\nレベル上げは必要ないってこと」")));
+                this._message = SimpleMessage("村人\n「地下に行くほど死活問題は\n難しくなっていくし、\n受けるダメージも大きくなるよ。",
+                    SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。",
+                        SimpleMessage("でも死活の知識が豊富なら、\nあえて低いレベルのまま\nどんどん進むのもアリかもね」")));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
@@ -894,7 +897,8 @@ phina.define('NPCBlock', {
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("村人\n「それぞれの階にいる敵の数は\n決まっているの。", SimpleMessage("その階の全部の敵を倒したら\nあなたのレベルがひとつ上がるわ」"));
+                this._message = SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問前後くらいで、",
+                    SimpleMessage("その問題の全てを正解したら\nレベルアップできるらしいわ」"));
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);

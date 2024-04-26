@@ -865,51 +865,76 @@ phina.define('NPCBlock', {
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ。", Message("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。", Message("…でも逆に言えば\n間違えずに解答できるのなら\nレベル上げは必要ないってこと」")));
+                this._message = SimpleMessage("村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ。", SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。", SimpleMessage("…でも逆に言えば\n間違えずに解答できるのなら\nレベル上げは必要ないってこと」")));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
+                this._message = SimpleMessage("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("村人\n「ダンジョンに行くのかい？\nがんばれよ！」");
+                this._message = QuestionMessage("村人\n「ダンジョンに行くのかい？」", ()=>SimpleMessage("「がんばれよ！」"), ()=>SimpleMessage("「そうかい」"));
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("村人\n「それぞれの階にいる敵の数は\n決まっているの。", Message("その階の全部の敵を倒したら\nあなたのレベルがひとつ上がるわ」"));
+                this._message = SimpleMessage("村人\n「それぞれの階にいる敵の数は\n決まっているの。", SimpleMessage("その階の全部の敵を倒したら\nあなたのレベルがひとつ上がるわ」"));
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("「囲碁の村」");
+                this._message = SimpleMessage("「囲碁の村」");
                 break;
             case "p":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._message = Message("「地下ダンジョン入り口」");
+                this._message = SimpleMessage("「地下ダンジョン入り口」");
                 break;
             default:
         }
     },
     say: function() {
         const self = this;
-    	if (self._wait) {
-    		return;
-    	}
+        if (self._wait) {
+            return;
+        }
         App.pushScene(MessageScene(this._message));
         // 連続してメッセージが出るのをやわらげる
-    	self._wait = true;
-        setTimeout(function() {
-        	self._wait = false;
-        }, 1000);
+        self._wait = true;
+        const fn = function() {
+            setTimeout(function() {
+                self._wait = false;
+            }, 1000);
+            App.off("poped", fn);
+        };
+        App.on("poped", fn);
     }
 });
 
+// メッセージ基底クラス
 phina.define("Message", {
-	text: "",
-	nextMessage: null,
+    text: "",
     init: function(text, nextMessage) {
-    	this.text = text;
-    	this.nextMessage = nextMessage;
+        this.text = text;
+    }
+});
+
+// 単純メッセージクラス
+phina.define("SimpleMessage", {
+    superClass: 'Message',
+    nextMessage: null,
+    init: function(text, nextMessage) {
+        this.superInit(text);
+        this.nextMessage = nextMessage;
+    }
+});
+
+// 質問メッセージクラス
+phina.define("QuestionMessage", {
+    superClass: 'Message',
+    yesCallback: null,
+    noCallback: null,
+    init: function(text, yesCallback, noCallback) {
+        this.superInit(text);
+        this.yesCallback = yesCallback;
+        this.noCallback = noCallback;
     }
 });
 
@@ -919,40 +944,83 @@ phina.define("Message", {
 phina.define("MessageScene", {
     superClass: 'DisplayScene',
     _message: null,
+    _messageBox: null,
+    _questionBox: null,
     init: function(message) {
         this.superInit();
         var self = this;
         
-        self._message = message;
-
         this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
 
-        this.onpointstart = function() {
-        	if (self._message.nextMessage) {
-        		self._message = self._message.nextMessage;
-		        self.printText();
-        	} else {
-	            self.exit();
-        	}
-        };
-
-        const msgBox = RectangleShape({
+        self._messageBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
             height: this.gridX.unitWidth * 6,
             fill: 'white',
             stroke: "black",
-            strokeWidth: 30,
+            strokeWidth: 16,
             x: this.gridX.center(),
             y: 820,
-            cornerRadius: 2,
+            cornerRadius: 16,
         }).addChildTo(this);
+        
+        self._messageBox.onpointstart = function() {
+            if (self._message.nextMessage) {
+                self.setMessageObj(self._message.nextMessage);
+                self.printText();
+            } else {
+                self.exit();
+            }
+        };
 
         this.messageLabel = Label({
             fill: 'black',
             align:"left",
             x: -250,
-        }).addChildTo(msgBox);
+        }).addChildTo(self._messageBox);
         
+        self._questionBox = RectangleShape({
+            width: 300,
+            height: 50,
+            fill: 'white',
+            stroke: "black",
+            strokeWidth: 16,
+            x: this.gridX.center(2),
+            y: 700,
+            cornerRadius: 16,
+        }).addChildTo(this);
+
+        this.yesLabel = Label({
+            fill: 'black',
+            align:"left",
+            x: -70,
+            text: "はい",
+            align: "center",
+        }).addChildTo(self._questionBox).setInteractive(true);
+        
+        this.yesLabel.onpointstart = function() {
+            if (self._message.className === "QuestionMessage") {
+                self.setMessageObj(self._message.yesCallback());
+                self.printText();
+            }
+        };
+
+        this.noLabel = Label({
+            fill: 'black',
+            align:"left",
+            x: 50,
+            text: "いいえ",
+            align: "center",
+        }).addChildTo(self._questionBox).setInteractive(true);
+
+        this.noLabel.onpointstart = function() {
+            if (self._message.className === "QuestionMessage") {
+                self.setMessageObj(self._message.noCallback());
+                self.printText();
+            }
+        };
+
+        self.setMessageObj(message);
+
         self.printText();
 
     },
@@ -961,7 +1029,18 @@ phina.define("MessageScene", {
         this.messageLabel.y = 20;
         this.messageLabel.text = this._message.text;
         this.messageLabel.tweener.to({y: 0, alpha: 1}, 300).play();
-    }
+    },
+    setMessageObj: function(message) {
+        const self = this;
+        self._message = message;
+        if (message.className === "QuestionMessage") {
+            self._messageBox.setInteractive(false);
+            self._questionBox.show();
+        } else {
+            self._messageBox.setInteractive(true);
+            self._questionBox.hide();
+        }
+    },
 });
 
 /*

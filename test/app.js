@@ -1003,7 +1003,7 @@ phina.define("MessageScene", {
             strokeWidth: 16,
             x: this.gridX.center(2),
             y: 700,
-            cornerRadius: 16,
+            cornerRadius: 10,
         }).addChildTo(this);
 
         this.yesLabel = Label({
@@ -1083,7 +1083,7 @@ phina.define("LevelUpScene", {
         .setPosition(-700, self.gridY.center())
         .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
         .call(function() {
-            App.pushScene(MessageScene("うさこは" + levelText(tmpDate.playerInfo.level) + " になった！\n最大HPが " + tmpDate.playerInfo.hp + " に上がった！"));
+            App.pushScene(MessageScene(SimpleMessage("うさこは" + levelText(tmpDate.playerInfo.level) + " になった！\n最大HPが " + tmpDate.playerInfo.hp + " に上がった！")));
         })
         .to({x: self.gridX.center() + 800}, 200, "easeOutQuad")
         .call(function() {

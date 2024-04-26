@@ -859,37 +859,57 @@ phina.define('HoleBlock', {
 phina.define('NPCBlock', {
     superClass: 'Sprite',
     _text: "",
+    _message: null,
+    _wait: false,
     init: function(npc_id) {
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ」";
+                this._message = Message("村人\n「地下に行くほど敵も強くなる。\n問題も難しくなるし、\n受けるダメージも大きいよ。", Message("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。", Message("…でも逆に言えば\n間違えずに解答できるのなら\nレベル上げは必要ないってこと」")));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "村人\n「上の階には戻れないから、\n慎重に進んでね」";
+                this._message = Message("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "村人\n「ダンジョンに行くのかい？\nがんばれよ！」";
+                this._message = Message("村人\n「ダンジョンに行くのかい？\nがんばれよ！」");
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "村人\n「レベルを上げずに進み過ぎると\nちょっとのミスであの世行き。\nレベル上げも大事よ。」";
+                this._message = Message("村人\n「それぞれの階にいる敵の数は\n決まっているの。", Message("その階の全部の敵を倒したら\nあなたのレベルがひとつ上がるわ」"));
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "「囲碁の村」";
+                this._message = Message("「囲碁の村」");
                 break;
             case "p":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._text = "「地下ダンジョン入り口」";
+                this._message = Message("「地下ダンジョン入り口」");
                 break;
             default:
         }
     },
     say: function() {
-        App.pushScene(MessageScene(this._text));
+        const self = this;
+    	if (self._wait) {
+    		return;
+    	}
+        App.pushScene(MessageScene(this._message));
+        // 連続してメッセージが出るのをやわらげる
+    	self._wait = true;
+        setTimeout(function() {
+        	self._wait = false;
+        }, 1000);
+    }
+});
+
+phina.define("Message", {
+	text: "",
+	nextMessage: null,
+    init: function(text, nextMessage) {
+    	this.text = text;
+    	this.nextMessage = nextMessage;
     }
 });
 
@@ -898,14 +918,22 @@ phina.define('NPCBlock', {
  */
 phina.define("MessageScene", {
     superClass: 'DisplayScene',
-    init: function(text) {
+    _message: null,
+    init: function(message) {
         this.superInit();
         var self = this;
+        
+        self._message = message;
 
         this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
 
         this.onpointstart = function() {
-            self.exit();
+        	if (self._message.nextMessage) {
+        		self._message = self._message.nextMessage;
+		        self.printText();
+        	} else {
+	            self.exit();
+        	}
         };
 
         const msgBox = RectangleShape({
@@ -924,12 +952,16 @@ phina.define("MessageScene", {
             align:"left",
             x: -250,
         }).addChildTo(msgBox);
+        
+        self.printText();
 
+    },
+    printText: function() {
         this.messageLabel.alpha = 0;
         this.messageLabel.y = 20;
-        this.messageLabel.text = text;
+        this.messageLabel.text = this._message.text;
         this.messageLabel.tweener.to({y: 0, alpha: 1}, 300).play();
-    },
+    }
 });
 
 /*
@@ -1100,10 +1132,10 @@ var STAGE = {
         "XXXXXXX121",
         "1111111121111111",
         "1      p2     21",
-        "1  a 2  2   b  1",
+        "1  a 2  2    b 1",
         "1       2  2   1",
-        "1  2     c    d1",
-        "1    o  S      1",
+        "1  2     c     1",
+        "1    o  S     d1",
         "1    2       2 1",
         "1111111111111111",
     ],

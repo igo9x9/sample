@@ -652,7 +652,8 @@ phina.define('MapScene', {
 
         //シェードを開いた後に画面遷移
         this.onShade(function() {
-            self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
+            // self.exit(nextLabel, {playerInfo: {map:1, level:1, hp:15, carotte:0}});
+           self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
         }, easing);
     },
   

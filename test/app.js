@@ -36,6 +36,7 @@ ASSETS = {
         "npc2": "images/npc2.png",
         "npc3": "images/npc3.png",
         "npc4": "images/npc4.png",
+        "npc5": "images/npc5.png",
     },
 };
 
@@ -238,6 +239,9 @@ phina.define('MapScene', {
                     // FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (item.match(/[a-z]/)) {
+                    if (playerInfo.map !== 0) {
+                        FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    }
                     // NPC                    
                     NPCBlock(item).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
@@ -866,48 +870,69 @@ phina.define('HoleBlock', {
 phina.define('NPCBlock', {
     superClass: 'Sprite',
     _text: "",
-    _message: null,
+    _messageFnc: null,
     _wait: false,
     _done: false,
     init: function(npc_id) {
         const self = this;
+        let yes = null;
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("村人\n「地下に行くほど死活問題は\n難しくなっていくし、\n受けるダメージも大きくなるよ。",
-                    SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。",
-                        SimpleMessage("でも死活の知識が豊富なら、\nあえて低いレベルのまま\nどんどん進むのもアリかもね」")));
+                this._messageFnc = ()=> SimpleMessage("村人\n「地下に行くほど死活問題は\n難しくなっていくし、\n受けるダメージも大きくなるよ。",
+                    () => SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。",
+                        () => SimpleMessage("でも死活の知識が豊富なら、\nあえて低いレベルのまま\nどんどん進むのもアリかもね」")));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
+                this._messageFnc = ()=> SimpleMessage("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
-                const yes = ()=>{
+                yes = ()=>{
                     if (!self._done) {
                         tmpDate.playerInfo.carotte += 1;
                         App._scenes[1].updateStatusLabel();
                         self._done = true;
-                        return SimpleMessage("「がんばれよ！」", SimpleMessage("にんじんを1本くれた。"));
+                        return SimpleMessage("「がんばれよ！」", () => SimpleMessage("にんじんを1本くれた。"));
                     } else {
                         return SimpleMessage("「がんばれよ！」");
                     }
                 };
-                this._message = QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
+                this._messageFnc = () => QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問前後くらいで、",
-                    SimpleMessage("その問題の全てを正解したら\nレベルアップできるらしいわ」"));
+                this._messageFnc = () => SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問前後くらいで、",
+                    () => SimpleMessage("その問題の全てを正解したら\nレベルアップできるらしいわ」"));
+                break;
+            case "e":
+                this.superInit("npc5", BOX_WIDTH, BOX_HEIGHT);
+                this._messageFnc = () => {
+                    if (self._done) {
+                        return SimpleMessage("魔法使い\n「気をつけてな」");
+                    }
+                    if (tmpDate.playerInfo.hp === tmpDate.playerInfo.level * 5) {
+                        return SimpleMessage("魔法使い\n「一度だけHPを満タンにできるが\n今は必要なさそうじゃな」");
+                    }
+                    yes = () => {
+                        self._done = true;
+                        return SimpleMessage("「よしきた、ほいっ！」", () => {
+                            tmpDate.playerInfo.hp = tmpDate.playerInfo.level * 5;
+                            App._scenes[1].updateStatusLabel();
+                            return SimpleMessage("HPが満タンになった。");
+                        });
+                    }
+                    return QuestionMessage("魔法使い\n「一度だけHPを満タンにできるぞ。\nするかい？", yes, ()=> SimpleMessage("そうかい」"));
+                };
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("「囲碁の村」");
+                this._messageFnc = () => SimpleMessage("「囲碁の村」");
                 break;
             case "p":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._message = SimpleMessage("「地下ダンジョン入り口」");
+                this._messageFnc = () => SimpleMessage("「地下ダンジョン入り口」");
                 break;
             default:
         }
@@ -917,7 +942,7 @@ phina.define('NPCBlock', {
         if (self._wait) {
             return;
         }
-        App.pushScene(MessageScene(this._message));
+        App.pushScene(MessageScene(this._messageFnc()));
         // 連続してメッセージが出るのをやわらげる
         self._wait = true;
         const fn = function() {
@@ -933,7 +958,7 @@ phina.define('NPCBlock', {
 // メッセージ基底クラス
 phina.define("Message", {
     text: "",
-    init: function(text, nextMessage) {
+    init: function(text) {
         this.text = text;
     }
 });
@@ -941,10 +966,10 @@ phina.define("Message", {
 // 単純メッセージクラス
 phina.define("SimpleMessage", {
     superClass: 'Message',
-    nextMessage: null,
-    init: function(text, nextMessage) {
+    nextMessageFnc: null,
+    init: function(text, nextMessageFnc) {
         this.superInit(text);
-        this.nextMessage = nextMessage;
+        this.nextMessageFnc = nextMessageFnc;
     }
 });
 
@@ -986,8 +1011,8 @@ phina.define("MessageScene", {
         }).addChildTo(this);
         
         self._messageBox.onpointstart = function() {
-            if (self._message.nextMessage) {
-                self.setMessageObj(self._message.nextMessage);
+            if (self._message.nextMessageFnc) {
+                self.setMessageObj(self._message.nextMessageFnc());
                 self.printText();
             } else {
                 self.exit();
@@ -1253,7 +1278,7 @@ var STAGE = {
         "1                        1",
         "1             1111       1",
         "1         S   1 E        1",
-        "111           1          1",
+        "111           1       e  1",
         "XX1111111111111          1",
         "XXXXXXXXXXXXXX111111111111",
     ],
@@ -1270,7 +1295,7 @@ var STAGE = {
         "1111111111111111",
         "1 E            1",
         "1     1     S  1",
-        "1              1",
+        "1   e          1",
         "1111111111111111",
     ],
     B5: [

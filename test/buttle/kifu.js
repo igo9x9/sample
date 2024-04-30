@@ -286,7 +286,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第7型",
         steps: [
             [
@@ -400,7 +400,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第8型",
         steps: [
             [
@@ -437,7 +437,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第9型",
         steps: [
             [
@@ -484,7 +484,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第10型",
         steps: [
             [
@@ -531,7 +531,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第11型",
         steps: [
             [
@@ -568,7 +568,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第12型",
         steps: [
             [
@@ -682,7 +682,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第14型",
         steps: [
             [
@@ -719,7 +719,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第15型",
         steps: [
             [
@@ -776,7 +776,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第15型変化",
         steps: [
             [
@@ -880,7 +880,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第17型",
         steps: [
             [
@@ -927,7 +927,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第17型変化",
         steps: [
             [
@@ -984,7 +984,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 5,
         name: "隅の死活第18型",
         steps: [
             [
@@ -1031,7 +1031,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 7,
         name: "隅の死活第19型",
         steps: [
             [
@@ -1078,7 +1078,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第20型",
         steps: [
             [
@@ -1125,7 +1125,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第21型",
         steps: [
             [
@@ -1360,7 +1360,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第26型",
         steps: [
             [
@@ -1454,7 +1454,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第28型",
         steps: [
             [
@@ -1501,7 +1501,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 5,
         name: "隅の死活第28型変化",
         steps: [
             [
@@ -1558,7 +1558,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 6,
         name: "隅の死活第29型",
         steps: [
             [
@@ -1820,7 +1820,7 @@ const questions = [
         ]
     },
     {
-        level: 2,
+        level: 3,
         name: "隅の死活第35型",
         steps: [
             [
@@ -1857,7 +1857,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 5,
         name: "隅の死活第35型変化",
         steps: [
             [
@@ -1951,7 +1951,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 7,
         name: "隅の死活第36型変化",
         steps: [
             [
@@ -2065,7 +2065,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第38型",
         steps: [
             [
@@ -2441,7 +2441,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "辺の死活第13型",
         steps: [
             [
@@ -2478,7 +2478,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "辺の死活第13型変化",
         steps: [
             [

@@ -241,7 +241,7 @@ phina.define("ClickableArea", {
         this.setInteractive(true);
         const fn = function() {
             callback();
-            self.off("pointstart", fn);
+            // self.off("pointstart", fn);
         };
         this.on("pointstart", fn);
     },

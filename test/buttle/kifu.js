@@ -343,7 +343,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第7型変化",
         steps: [
             [
@@ -484,7 +484,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第10型",
         steps: [
             [
@@ -984,7 +984,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 2,
         name: "隅の死活第18型",
         steps: [
             [
@@ -1078,7 +1078,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第20型",
         steps: [
             [
@@ -1360,7 +1360,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第26型",
         steps: [
             [
@@ -1407,7 +1407,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 2,
         name: "隅の死活第27型",
         steps: [
             [
@@ -1642,7 +1642,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 2,
         name: "隅の死活第31型",
         steps: [
             [
@@ -1951,7 +1951,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第36型変化",
         steps: [
             [
@@ -2065,7 +2065,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 4,
         name: "隅の死活第38型",
         steps: [
             [
@@ -2414,7 +2414,7 @@ const questions = [
         ]
     },
     {
-        level: 3,
+        level: 2,
         name: "辺の死活第10型",
         steps: [
             [

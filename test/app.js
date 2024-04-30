@@ -22,14 +22,11 @@ ASSETS = {
         'player2': 'images/player2.png',
         "floor": "images/floor.png",
         "wall": "images/wall.png",
-        "home": "images/home.png",
         "water": "images/water.png",
         "tree": "images/tree.png",
-        "fox": "images/fox.png",
-        "hospital": "images/hospital.png",
         "tatefuda": "images/tatefuda.png",
-        "koala": "images/koala.png",
         "flower": "images/flower.png",
+        "arrow": "images/arrow.png",
         "hole1": "images/hole1.png",
         "hole2": "images/hole2.png",
         "npc1": "images/npc1.png",
@@ -934,6 +931,10 @@ phina.define('NPCBlock', {
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = () => SimpleMessage("「地下ダンジョン入り口」");
                 break;
+            case "q":
+                this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
+                this._messageFnc = () => SimpleMessage("「地下２階へ」");
+                break;
             default:
         }
     },
@@ -993,6 +994,7 @@ phina.define("MessageScene", {
     _message: null,
     _messageBox: null,
     _questionBox: null,
+    _arrow: null,
     init: function(message) {
         this.superInit();
         var self = this;
@@ -1018,6 +1020,11 @@ phina.define("MessageScene", {
                 self.exit();
             }
         };
+
+        this._arrow = Sprite("arrow", BOX_WIDTH, BOX_HEIGHT)
+            .addChildTo(self._messageBox)
+            .setPosition(260, 80)
+            .hide();
 
         this.messageLabel = Label({
             fill: 'black',
@@ -1072,10 +1079,18 @@ phina.define("MessageScene", {
 
     },
     printText: function() {
+        const self = this;
+        this._arrow.hide();
         this.messageLabel.alpha = 0;
         this.messageLabel.y = 20;
         this.messageLabel.text = this._message.text;
-        this.messageLabel.tweener.to({y: 0, alpha: 1}, 300).play();
+        this.messageLabel.tweener.to({y: 0, alpha: 1}, 300)
+            .call(() => {
+                if (self._message.className !== "QuestionMessage") {
+                    self._arrow.show();
+                }
+            })
+            .play();
     },
     setMessageObj: function(message) {
         const self = this;
@@ -1233,6 +1248,28 @@ function levelText(level) {
             return "レベル8";
         case 9:
             return "レベル9";
+        case 10:
+            return "レベル10";
+        case 11:
+            return "レベル11";
+        case 12:
+            return "レベル12";
+        case 13:
+            return "レベル13";
+        case 14:
+            return "レベル14";
+        case 15:
+            return "レベル15";
+        case 16:
+            return "レベル16";
+        case 17:
+            return "レベル17";
+        case 18:
+            return "レベル18";
+        case 19:
+            return "レベル19";
+        case 20:
+            return "レベル20";
         default:
             return "レベルMAX";
     }
@@ -1268,7 +1305,7 @@ var STAGE = {
     B1: [
         "11111111111111111111111111",
         "1  S                     1",
-        "1                        1",
+        "1         q              1",
         "1         E              1",
         "1                        1",
         "11111111111111111111111111",
@@ -1349,6 +1386,86 @@ var STAGE = {
         "111111111111111111111111111",
     ],
     B10: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B11: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B12: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B13: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B14: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B15: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B16: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B17: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B18: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B19: [
+        "1111111111",
+        "1        1",
+        "1   S    1",
+        "1        1",
+        "1      E 1",
+        "1111111111",
+    ],
+    B20: [
         "1111111111",
         "1        1",
         "1   S    1",

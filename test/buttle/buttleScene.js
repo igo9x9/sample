@@ -165,8 +165,6 @@ phina.define("ButtleScene", {
                 self._end = true;
             }, 1000);
 
-            const winLabel = Label
-
             const exitBox = RectangleShape({
                 width: self.width,
                 height: self.height,
@@ -176,6 +174,8 @@ phina.define("ButtleScene", {
 
             exitBox.on("pointstart", function() {
                 if (self._end) {
+                    goban.removeAllStones();
+                    goban.remove();
                     self.exit({playerInfo: self._playerInfo});
                 }
             });
@@ -239,9 +239,11 @@ phina.define("ClickableArea", {
         this.alpha = 0;
         this.type = type;
         this.setInteractive(true);
-        this.on("pointstart", function(event) {
+        const fn = function() {
             callback();
-        });
+            self.off("pointstart", fn);
+        };
+        this.on("pointstart", fn);
     },
 });
 
@@ -250,16 +252,26 @@ phina.define("Goban", {
 
     _grid: Grid({width: 500, columns: 8}),
 
-    _cells: [],
     _stones: Array.from(Array(9), () => new Array(9)),
-    _freeAreas: [],
+    // _freeAreas: [],
     
     freeze: function() {
-        this._freeAreas.forEach(function(area) {
-            area.remove();
+        const self = this;
+        (9).times(function(y) {
+            (9).times(function(x) {
+                self._stones[y][x] && self._stones[y][x].setInteractive(false);
+            });
         });
-        self._freeAreas = [];
         App.flare('changescene');        
+    },
+
+    removeAllStones: function() {
+        const self = this;
+        (9).times(function(y) {
+            (9).times(function(x) {
+                self._stones[y][x] && self._stones[y][x].remove();
+            });
+        });
     },
 
     putBlackStone: function(x, y, justNow) {
@@ -306,11 +318,6 @@ phina.define("Goban", {
     },
     drawGoban: function() {
         const self = this;
-
-        this._cells.forEach(function(cell) {
-            cell.remove();
-        });
-        self._cells = [];
 
         var ban = RectangleShape({
             width: self._grid.width + self._grid.unitWidth*2,
@@ -396,7 +403,6 @@ phina.define("Goban", {
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._stones[y][x] = area;
-                        self._freeAreas.push(area);
                     } else {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             const stone = self.putBlackStone(x, y, true);
@@ -407,7 +413,6 @@ phina.define("Goban", {
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._stones[y][x] = area;
-                        self._freeAreas.push(area);
                     }
             }
             });

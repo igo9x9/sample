@@ -625,7 +625,7 @@ const questions = [
         ]
     },
     {
-        level: 4,
+        level: 5,
         name: "隅の死活第13型",
         steps: [
             [

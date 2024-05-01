@@ -101,7 +101,6 @@ phina.define("ButtleScene", {
         const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5) + 20);
         const megusuriFnc = () => {
             goban.megusuri();
-            App.off("megusuri", megusuriFnc);
         };
         App.on("megusuri", megusuriFnc);
         
@@ -144,6 +143,7 @@ phina.define("ButtleScene", {
                     }).hide().setInteractive(true).addChildTo(self);
         
                     exitBox.on("pointstart", function() {
+                        App.clear("megusuri");
                         self.exit("TitleScene");
                     });
         
@@ -208,6 +208,7 @@ phina.define("ButtleScene", {
                 if (self._end) {
                     goban.removeAllStones();
                     goban.remove();
+                    App.clear("megusuri");
                     self.exit({playerInfo: self._playerInfo});
                 }
             });

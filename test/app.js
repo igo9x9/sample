@@ -70,8 +70,13 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        tmpDate.playerInfo = {map:0, level:1, hp:5, carotte:0, x:null, y:null};
-        // tmpDate.playerInfo = {map:3, level:3, hp:50, carotte:0, x:null, y:null};
+        tmpDate.playerInfo = {map: 0, level: 1, hp: 5, x: null, y: null,
+            items: {
+                carotte: 0,
+                ring: null,
+                megusuri: 0,
+            }
+        };
         lastLevel = 1;
         lastMap = 0;
         lastDirection = DIRECTION.DOWN;
@@ -98,7 +103,9 @@ phina.define('MapScene', {
     init: function(params) {
         this.superInit(params);
 
-        console.log("レベル  1,  2,  3,  4,  5,  6,  7,  8,  9, 10");
+        const self = this;
+
+        console.log("レベル  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20");
         console.log(
             "残数  " +
             questions.filter((q) => q.level === 1 && q.hp > 0).length.toString().padStart(3, " ") + "," +
@@ -110,7 +117,17 @@ phina.define('MapScene', {
             questions.filter((q) => q.level === 7 && q.hp > 0).length.toString().padStart(3, " ") + "," +
             questions.filter((q) => q.level === 8 && q.hp > 0).length.toString().padStart(3, " ") + "," +
             questions.filter((q) => q.level === 9 && q.hp > 0).length.toString().padStart(3, " ") + "," +
-            questions.filter((q) => q.level === 10 && q.hp > 0).length.toString().padStart(3, " "));
+            questions.filter((q) => q.level === 10 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 11 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 12 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 13 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 14 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 15 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 16 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 17 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 18 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 19 && q.hp > 0).length.toString().padStart(3, " ") + "," +
+            questions.filter((q) => q.level === 20 && q.hp > 0).length.toString().padStart(3, " "));
 
         //X軸のグリッドを作成
         this.stageX = Grid({
@@ -133,10 +150,13 @@ phina.define('MapScene', {
         this.touchPointX = null;
         this.touchPointY = null;
         this.touchCircle = null;
+
+        this.on("resume", self.updateStatusLabel);
     },
     
     updateStatusLabel() {
-        this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP : ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5) + "  にんじん : " + tmpDate.playerInfo.carotte;
+        // this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP : ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5) + "  にんじん : " + tmpDate.playerInfo.items.carotte;
+        this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
     },
   
     /**
@@ -176,21 +196,47 @@ phina.define('MapScene', {
 
         var statusBox = RectangleShape({
             fill: '#000',
-            stroke: "#fff",
-            strokeWidth: 20,
-            x: this.gridX.center(),
+            stroke: "#000",
+            strokeWidth: 16,
+            x: 20,
             y: -100,
-            width: this.gridX.width - 30,
+            width: 400,
             height: 50,
-        }).addChildTo(this);
+            cornerRadius: 16,
+        }).setOrigin(0, 0).addChildTo(this);
 
         self.statusLabel = Label({
             fill: '#fff',
-            x: 10,
-            y: 0,
+            x: 20,
+            y: 34,
+            align: "left",
         }).addChildTo(statusBox);
         self.updateStatusLabel();
-        statusBox.tweener.moveTo(this.gridX.center(), 40, 500, "easeOutQuad").play();
+        statusBox.tweener.moveTo(20, 20, 500, "easeOutQuad").play();
+
+        const itemButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 450,
+            y: -100,
+            width: 150,
+            height: 50,
+            cornerRadius: 8,
+        }).setOrigin(0, 0).addChildTo(this).setInteractive(true);
+        const itemButtonLabel = Label({
+            fill: '#fff',
+            x: 80,
+            y: 34,
+            align: "center",
+            text: "持ちもの",
+            fontSize: 25,
+            // fontWeight: 800,
+        }).addChildTo(itemButton);
+        itemButton.tweener.moveTo(450, 20, 500, "easeOutQuad").play();
+        itemButton.on("pointstart", function() {
+            App.pushScene(MenuScene());
+        });
 
         if (playerInfo.map !==0 ) {
             const enemyLevel = playerInfo.map;
@@ -653,7 +699,6 @@ phina.define('MapScene', {
 
         //シェードを開いた後に画面遷移
         this.onShade(function() {
-            // self.exit(nextLabel, {playerInfo: {map:1, level:1, hp:15, carotte:0}});
            self.exit(nextLabel, {playerInfo: tmpDate.playerInfo});
         }, easing);
     },
@@ -709,8 +754,8 @@ phina.define('MapScene', {
      * ランダムでバトルに突入
      */
     randomButtle: function() {
-        var r = Random.randint(1, 200);
-        if (r === 200) {
+        var r = (tmpDate.playerInfo.items.ring === true ? Random.randint(1, 20) : Random.randint(1, 200));
+        if (r === 1) {
             const enemyLevel = tmpDate.playerInfo.map;
             if (questions.filter((q) => q.level === enemyLevel && q.hp > 0).length === 0) {
                 return;
@@ -888,7 +933,7 @@ phina.define('NPCBlock', {
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
                 yes = ()=>{
                     if (!self._done) {
-                        tmpDate.playerInfo.carotte += 1;
+                        tmpDate.playerInfo.items.carotte += 1;
                         App._scenes[1].updateStatusLabel();
                         self._done = true;
                         return SimpleMessage("「がんばれよ！」", () => SimpleMessage("にんじんを1本くれた。"));
@@ -922,6 +967,17 @@ phina.define('NPCBlock', {
                     }
                     return QuestionMessage("魔法使い\n「一度だけHPを満タンにできるぞ。\nするかい？", yes, ()=> SimpleMessage("そうかい」"));
                 };
+                break;
+            case "f":
+                this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
+                this._messageFnc = () => {
+                    if (tmpDate.playerInfo.items.ring === null) {
+                        tmpDate.playerInfo.items.ring = false;
+                        return SimpleMessage("修行者\n「レベルを早く上げたいなら、\nこの指輪が約に立つよ。\n君にあげよう。」", () => SimpleMessage("修行の指輪 を手に入れた！"));
+                    } else {
+                        return SimpleMessage("修行者\n「がんばれよ！」");
+                    }
+                }
                 break;
             case "o":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
@@ -1068,8 +1124,12 @@ phina.define("MessageScene", {
 
         this.noLabel.onpointstart = function() {
             if (self._message.className === "QuestionMessage") {
-                self.setMessageObj(self._message.noCallback());
-                self.printText();
+                if (!!self._message.noCallback) {
+                    self.setMessageObj(self._message.noCallback());
+                    self.printText();
+                } else {
+                    self.exit();
+                }
             }
         };
 
@@ -1104,6 +1164,180 @@ phina.define("MessageScene", {
         }
     },
 });
+
+// メニューシーン
+phina.define("MenuScene", {
+    superClass: 'DisplayScene',
+    init: function(sceneName) {
+        this.superInit();
+        var self = this;
+
+        this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+
+        const Box = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 16,
+            x: this.gridX.center(),
+            y: this.gridY.center(),
+            width: this.gridX.width - 100,
+            height: this.gridY.width - 100,
+            cornerRadius: 16,
+        }).addChildTo(this);
+
+        const closeButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 360,
+            width: 150,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        const closeButtonLabel = Label({
+            fill: '#fff',
+            x: 0,
+            y: 0,
+            align: "center",
+            text: "とじる",
+            fontSize: 25,
+        }).addChildTo(closeButton);
+        closeButton.on("pointstart", function() {
+            self.exit();
+        });
+
+
+        self.statusLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            y: -350,
+        }).addChildTo(Box);
+
+        // 魔法の目薬
+        const megusuriButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 160,
+            width: 450,
+            height: 100,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.megusuriLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(megusuriButton);
+        megusuriButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.megusuri === 0) {
+                message = SimpleMessage("答えが見える不思議な目薬。\n今は持っていません。");
+            } else {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.megusuri -= 1;
+                    self.refreshText();
+                    App.flare("megusuri");
+                    return SimpleMessage("答えが見えた！");
+                };
+                if (sceneName === "BattleScene") {
+                    message = QuestionMessage("答えが見える不思議な目薬。\n1滴使いますか？", yesFnc, null);
+                } else {
+                    message = SimpleMessage("答えが見える不思議な目薬。\n戦闘中に使います。");
+                }
+            }
+            App.pushScene(MessageScene(message));
+        });
+
+        // 修行の指輪
+        const ringButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 0,
+            width: 450,
+            height: 100,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.ringLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(ringButton);
+        ringButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.ring === false) {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.ring = true;
+                    self.refreshText();
+                    return SimpleMessage("装備しました。");
+                };
+                message = QuestionMessage("敵と遭遇しやすくなる指輪。\n装備しますか？", yesFnc, null);
+            } else if (tmpDate.playerInfo.items.ring === true) {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.ring = false;
+                    self.refreshText();
+                    return SimpleMessage("指輪を外しました。");
+                };
+                message = QuestionMessage("敵と遭遇しやすくなる指輪。\n外しますか？", yesFnc, null);
+            } else {
+                message = SimpleMessage("敵と遭遇しやすくなる指輪。\n持っていません。");
+            }
+            App.pushScene(MessageScene(message));
+        });
+
+        // にんじん
+        const carotteButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: -160,
+            width: 450,
+            height: 100,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.carotteLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(carotteButton);
+        carotteButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.carotte === 0) {
+                message = SimpleMessage("食べるとHPが回復します。\n今は持っていません。");
+            } else if (tmpDate.playerInfo.hp === tmpDate.playerInfo.level * 5) {
+                message = SimpleMessage("食べるとHPが回復します。\n今はHPが満タンです。");
+            } else {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.carotte -= 1;
+                    tmpDate.playerInfo.hp += 1;
+                    self.refreshText();
+                    return SimpleMessage("HPが1回復しました。");
+                };
+                message = QuestionMessage("食べるとHPが回復します。\n1本食べますか？", yesFnc, null);
+            }
+            App.pushScene(MessageScene(message));
+        });
+
+        self.refreshText();
+    },
+    refreshText: function() {
+        this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
+        this.carotteLabel.text = "にんじん　： " + (tmpDate.playerInfo.items.carotte === 0 ? "持っていない" : tmpDate.playerInfo.items.carotte + " 本");
+        this.ringLabel.text = "修行の指輪： " + (tmpDate.playerInfo.items.ring === null ? "持っていない" : (tmpDate.playerInfo.items.ring === true ? "装備中" : "外している"));
+        this.megusuriLabel.text = "魔法の目薬： " + (tmpDate.playerInfo.items.megusuri === 0 ? "持っていない" : tmpDate.playerInfo.items.megusuri + " 滴");
+    }
+});
+
 
 /*
  * レベルアップシーン
@@ -1312,9 +1546,9 @@ var STAGE = {
     ],
     B2: [
         "11111111111111111111111111",
-        "1                        1",
+        "1  S                     1",
         "1             1111       1",
-        "1         S   1 E        1",
+        "1             1 E        1",
         "111           1       e  1",
         "XX1111111111111          1",
         "XXXXXXXXXXXXXX111111111111",
@@ -1322,9 +1556,9 @@ var STAGE = {
     B3: [
         "11111111111111111",
         "1 S             1",
-        "1               1",
-        "1111111111111   1",
-        "XXXXXXXXXXXX1   1",
+        "1               111111111",
+        "1111111111111          f1",
+        "XXXXXXXXXXXX1   111111111",
         "XXXXXXXXXXXX1 E 1",
         "XXXXXXXXXXXX11111",
     ],

@@ -15,24 +15,25 @@ phina.define("ButtleScene", {
         this.miss = false;
         
         this.statusBox = RectangleShape({
-            width: this.gridX.width - this.gridX.unitWidth,
+            width: 400,
             height: this.gridX.unitWidth * 1.5,
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 30,
-            x: this.gridX.center(),
-            y: 690,
+            x: 12,
+            y: 650,
             cornerRadius: 2,
-        }).addChildTo(this);
+        }).setOrigin(0,0).addChildTo(this);
 
         this.hpLabel = Label({
             fill: '#fff',
             align:"left",
-            x: -250,
+            x: 20,
+            y: 37,
         }).addChildTo(this.statusBox);
         
         function updateHpLabel() {
-            self.hpLabel.text = "うさこ" + "  HP:" + self._playerInfo.hp + "  にんじん:" + self._playerInfo.carotte;
+            self.hpLabel.text = "うさこ" + "  HP: " + self._playerInfo.hp + "／" + (self._playerInfo.level * 5);// + "  にんじん:" + self._playerInfo.items.carotte;
             if (self._playerInfo.hp <= 3) {
                 self.hpLabel.fill = "red";
                 self.statusBox.stroke = "red";
@@ -43,6 +44,28 @@ phina.define("ButtleScene", {
         }
 
         updateHpLabel();
+
+        const itemButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 436,
+            y: 646,
+            width: 180,
+            height: 67,
+            cornerRadius: 8,
+        }).setOrigin(0, 0).addChildTo(this).setInteractive(true);
+        const itemButtonLabel = Label({
+            fill: '#fff',
+            x: 96,
+            y: 40,
+            align: "center",
+            text: "持ちもの",
+            // fontWeight: 800,
+        }).addChildTo(itemButton);
+        itemButton.on("pointstart", function() {
+            App.pushScene(MenuScene("BattleScene"));
+        });
 
         const msgBox = RectangleShape({
             width: this.gridX.width - this.gridX.unitWidth,
@@ -76,6 +99,11 @@ phina.define("ButtleScene", {
         this.updateButtleComment(enemy.name + ' が現れた！');
  
         const goban = Goban(enemy.steps, enemy.rotate).addChildTo(this).setPosition(this.gridX.center(), this.gridY.span(5) + 20);
+        const megusuriFnc = () => {
+            goban.megusuri();
+            App.off("megusuri", megusuriFnc);
+        };
+        App.on("megusuri", megusuriFnc);
         
         goban.on("Miss", function() {
             self.miss = true;
@@ -127,6 +155,8 @@ phina.define("ButtleScene", {
         goban.on("Complete", function() {
             goban.freeze();
 
+            itemButton.setInteractive(false);
+
             const messageLabel = Label({
                 text: "正解",
                 fontSize: 200,
@@ -148,9 +178,11 @@ phina.define("ButtleScene", {
                 if (nowQuestions[enemyIndex].hp === 0) {
                     self.addButtleComment(enemy.name + " を倒した！");
                     if (Math.random() > 0.6) {
-                        self._playerInfo.carotte += 1;
+                        self._playerInfo.items.carotte += 1;
                         self.addButtleComment("にんじんを1本もらった");
-                        updateHpLabel();
+                    } else if (Math.random() > 0.9) {
+                        self._playerInfo.items.megusuri += 1;
+                        self.addButtleComment("魔法の目薬を1滴もらった");
                     }
                     const enemyLevel = self._playerInfo.map;
                     const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
@@ -254,7 +286,7 @@ phina.define("Goban", {
 
     _stones: Array.from(Array(9), () => new Array(9)),
     // _freeAreas: [],
-    
+
     freeze: function() {
         const self = this;
         (9).times(function(y) {
@@ -349,6 +381,7 @@ phina.define("Goban", {
             this.flare("Complete");
         }
     },
+    collectStone: null,
     setStones: function(step, laststep) {
         const self = this;
 
@@ -403,6 +436,7 @@ phina.define("Goban", {
                         }).addChildTo(self);
                         self._setPositionOnGrid(area, x, y);
                         self._stones[y][x] = area;
+                        self.collectStone = area;
                     } else {
                         const area = ClickableArea(self._grid.unitWidth, item, function() {
                             const stone = self.putBlackStone(x, y, true);
@@ -420,5 +454,9 @@ phina.define("Goban", {
 
         App.flare('changescene');
 
-    }
+    },
+    megusuri: function() {
+        this.collectStone.fill = "red";
+        this.collectStone.alpha = 0.5;
+    },
 });

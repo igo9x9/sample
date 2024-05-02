@@ -34,6 +34,7 @@ ASSETS = {
         "npc3": "images/npc3.png",
         "npc4": "images/npc4.png",
         "npc5": "images/npc5.png",
+        "npc6": "images/npc6.png",
     },
 };
 
@@ -83,7 +84,7 @@ phina.define('TitleScene', {
                 megusuri: 0,
                 countdown: null,
                 feather: 0,
-                revival: 10,
+                revival: 0,
             }
         };
         lastLevel = 1;
@@ -1001,24 +1002,24 @@ phina.define('NPCBlock', {
                 };
                 break;
             case "f":
-                this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
+                this.superInit("npc6", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.ring === null) {
                         tmpDate.playerInfo.items.ring = false;
-                        return SimpleMessage("修行者\n「早くレベルを上げたいなら、\nこの指輪が役に立つよ。\n君にあげよう。」", () => SimpleMessage("修行の指輪 を手に入れた！"));
+                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("修行の指輪 を手に入れた！", () => SimpleMessage("囲碁の神様\n「その指輪を使えば\n敵を探す手間が省けるぞい。」", )));
                     } else {
-                        return SimpleMessage("修行者\n「がんばれよ！」");
+                        return SimpleMessage("囲碁の神様\n「ふぉっふぉっ」");
                     }
                 }
                 break;
             case "g":
-                this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
+                this.superInit("npc6", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.countdown === null) {
                         tmpDate.playerInfo.items.countdown = false;
-                        return SimpleMessage("修行者\n「アイテムが足りないなら、\nこの腕時計が役に立つよ。\n君にあげよう。」", () => SimpleMessage("死の腕時計 を手に入れた！"));
+                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("死の腕時計 を手に入れた！", () => SimpleMessage("囲碁の神様\n「使いこなすのは難しいんじゃが、\nまぁおぬしなら大丈夫じゃろ。」", )));
                     } else {
-                        return SimpleMessage("修行者\n「がんばれよ！」");
+                        return SimpleMessage("囲碁の神様\n「ふぉっふぉっ」");
                     }
                 }
                 break;
@@ -1029,10 +1030,6 @@ phina.define('NPCBlock', {
             case "p":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = () => SimpleMessage("「地下ダンジョン入り口」");
-                break;
-            case "q":
-                this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => SimpleMessage("「地下２階へ」");
                 break;
             default:
         }
@@ -1726,12 +1723,12 @@ var STAGE = {
         "1111111111111111",
     ],
     B1: [
-        "11111111111111111111111111",
-        "1  S                     1",
-        "1         q              1",
-        "1         E         g    1",
-        "1                        1",
-        "11111111111111111111111111",
+        "1111111111111111111",
+        "1  S              1",
+        "1                 1",
+        "1             E   1",
+        "1                 1",
+        "1111111111111111111",
     ],
     B2: [
         "11111111111111111111111111",
@@ -1755,15 +1752,15 @@ var STAGE = {
         "1111111111111111",
         "1 E            1",
         "1     1     S  1",
-        "1              1",
+        "1  g           1",
         "1111111111111111",
     ],
     B5: [
         "1111111111111",
-        "1  S        1",
-        "1           1",
-        "1           1",
-        "1         E 1",
+        "1  S 1      1",
+        "1    1  1   1",
+        "1    1  1   1",
+        "1       1 E 1",
         "1111111111111",
     ],
     B6: [

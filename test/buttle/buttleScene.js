@@ -152,7 +152,10 @@ phina.define("ButtleScene", {
             }).play();
         });
 
+        let stopCountdown = false;
+
         goban.on("Complete", function() {
+            stopCountdown = true;
             goban.freeze();
 
             itemButton.setInteractive(false);
@@ -177,12 +180,29 @@ phina.define("ButtleScene", {
                 }
                 if (nowQuestions[enemyIndex].hp === 0) {
                     self.addButtleComment(enemy.name + " を倒した！");
-                    if (Math.random() > 0.6) {
-                        self._playerInfo.items.carotte += 1;
-                        self.addButtleComment("にんじんを1本もらった");
-                    } else if (Math.random() > 0.9) {
-                        self._playerInfo.items.megusuri += 1;
-                        self.addButtleComment("魔法の目薬を1滴もらった");
+                    if (self._playerInfo.items.countdown !== true) {
+                        if (Math.random() > 0.6) {
+                            self._playerInfo.items.carotte += 1;
+                            self.addButtleComment("にんじんを1本もらった");
+                        } else if (Math.random() > 0.8) {
+                            self._playerInfo.items.feather += 1;
+                            self.addButtleComment("飛竜の羽根を1枚もらった");
+                        } else if (Math.random() > 0.9) {
+                            self._playerInfo.items.megusuri += 1;
+                            self.addButtleComment("魔法の目薬を1滴もらった");
+                        }
+                    } else if (self._playerInfo.items.countdown === true) {
+                        const r = Math.random();
+                        if (r < 0.8) {
+                            self._playerInfo.items.carotte += 1;
+                            self.addButtleComment("にんじんを1本もらった");
+                        } else if (r < 0.9) {
+                            self._playerInfo.items.feather += 1;
+                            self.addButtleComment("飛竜の羽根を1枚もらった");
+                        } else {
+                            self._playerInfo.items.megusuri += 1;
+                            self.addButtleComment("魔法の目薬を1滴もらった");
+                        }
                     }
                     const enemyLevel = self._playerInfo.map;
                     const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
@@ -214,6 +234,37 @@ phina.define("ButtleScene", {
             });
         });
 
+        // 死の腕時計
+        if (self._playerInfo.items.countdown === true) {
+
+            const countdownLabel = Label({
+                x: this.gridX.center(),
+                y: this.gridY.center(-3),
+                fill: "red",
+                fontSize: 400,
+            }).addChildTo(this);
+            countdownLabel.alpha = 0.6;
+            countdownLabel.text = "";
+
+            function countdown(sec) {
+                if (sec === 0) {
+                    enemy.level = 100;
+                    countdownLabel.text = "0";
+                    goban.flare("Miss");
+                    return;
+                }
+                sec -= 1;
+                setTimeout(function() {
+                    if (stopCountdown) {
+                        return;
+                    }
+                    countdownLabel.text = sec;
+                    countdown(sec);
+                }, 1000);
+            }
+
+            countdown(6);
+        }
 
     },
     updateButtleComment: function(text) {

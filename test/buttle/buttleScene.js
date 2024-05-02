@@ -5,6 +5,17 @@ phina.define("ButtleScene", {
 
     _end: false,
 
+    updateHpLabel() {
+        const self = this;
+        self.hpLabel.text = "うさこ" + "  HP: " + self._playerInfo.hp + "／" + (self._playerInfo.level * 5);// + "  にんじん:" + self._playerInfo.items.carotte;
+        if (self._playerInfo.hp <= 3) {
+            self.hpLabel.fill = "red";
+            self.statusBox.stroke = "red";
+        } else {
+            self.hpLabel.fill = "white" ;
+            self.statusBox.stroke = "white";
+        }
+    },
     init: function(param) {
         const self = this;
         this.superInit(param);
@@ -32,18 +43,7 @@ phina.define("ButtleScene", {
             y: 37,
         }).addChildTo(this.statusBox);
         
-        function updateHpLabel() {
-            self.hpLabel.text = "うさこ" + "  HP: " + self._playerInfo.hp + "／" + (self._playerInfo.level * 5);// + "  にんじん:" + self._playerInfo.items.carotte;
-            if (self._playerInfo.hp <= 3) {
-                self.hpLabel.fill = "red";
-                self.statusBox.stroke = "red";
-            } else {
-                self.hpLabel.fill = "white" ;
-                self.statusBox.stroke = "white";
-            }
-        }
-
-        updateHpLabel();
+        self.updateHpLabel();
 
         const itemButton = RectangleShape({
             fill: '#000',
@@ -116,7 +116,7 @@ phina.define("ButtleScene", {
                 self._playerInfo.hp = self._playerInfo.hp < 0 ? 0 : self._playerInfo.hp;
 
                 self.addButtleComment(damage + "のダメージを受けた！");
-                updateHpLabel();
+                self.updateHpLabel();
 
                 if (self._playerInfo.hp <= 0) {
                     goban.alpha = 0.5;
@@ -206,7 +206,7 @@ phina.define("ButtleScene", {
                     }
                     const enemyLevel = self._playerInfo.map;
                     const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
-                    if (enemyNum === 0) {
+                    if (enemyNum === 0 && self._playerInfo.level <= enemyLevel) {
                         self._playerInfo.level = enemyLevel + 1;
                         self._playerInfo.hp = self._playerInfo.level * 5;
                     }
@@ -242,9 +242,9 @@ phina.define("ButtleScene", {
                 y: this.gridY.center(-3),
                 fill: "red",
                 fontSize: 400,
+                text: "",
             }).addChildTo(this);
             countdownLabel.alpha = 0.6;
-            countdownLabel.text = "";
 
             function countdown(sec) {
                 if (sec === 0) {

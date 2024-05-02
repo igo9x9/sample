@@ -1433,6 +1433,7 @@ phina.define("MenuScene", {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.carotte -= 1;
                     tmpDate.playerInfo.hp += 1;
+                    App._scenes[1].updateHpLabel();
                     self.refreshText();
                     return SimpleMessage("HPが1回復しました。");
                 };

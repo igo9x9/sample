@@ -437,7 +437,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第9型",
         steps: [
             [
@@ -568,7 +568,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 8,
         name: "隅の死活第12型",
         steps: [
             [
@@ -625,7 +625,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 6,
         name: "隅の死活第13型",
         steps: [
             [
@@ -719,7 +719,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第15型",
         steps: [
             [
@@ -776,7 +776,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第15型変化",
         steps: [
             [
@@ -927,7 +927,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第17型変化",
         steps: [
             [
@@ -1229,7 +1229,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第23型",
         steps: [
             [
@@ -1605,7 +1605,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 6,
         name: "隅の死活第30型",
         steps: [
             [
@@ -1669,7 +1669,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 6,
         name: "隅の死活第32型",
         steps: [
             [
@@ -1904,7 +1904,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 7,
         name: "隅の死活第36型",
         steps: [
             [
@@ -2008,7 +2008,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 7,
         name: "隅の死活第37型",
         steps: [
             [
@@ -2112,7 +2112,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 8,
         name: "隅の死活第39型",
         steps: [
             [
@@ -2179,7 +2179,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 8,
         name: "隅の死活第40型",
         steps: [
             [
@@ -2441,7 +2441,7 @@ const questions = [
         ]
     },
     {
-        level: 5,
+        level: 4,
         name: "辺の死活第13型",
         steps: [
             [

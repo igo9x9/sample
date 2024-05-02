@@ -48,22 +48,27 @@ phina.define('TitleScene', {
     init: function(options) {
         this.superInit(options);
 
-        this.backgroundColor = "white";
+        this.backgroundColor = "green";
+
 
         Label({
             text: 'うさこの',
             x: 320,
             y: 420,
             fontSize: 40,
-            fill: "black",
+            fill: "orange",
+            fontWeight: 800,
+            // strokeWidth: 5,
+            // stroke: "white",
         }).addChildTo(this);
         Label({
             text: '囲碁死活ダンジョン',
             x: 320,
             y: 500,
             fontSize: 50,
-            fill: "black",
-            // strokeWidth: 10,
+            fill: "white",
+            fontWeight: 800,
+            // strokeWidth: 5,
             // stroke: "black",
         }).addChildTo(this);
         Player().setPosition(200,420).addChildTo(this);
@@ -75,6 +80,8 @@ phina.define('TitleScene', {
                 carotte: 0,
                 ring: null,
                 megusuri: 0,
+                countdown: null,
+                feather: 0,
             }
         };
         lastLevel = 1;
@@ -973,7 +980,18 @@ phina.define('NPCBlock', {
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.ring === null) {
                         tmpDate.playerInfo.items.ring = false;
-                        return SimpleMessage("修行者\n「レベルを早く上げたいなら、\nこの指輪が約に立つよ。\n君にあげよう。」", () => SimpleMessage("修行の指輪 を手に入れた！"));
+                        return SimpleMessage("修行者\n「早くレベルを上げたいなら、\nこの指輪が役に立つよ。\n君にあげよう。」", () => SimpleMessage("修行の指輪 を手に入れた！"));
+                    } else {
+                        return SimpleMessage("修行者\n「がんばれよ！」");
+                    }
+                }
+                break;
+            case "g":
+                this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
+                this._messageFnc = () => {
+                    if (tmpDate.playerInfo.items.countdown === null) {
+                        tmpDate.playerInfo.items.countdown = false;
+                        return SimpleMessage("修行者\n「アイテムが足りないなら、\nこの腕時計が役に立つよ。\n君にあげよう。」", () => SimpleMessage("死の腕時計 を手に入れた！"));
                     } else {
                         return SimpleMessage("修行者\n「がんばれよ！」");
                     }
@@ -1171,6 +1189,7 @@ phina.define("MenuScene", {
     init: function(sceneName) {
         this.superInit();
         var self = this;
+        var menuScene = this;
 
         this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
 
@@ -1211,8 +1230,102 @@ phina.define("MenuScene", {
         self.statusLabel = Label({
             fill: "white",
             fontSize: 30,
-            y: -350,
+            y: -300,
         }).addChildTo(Box);
+
+        // 飛竜の羽根
+        const featherButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 160,
+            width: 450,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.featherLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(featherButton);
+        featherButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.feather === 0) {
+                message = SimpleMessage("行ったことがある階に戻れる。\nどの階かは分からない。");
+            } else if (sceneName === "BattleScene") {
+                message = SimpleMessage("行ったことがある階に戻れる。\n戦闘中は使えない。");
+            } else if (tmpDate.playerInfo.map < 2) {
+                message = SimpleMessage("行ったことがある階に戻れる。\nここでは使えない。");
+            } else {
+                const yesFnc = () => {
+                    const nowMap = tmpDate.playerInfo.map;
+                    tmpDate.playerInfo.map = Math.randint(1, nowMap - 1);
+                    tmpDate.playerInfo.items.feather -= 1;
+                    self.refreshText();
+                    App._scenes[1].nextScene("MapScene");
+                    self.exit();
+                    menuScene.exit();
+                    return SimpleMessage("ジャンプ！");
+                };
+                message = QuestionMessage("行ったことがある階に戻れる。\nどの階かは分からない。\n1枚使いますか？", yesFnc, null);
+            }
+            App.pushScene(MessageScene(message));
+        });
+
+        // 死の腕時計
+        const countdownButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 80,
+            width: 450,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.countdownLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(countdownButton);
+        countdownButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.countdown === false) {
+
+                if (sceneName === "BattleScene") {
+                    message = SimpleMessage("5秒以内に敵を倒さないと即死する。\n倒すとアイテムを必ず貰える。\n戦闘中は装着できません。");
+                } else {
+                    const yesFnc = () => {
+                        tmpDate.playerInfo.items.countdown = true;
+                        self.refreshText();
+                        return SimpleMessage("装着しました。");
+                    };
+                    message = QuestionMessage("5秒以内に敵を倒さないと即死する。\n倒すとアイテムを必ず貰える。\n装着しますか？", yesFnc, null);
+                }
+
+            } else if (tmpDate.playerInfo.items.countdown === true) {
+
+                if (sceneName === "BattleScene") {
+                    message = SimpleMessage("5秒以内に敵を倒さないと即死する。\n倒すとアイテムを必ず貰える。\n戦闘中は外せません。");
+                } else {
+                    const yesFnc = () => {
+                        tmpDate.playerInfo.items.countdown = false;
+                        self.refreshText();
+                        return SimpleMessage("腕時計を外しました。");
+                    };
+                    message = QuestionMessage("5秒以内に敵を倒さないと即死する。\n倒すとアイテムを必ず貰える。\n外しますか？", yesFnc, null);
+                }
+
+            } else {
+                message = SimpleMessage("5秒以内に敵を倒さないと即死する。\n倒すとアイテムを必ず貰える。");
+            }
+            App.pushScene(MessageScene(message));
+        });
 
         // 魔法の目薬
         const megusuriButton = RectangleShape({
@@ -1220,9 +1333,9 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 160,
+            y: 0,
             width: 450,
-            height: 100,
+            height: 50,
             cornerRadius: 8,
         }).addChildTo(Box).setInteractive(true);
         self.megusuriLabel = Label({
@@ -1235,7 +1348,7 @@ phina.define("MenuScene", {
         megusuriButton.on("pointstart", function() {
             let message;
             if (tmpDate.playerInfo.items.megusuri === 0) {
-                message = SimpleMessage("答えが見える不思議な目薬。\n今は持っていません。");
+                message = SimpleMessage("答えが見える不思議な目薬。");
             } else {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.megusuri -= 1;
@@ -1258,9 +1371,9 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 0,
+            y: -80,
             width: 450,
-            height: 100,
+            height: 50,
             cornerRadius: 8,
         }).addChildTo(Box).setInteractive(true);
         self.ringLabel = Label({
@@ -1276,9 +1389,9 @@ phina.define("MenuScene", {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.ring = true;
                     self.refreshText();
-                    return SimpleMessage("装備しました。");
+                    return SimpleMessage("装着しました。");
                 };
-                message = QuestionMessage("敵と遭遇しやすくなる指輪。\n装備しますか？", yesFnc, null);
+                message = QuestionMessage("敵と遭遇しやすくなる指輪。\n装着しますか？", yesFnc, null);
             } else if (tmpDate.playerInfo.items.ring === true) {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.ring = false;
@@ -1287,7 +1400,7 @@ phina.define("MenuScene", {
                 };
                 message = QuestionMessage("敵と遭遇しやすくなる指輪。\n外しますか？", yesFnc, null);
             } else {
-                message = SimpleMessage("敵と遭遇しやすくなる指輪。\n持っていません。");
+                message = SimpleMessage("敵と遭遇しやすくなる指輪。");
             }
             App.pushScene(MessageScene(message));
         });
@@ -1300,7 +1413,7 @@ phina.define("MenuScene", {
             x: 0,
             y: -160,
             width: 450,
-            height: 100,
+            height: 50,
             cornerRadius: 8,
         }).addChildTo(Box).setInteractive(true);
         self.carotteLabel = Label({
@@ -1313,9 +1426,9 @@ phina.define("MenuScene", {
         carotteButton.on("pointstart", function() {
             let message;
             if (tmpDate.playerInfo.items.carotte === 0) {
-                message = SimpleMessage("食べるとHPが回復します。\n今は持っていません。");
+                message = SimpleMessage("食べるとHPが回復する。");
             } else if (tmpDate.playerInfo.hp === tmpDate.playerInfo.level * 5) {
-                message = SimpleMessage("食べるとHPが回復します。\n今はHPが満タンです。");
+                message = SimpleMessage("食べるとHPが回復する。\n今はHPが満タンです。");
             } else {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.carotte -= 1;
@@ -1323,7 +1436,7 @@ phina.define("MenuScene", {
                     self.refreshText();
                     return SimpleMessage("HPが1回復しました。");
                 };
-                message = QuestionMessage("食べるとHPが回復します。\n1本食べますか？", yesFnc, null);
+                message = QuestionMessage("食べるとHPが回復する。\n1本食べますか？", yesFnc, null);
             }
             App.pushScene(MessageScene(message));
         });
@@ -1333,8 +1446,10 @@ phina.define("MenuScene", {
     refreshText: function() {
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
         this.carotteLabel.text = "にんじん　： " + (tmpDate.playerInfo.items.carotte === 0 ? "持っていない" : tmpDate.playerInfo.items.carotte + " 本");
-        this.ringLabel.text = "修行の指輪： " + (tmpDate.playerInfo.items.ring === null ? "持っていない" : (tmpDate.playerInfo.items.ring === true ? "装備中" : "外している"));
+        this.ringLabel.text = "修行の指輪： " + (tmpDate.playerInfo.items.ring === null ? "持っていない" : (tmpDate.playerInfo.items.ring === true ? "装着中" : "外している"));
         this.megusuriLabel.text = "魔法の目薬： " + (tmpDate.playerInfo.items.megusuri === 0 ? "持っていない" : tmpDate.playerInfo.items.megusuri + " 滴");
+        this.countdownLabel.text = "死の腕時計： " + (tmpDate.playerInfo.items.countdown === null ? "持っていない" : (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している"));
+        this.featherLabel.text = "飛竜の羽根： " + (tmpDate.playerInfo.items.feather === 0 ? "持っていない" : tmpDate.playerInfo.items.feather + " 枚");
     }
 });
 
@@ -1540,7 +1655,7 @@ var STAGE = {
         "11111111111111111111111111",
         "1  S                     1",
         "1         q              1",
-        "1         E              1",
+        "1         E         g    1",
         "1                        1",
         "11111111111111111111111111",
     ],
@@ -1549,7 +1664,7 @@ var STAGE = {
         "1  S                     1",
         "1             1111       1",
         "1             1 E        1",
-        "111           1       e  1",
+        "111           1          1",
         "XX1111111111111          1",
         "XXXXXXXXXXXXXX111111111111",
     ],
@@ -1566,7 +1681,7 @@ var STAGE = {
         "1111111111111111",
         "1 E            1",
         "1     1     S  1",
-        "1   e          1",
+        "1              1",
         "1111111111111111",
     ],
     B5: [

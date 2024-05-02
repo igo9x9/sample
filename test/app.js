@@ -75,6 +75,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
+        // tmpDate.playerInfo = {map: 6, level: 6, hp: 500, x: null, y: null,
         tmpDate.playerInfo = {map: 0, level: 1, hp: 5, x: null, y: null,
             items: {
                 carotte: 0,
@@ -82,6 +83,7 @@ phina.define('TitleScene', {
                 megusuri: 0,
                 countdown: null,
                 feather: 0,
+                revival: 10,
             }
         };
         lastLevel = 1;
@@ -164,6 +166,18 @@ phina.define('MapScene', {
     updateStatusLabel() {
         // this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP : ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5) + "  にんじん : " + tmpDate.playerInfo.items.carotte;
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
+
+        if (tmpDate.playerInfo.map !==0 ) {
+            const enemyLevel = tmpDate.playerInfo.map;
+            let msg = "地下" + tmpDate.playerInfo.map + "階  " + "難易度" + enemyLevel;
+            const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
+            if (enemyNum > 0) {
+                msg += " 残り" + enemyNum + "問";
+            } else {
+                msg += " 全問クリア";
+            }
+            this.floorInfoLabel.text = msg;
+        }
     },
   
     /**
@@ -200,6 +214,17 @@ phina.define('MapScene', {
 
         //マップのレイヤー
         var layer2 = DisplayElement().addChildTo(this);//当たり判定のあるもの
+
+        if (playerInfo.map !==0 ) {
+            console.log("hoge")
+            this.floorInfoLabel = Label({
+                text: "",
+                fill: "#fff",
+                x: this.gridX.center(),
+                y: 930,
+            });
+            this.floorInfoLabel.addChildTo(this);
+        }
 
         var statusBox = RectangleShape({
             fill: '#000',
@@ -245,22 +270,22 @@ phina.define('MapScene', {
             App.pushScene(MenuScene());
         });
 
-        if (playerInfo.map !==0 ) {
-            const enemyLevel = playerInfo.map;
-            let msg = "地下" + playerInfo.map + "階  " + "難易度" + enemyLevel;
-            const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
-            if (enemyNum > 0) {
-                msg += " 残り" + enemyNum + "問";
-            } else {
-                msg += " 全問クリア";
-            }
-            Label({
-                text: msg,
-                fill: "#fff",
-                x: this.gridX.center(),
-                y: 930,
-            }).addChildTo(this);
-        }
+        // if (playerInfo.map !==0 ) {
+        //     const enemyLevel = playerInfo.map;
+        //     let msg = "地下" + playerInfo.map + "階  " + "難易度" + enemyLevel;
+        //     const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
+        //     if (enemyNum > 0) {
+        //         msg += " 残り" + enemyNum + "問";
+        //     } else {
+        //         msg += " 全問クリア";
+        //     }
+        //     Label({
+        //         text: msg,
+        //         fill: "#fff",
+        //         x: this.gridX.center(),
+        //         y: 930,
+        //     }).addChildTo(this);
+        // }
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
@@ -929,12 +954,12 @@ phina.define('NPCBlock', {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = ()=> SimpleMessage("村人\n「地下に行くほど死活問題は\n難しくなっていくし、\n受けるダメージも大きくなるよ。",
-                    () => SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だよ。",
+                    () => SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だね。",
                         () => SimpleMessage("でも死活の知識が豊富なら、\nあえて低いレベルのまま\nどんどん進むのもアリかもね」")));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = ()=> SimpleMessage("村人\n「上の階には戻れなくなるから、\n慎重に進んでね」");
+                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたあとには\n上の階には戻れないの。\n慎重に進んでね。", () => SimpleMessage("でも『飛竜の羽根』を使うと\n戻れるらしいわ」"));
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
@@ -952,8 +977,8 @@ phina.define('NPCBlock', {
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問前後くらいで、",
-                    () => SimpleMessage("その問題の全てを正解したら\nレベルアップできるらしいわ」"));
+                this._messageFnc = () => SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問くらいで、",
+                    () => SimpleMessage("その全てに正解したら\nレベルアップできるらしいわ！」"));
                 break;
             case "e":
                 this.superInit("npc5", BOX_WIDTH, BOX_HEIGHT);
@@ -1108,7 +1133,7 @@ phina.define("MessageScene", {
         
         self._questionBox = RectangleShape({
             width: 300,
-            height: 50,
+            height: 80,
             fill: 'white',
             stroke: "black",
             strokeWidth: 16,
@@ -1121,6 +1146,7 @@ phina.define("MessageScene", {
             fill: 'black',
             align:"left",
             x: -70,
+            y: 2,
             text: "はい",
             align: "center",
         }).addChildTo(self._questionBox).setInteractive(true);
@@ -1136,6 +1162,7 @@ phina.define("MessageScene", {
             fill: 'black',
             align:"left",
             x: 50,
+            y: 2,
             text: "いいえ",
             align: "center",
         }).addChildTo(self._questionBox).setInteractive(true);
@@ -1232,6 +1259,49 @@ phina.define("MenuScene", {
             fontSize: 30,
             y: -300,
         }).addChildTo(Box);
+
+        // 復活の線香
+        const revivalButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 240,
+            width: 450,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.revivalLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -200,
+            y: 0,
+            align: "left",
+        }).addChildTo(revivalButton);
+        revivalButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.revival === 0) {
+                message = SimpleMessage("今いる階の敵がすべて復活する。");
+            } else if (sceneName === "BattleScene") {
+                message = SimpleMessage("今いる階の敵がすべて復活する。\n戦闘中は使えない。");
+            } else if (tmpDate.playerInfo.map === 0) {
+                message = SimpleMessage("今いる階の敵がすべて復活する。\nここでは使えない。");
+            } else {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.revival -= 1;
+                    self.refreshText();
+                    questions.forEach((q) => {
+                        if (q.level === tmpDate.playerInfo.map)  {
+                            q.hp = 1;
+                        }
+                    });
+                    return SimpleMessage("この階の敵が復活した！");
+                };
+                message = QuestionMessage("今いる階の敵がすべて復活する。\n1本使いますか？", yesFnc, null);
+            }
+            App.pushScene(MessageScene(message));
+        });
+
 
         // 飛竜の羽根
         const featherButton = RectangleShape({
@@ -1354,6 +1424,8 @@ phina.define("MenuScene", {
                     tmpDate.playerInfo.items.megusuri -= 1;
                     self.refreshText();
                     App.flare("megusuri");
+                    self.exit();
+                    menuScene.exit();
                     return SimpleMessage("答えが見えた！");
                 };
                 if (sceneName === "BattleScene") {
@@ -1451,6 +1523,7 @@ phina.define("MenuScene", {
         this.megusuriLabel.text = "魔法の目薬： " + (tmpDate.playerInfo.items.megusuri === 0 ? "持っていない" : tmpDate.playerInfo.items.megusuri + " 滴");
         this.countdownLabel.text = "死の腕時計： " + (tmpDate.playerInfo.items.countdown === null ? "持っていない" : (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している"));
         this.featherLabel.text = "飛竜の羽根： " + (tmpDate.playerInfo.items.feather === 0 ? "持っていない" : tmpDate.playerInfo.items.feather + " 枚");
+        this.revivalLabel.text = "復活の線香： " + (tmpDate.playerInfo.items.revival === 0 ? "持っていない" : tmpDate.playerInfo.items.revival + " 本");
     }
 });
 

@@ -1502,7 +1502,11 @@ phina.define("MenuScene", {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.carotte -= 1;
                     tmpDate.playerInfo.hp += 1;
-                    App._scenes[1].updateHpLabel();
+                    if (sceneName === "BattleScene") {
+                        App._scenes[1].updateHpLabel();
+                    } else {
+                        App._scenes[1].updateStatusLabel();
+                    }
                     self.refreshText();
                     return SimpleMessage("HPが1回復しました。");
                 };

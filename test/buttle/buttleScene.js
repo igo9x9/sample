@@ -185,6 +185,9 @@ phina.define("ButtleScene", {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
                         } else if (Math.random() > 0.8) {
+                            self._playerInfo.items.revival += 1;
+                            self.addButtleComment("復活の線香を1本もらった");
+                        } else if (Math.random() > 0.8) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("飛竜の羽根を1枚もらった");
                         } else if (Math.random() > 0.9) {
@@ -193,9 +196,12 @@ phina.define("ButtleScene", {
                         }
                     } else if (self._playerInfo.items.countdown === true) {
                         const r = Math.random();
-                        if (r < 0.8) {
+                        if (r < 0.7) {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
+                        } else if (r < 0.8) {
+                            self._playerInfo.items.revival += 1;
+                            self.addButtleComment("復活の線香を1本もらった");
                         } else if (r < 0.9) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("飛竜の羽根を1枚もらった");
@@ -242,6 +248,8 @@ phina.define("ButtleScene", {
                 y: this.gridY.center(-3),
                 fill: "red",
                 fontSize: 400,
+                fontWeight: 800,
+                fontFamily: "IMPACT",
                 text: "",
             }).addChildTo(this);
             countdownLabel.alpha = 0.6;

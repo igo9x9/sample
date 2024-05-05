@@ -1006,7 +1006,7 @@ phina.define('NPCBlock', {
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.ring === null) {
                         tmpDate.playerInfo.items.ring = false;
-                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("修行の指輪 を手に入れた！", () => SimpleMessage("囲碁の神様\n「その指輪を使えば\n敵を探す手間が省けるぞい。」", )));
+                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("修行の指輪 を手に入れた！", () => SimpleMessage("囲碁の神様\n「便利な指輪じゃよ。大切にな。」", )));
                     } else {
                         return SimpleMessage("囲碁の神様\n「ふぉっふぉっ」");
                     }
@@ -1519,12 +1519,12 @@ phina.define("MenuScene", {
     },
     refreshText: function() {
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
-        this.carotteLabel.text = "にんじん　： " + (tmpDate.playerInfo.items.carotte === 0 ? "持っていない" : tmpDate.playerInfo.items.carotte + " 本");
-        this.ringLabel.text = "修行の指輪： " + (tmpDate.playerInfo.items.ring === null ? "持っていない" : (tmpDate.playerInfo.items.ring === true ? "装着中" : "外している"));
-        this.megusuriLabel.text = "魔法の目薬： " + (tmpDate.playerInfo.items.megusuri === 0 ? "持っていない" : tmpDate.playerInfo.items.megusuri + " 滴");
-        this.countdownLabel.text = "死の腕時計： " + (tmpDate.playerInfo.items.countdown === null ? "持っていない" : (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している"));
-        this.featherLabel.text = "飛竜の羽根： " + (tmpDate.playerInfo.items.feather === 0 ? "持っていない" : tmpDate.playerInfo.items.feather + " 枚");
-        this.revivalLabel.text = "復活の線香： " + (tmpDate.playerInfo.items.revival === 0 ? "持っていない" : tmpDate.playerInfo.items.revival + " 本");
+        this.carotteLabel.text = "にんじん　： " + (tmpDate.playerInfo.items.carotte === 0 ? "ー" : tmpDate.playerInfo.items.carotte + " 本");
+        this.ringLabel.text = "修行の指輪： " + (tmpDate.playerInfo.items.ring === null ? "ー" : (tmpDate.playerInfo.items.ring === true ? "装着中" : "外している"));
+        this.megusuriLabel.text = "魔法の目薬： " + (tmpDate.playerInfo.items.megusuri === 0 ? "ー" : tmpDate.playerInfo.items.megusuri + " 滴");
+        this.countdownLabel.text = "死の腕時計： " + (tmpDate.playerInfo.items.countdown === null ? "ー" : (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している"));
+        this.featherLabel.text = "飛竜の羽根： " + (tmpDate.playerInfo.items.feather === 0 ? "ー" : tmpDate.playerInfo.items.feather + " 枚");
+        this.revivalLabel.text = "復活の線香： " + (tmpDate.playerInfo.items.revival === 0 ? "ー" : tmpDate.playerInfo.items.revival + " 本");
     }
 });
 
@@ -1756,7 +1756,7 @@ var STAGE = {
         "1111111111111111",
         "1 E            1",
         "1     1     S  1",
-        "1  g           1",
+        "1              1",
         "1111111111111111",
     ],
     B5: [
@@ -1777,12 +1777,12 @@ var STAGE = {
         "1111111111111",
     ],
     B7: [
-        "1111111111",
-        "1        1",
-        "1   S    1",
-        "1        1",
-        "1      E 1",
-        "1111111111",
+        "11111111111111111111111111",
+        "1                        1",
+        "1   S    11111111111111  1",
+        "1        1XXXXXXXXX1g 1  1",
+        "1      E 1XXXXXXXXX1     1",
+        "1111111111XXXXXXXXX1111111",
     ],
     B8: [
         "1111111111",

@@ -88,7 +88,7 @@ phina.define("ButtleScene", {
         const nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
         const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
         // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第42型");
+        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第45型");
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -106,14 +106,18 @@ phina.define("ButtleScene", {
         
         goban.on("Miss", function() {
             self.miss = true;
+            const damage = enemy.level;
+
+            self._playerInfo.hp -= damage;
+            self._playerInfo.hp = self._playerInfo.hp < 0 ? 0 : self._playerInfo.hp;
+            if (self._playerInfo.hp <= 0) {
+                goban.clear("Miss");
+                goban.clear("Complete");
+            }
+
             goban.tweener.by({y:-30},300).by({y:80},100).call(function(){
                 self.statusBox.tweener.by({y:10},20).by({y:-20},20).by({y:20},20).by({y:-10},20).play();
             }).by({y:-50},100).call(function() {
-
-                const damage = enemy.level;
-
-                self._playerInfo.hp -= damage;
-                self._playerInfo.hp = self._playerInfo.hp < 0 ? 0 : self._playerInfo.hp;
 
                 self.addButtleComment(damage + "のダメージを受けた！");
                 self.updateHpLabel();
@@ -156,6 +160,8 @@ phina.define("ButtleScene", {
 
         goban.on("Complete", function() {
             stopCountdown = true;
+            goban.clear("Miss");
+            goban.clear("Complete");
             goban.freeze();
 
             itemButton.setInteractive(false);

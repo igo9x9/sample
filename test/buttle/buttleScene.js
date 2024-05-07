@@ -84,11 +84,23 @@ phina.define("ButtleScene", {
             x: -250,
         }).addChildTo(msgBox);
        
-        const ememyLevel = self._playerInfo.map;
-        const nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
-        const enemyIndex = Math.floor(Math.random() * nowQuestions.length);
-        // const nowQuestions = questions.filter((q) => q.hp > 0);
-        // const enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第45型");
+
+        let ememyLevel;
+        let nowQuestions;
+        let enemyIndex;
+
+        if (self._playerInfo.bossStep === 0) {
+            ememyLevel = self._playerInfo.map;
+            nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
+            enemyIndex = Math.floor(Math.random() * nowQuestions.length);
+            // nowQuestions = questions.filter((q) => q.hp > 0);
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第102型");
+    } else {
+            ememyLevel = 30;
+            nowQuestions = questions.filter((q) => q.level === ememyLevel);
+            enemyIndex = self._playerInfo.bossStep - 1;
+        }
+
         const enemy = {
             name: nowQuestions[enemyIndex].name,
             steps: nowQuestions[enemyIndex].steps,
@@ -216,11 +228,13 @@ phina.define("ButtleScene", {
                             self.addButtleComment("魔法の目薬を1滴もらった");
                         }
                     }
-                    const enemyLevel = self._playerInfo.map;
-                    const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
-                    if (enemyNum === 0 && self._playerInfo.level <= enemyLevel) {
-                        self._playerInfo.level = enemyLevel + 1;
-                        self._playerInfo.hp = self._playerInfo.level * 5;
+                    if (self._playerInfo.bossStep === 0) {
+                        const enemyLevel = self._playerInfo.map;
+                        const enemyNum = nowQuestions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
+                        if (enemyNum === 0 && self._playerInfo.level <= enemyLevel) {
+                            self._playerInfo.level = enemyLevel + 1;
+                            self._playerInfo.hp = self._playerInfo.level * 5;
+                        }
                     }
 
                 } else {

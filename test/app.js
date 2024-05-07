@@ -35,6 +35,7 @@ ASSETS = {
         "npc4": "images/npc4.png",
         "npc5": "images/npc5.png",
         "npc6": "images/npc6.png",
+        "boss": "images/boss.png",
     },
 };
 
@@ -76,8 +77,17 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        // tmpDate.playerInfo = {map: 6, level: 6, hp: 500, x: null, y: null,
-        tmpDate.playerInfo = {map: 0, level: 1, hp: 5, x: null, y: null,
+        // tmpDate.playerInfo = {map: 1, level: 6, hp: 500, bossStep: 3, x: null, y: null,
+        //     items: {
+        //         carotte: 100,
+        //         ring: false,
+        //         megusuri: 100,
+        //         countdown: false,
+        //         feather: 100,
+        //         revival: 100,
+        //     }
+        // };
+        tmpDate.playerInfo = {map: 0, level: 1, hp: 5, bossStep: 0, x: null, y: null,
             items: {
                 carotte: 0,
                 ring: null,
@@ -290,9 +300,64 @@ phina.define('MapScene', {
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
+
+            // レベルアップ
             if (lastLevel !== playerInfo.level) {
                 App.pushScene(LevelUpScene());
                 lastLevel = playerInfo.level;
+            }
+
+            // ボス戦１
+            if (tmpDate.playerInfo.bossStep === 1) {
+                const msg = SimpleMessage("死活魔王\n「やるな！」", () => {
+                    tmpDate.playerInfo.bossStep = 2;
+                    self.plungeButtle();
+                    return SimpleMessage("「しかし、まだだ！」");
+                });
+                App.pushScene(MessageScene(msg));
+            }
+
+            // ボス戦２
+            if (tmpDate.playerInfo.bossStep === 2) {
+                const msg = SimpleMessage("死活魔王\n「…ぐぬぬ」", () => {
+                    tmpDate.playerInfo.bossStep = 3;
+                    self.plungeButtle();
+                    return SimpleMessage("「これはどうだ！」");
+                });
+                App.pushScene(MessageScene(msg));
+            }
+
+            // ゲームクリア
+            if (tmpDate.playerInfo.bossStep === 3) {
+                const msg = SimpleMessage("「やられたー！！！」");
+                App.pushScene(MessageScene(msg));
+                self.boss.tweener.to({alpha: 0, rotation: 360, scaleX:0, scaleY:0}, 1000).call(()=> {
+                    self.boss.remove();
+                    App.pushScene(MessageScene(SimpleMessage("ついに、死活魔王を倒した！", () => {
+                        return SimpleMessage("…どこからともなく、\n囲碁の神様の声が聞こえてきた。", () => {
+                            return SimpleMessage("囲碁の神様\n「うさこよ、よくやった」",
+                                () => {
+                                    const player2 = Player2();
+                                    self.player.hide();
+                                    player2.setPosition(player.x, player.y).addChildTo(self)
+                                        .tweener.wait(500).call(function() {
+                                            player2.remove();
+                                            self.player.show();
+                                            self.player.tweener.to({y: -100}, 200).wait(500).call(function() {App.pushScene(GameClearScene());}).play();
+                                        }).play();
+
+                                    return SimpleMessage("「さあ、地上へ戻してやろう！」");
+                                }
+                            );
+                        });
+
+                        // App.pushScene(GameClearScene());
+                        // return SimpleMessage("このあと、囲碁の神様の力によって\nうさこは無事に地上に帰った。", () => {
+                        //     self.nextScene("TitleScene");
+                        //     return SimpleMessage("おしまい");
+                        // });
+                    })));
+                }).play();
             }
         });
         
@@ -319,7 +384,10 @@ phina.define('MapScene', {
                         FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                     }
                     // NPC                    
-                    NPCBlock(item).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    const npc = NPCBlock(item).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    if (item === "z") {
+                        self.boss = npc;
+                    }
                 }
                 if (item === "H") {
                     // 病院
@@ -398,12 +466,13 @@ phina.define('MapScene', {
             player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
         }
 
-         //クラス内で参照できるようにする
+        //クラス内で参照できるようにする
         this.player = player;
         this.layer2 = layer2;
         if (!newGame && !mapToMap) {
             this.setMapLeftTop(mapLeftTop);
         }
+
     },
 
     // マップブロックの左上の座標を得る
@@ -1031,12 +1100,30 @@ phina.define('NPCBlock', {
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
                 this._messageFnc = () => SimpleMessage("「地下ダンジョン入り口」");
                 break;
+
+            case "z":
+                this.superInit("boss");
+                if (tmpDate.playerInfo.bossStep === 0) {
+                    const lastBattle = function() {
+                        tmpDate.playerInfo.bossStep = 1;
+                        App._scenes[1].plungeButtle();
+                        return SimpleMessage("最後の試練だ！");
+                    };
+                    this._messageFnc = () => SimpleMessage("死活魔王\n「よく来たな」", lastBattle);
+                } else {
+                    this._messageFnc = null;
+                }
+            break;
+
             default:
         }
     },
     say: function() {
         const self = this;
         if (self._wait) {
+            return;
+        }
+        if (!self._messageFnc) {
             return;
         }
         App.pushScene(MessageScene(this._messageFnc()));
@@ -1149,6 +1236,7 @@ phina.define("MessageScene", {
         }).addChildTo(self._questionBox).setInteractive(true);
         
         this.yesLabel.onpointstart = function() {
+            if (self._message === null) return;
             if (self._message.className === "QuestionMessage") {
                 self.setMessageObj(self._message.yesCallback());
                 self.printText();
@@ -1563,6 +1651,37 @@ phina.define("LevelUpScene", {
     },
 });
 
+/*
+ * ゲームクリアシーン
+ */
+phina.define("GameClearScene", {
+    superClass: 'DisplayScene',
+    init: function() {
+        this.superInit();
+        var self = this;
+
+        this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+
+        Label({
+            text: "CLEAR !",
+            fontSize: 140,
+            fontWeight: 800,
+            fill: "white",
+            stroke: "red",
+            strokeWidth: 20,
+        }).addChildTo(self)
+        .setPosition(-700, self.gridY.center())
+        .tweener.to({x: self.gridX.center()}, 400, "easeOutExpo")
+        .play();
+
+        self.on("pointstart", function() {
+            App._scenes[1].nextScene("TitleScene");
+            self.exit();
+        });
+
+    },
+});
+
 //-------------------------
 // しゃがんだ主人公クラス
 //-------------------------
@@ -1729,7 +1848,7 @@ var STAGE = {
     B1: [
         "1111111111111111111",
         "1  S              1",
-        "1                 1",
+        "1     z           1",
         "1             E   1",
         "1                 1",
         "1111111111111111111",

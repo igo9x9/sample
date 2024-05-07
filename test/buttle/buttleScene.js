@@ -93,9 +93,11 @@ phina.define("ButtleScene", {
             ememyLevel = self._playerInfo.map;
             nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
-            // nowQuestions = questions.filter((q) => q.hp > 0);
-            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第102型");
-    } else {
+            // @@@@@
+            // nowQuestions = questions;
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第53型");
+            // @@@@@
+        } else {
             ememyLevel = 30;
             nowQuestions = questions.filter((q) => q.level === ememyLevel);
             enemyIndex = self._playerInfo.bossStep - 1;

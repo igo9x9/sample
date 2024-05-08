@@ -1373,6 +1373,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(carotteButton);
         carotteButton.on("pointstart", function() {
             let message;
@@ -1416,6 +1417,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(megusuriButton);
         megusuriButton.on("pointstart", function() {
             let message;
@@ -1458,6 +1460,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(revivalButton);
         revivalButton.on("pointstart", function() {
             let message;
@@ -1502,6 +1505,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(featherButton);
         featherButton.on("pointstart", function() {
             let message;
@@ -1555,6 +1559,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(ringButton);
         ringButton.on("pointstart", function() {
             let message;
@@ -1597,6 +1602,7 @@ phina.define("MenuScene", {
             x: -200,
             y: 0,
             align: "left",
+            text: "",
         }).addChildTo(countdownButton);
         countdownButton.on("pointstart", function() {
             let message;

@@ -36,6 +36,12 @@ ASSETS = {
         "npc5": "images/npc5.png",
         "npc6": "images/npc6.png",
         "boss": "images/boss.png",
+        "feather": "images/feather.png",
+        "megusuri": "images/megusuri.png",
+        "revival": "images/revival.png",
+        "carotte": "images/carotte.png",
+        "countdown": "images/countdown.png",
+        "ring": "images/ring.png",
     },
 };
 
@@ -77,7 +83,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        // tmpDate.playerInfo = {map: 8, level: 6, hp: 500, bossStep: 0, x: null, y: null,
+        // tmpDate.playerInfo = {map: 20, level: 6, hp: 500, bossStep: 0, x: null, y: null,
         //     items: {
         //         carotte: 100,
         //         ring: false,
@@ -1023,13 +1029,12 @@ phina.define('NPCBlock', {
         switch(npc_id) {
             case "a":
                 this.superInit("npc1", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = ()=> SimpleMessage("村人\n「地下に行くほど死活問題は\n難しくなっていくし、\n受けるダメージも大きくなるよ。",
-                    () => SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが安全だね。",
-                        () => SimpleMessage("でも死活の知識が豊富なら、\nあえて低いレベルのまま\nどんどん進むのもアリかもね」")));
+                this._messageFnc = ()=> SimpleMessage("村人\n「地下に行くほど、間違えた時に\n受けるダメージが大きくなるよ。",
+                    () => SimpleMessage("だから、自分のレベルを上げてから\n次の階に進むのが定石だね」"));
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたあとには\n上の階には戻れないの。\n慎重に進んでね。", () => SimpleMessage("でも『飛竜の羽根』を使うと\n戻れるらしいわ」"));
+                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたら、上の階には\nもう戻れないの。慎重に進んでね。", () => SimpleMessage("でも『飛竜の羽根』を使うと\n戻れるらしいわ」"));
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
@@ -1043,32 +1048,17 @@ phina.define('NPCBlock', {
                         return SimpleMessage("「がんばれよ！」");
                     }
                 };
-                this._messageFnc = () => QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
+                this._messageFnc = () => {
+                    if (tmpDate.playerInfo.items.carotte === null) {
+                        return QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
+                    } else {
+                        return SimpleMessage("村人\n「にんじん食べたら元気でるぜ！」");
+                    }
+                };
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => SimpleMessage("村人\n「それぞれの階の死活問題の数は\nだいたい10問くらいで、",
-                    () => SimpleMessage("その全てに正解したら\nレベルアップできるらしいわ！」"));
-                break;
-            case "e":
-                this.superInit("npc5", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => {
-                    if (self._done) {
-                        return SimpleMessage("魔法使い\n「気をつけてな」");
-                    }
-                    if (tmpDate.playerInfo.hp === tmpDate.playerInfo.level * 5) {
-                        return SimpleMessage("魔法使い\n「一度だけHPを満タンにできるが\n今は必要なさそうじゃな」");
-                    }
-                    yes = () => {
-                        self._done = true;
-                        return SimpleMessage("「よしきた、ほいっ！」", () => {
-                            tmpDate.playerInfo.hp = tmpDate.playerInfo.level * 5;
-                            App._scenes[1].updateStatusLabel();
-                            return SimpleMessage("HPが満タンになった。");
-                        });
-                    }
-                    return QuestionMessage("魔法使い\n「一度だけHPを満タンにできるぞ。\nするかい？", yes, ()=> SimpleMessage("そうかい」"));
-                };
+                this._messageFnc = () => SimpleMessage("村人\n「HPを回復する方法は、\nにんじんを食べる、\nレベルアップする、の２つよ」");
                 break;
             case "f":
                 this.superInit("npc6", BOX_WIDTH, BOX_HEIGHT);
@@ -1092,13 +1082,9 @@ phina.define('NPCBlock', {
                     }
                 }
                 break;
-            case "o":
-                this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => SimpleMessage("「囲碁の村」");
-                break;
             case "p":
                 this.superInit("tatefuda", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = () => SimpleMessage("「地下ダンジョン入り口」");
+                this._messageFnc = () => SimpleMessage("「死活ダンジョン入り口」");
                 break;
 
             case "z":
@@ -1370,7 +1356,7 @@ phina.define("MenuScene", {
         self.carotteLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1399,6 +1385,7 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.carotteIcon = Sprite("carotte").addChildTo(carotteButton).setPosition(-200, 0).hide();
 
         // 魔法の目薬
         const megusuriButton = RectangleShape({
@@ -1414,7 +1401,7 @@ phina.define("MenuScene", {
         self.megusuriLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1442,6 +1429,7 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.megusuriIcon = Sprite("megusuri").addChildTo(megusuriButton).setPosition(-200, 0).hide();
 
         // 復活の線香
         const revivalButton = RectangleShape({
@@ -1457,7 +1445,7 @@ phina.define("MenuScene", {
         self.revivalLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1487,6 +1475,7 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.revivalIcon = Sprite("revival").addChildTo(revivalButton).setPosition(-200, 0).hide();
 
         // 飛竜の羽根
         const featherButton = RectangleShape({
@@ -1502,7 +1491,7 @@ phina.define("MenuScene", {
         self.featherLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1532,6 +1521,7 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.featherIcon = Sprite("feather").addChildTo(featherButton).setPosition(-200, 0).hide();
 
         Label({
             fill: "white",
@@ -1556,7 +1546,7 @@ phina.define("MenuScene", {
         self.ringLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1584,6 +1574,7 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.ringIcon = Sprite("ring").addChildTo(ringButton).setPosition(-200, 0).hide();
 
         // 死の腕時計
         const countdownButton = RectangleShape({
@@ -1599,7 +1590,7 @@ phina.define("MenuScene", {
         self.countdownLabel = Label({
             fill: "white",
             fontSize: 30,
-            x: -200,
+            x: -170,
             y: 0,
             align: "left",
             text: "",
@@ -1639,19 +1630,54 @@ phina.define("MenuScene", {
             }
             App.pushScene(MessageScene(message));
         });
+        self.countdownIcon = Sprite("countdown").addChildTo(countdownButton).setPosition(-200, 0).hide();
 
         self.refreshText();
     },
     refreshText: function() {
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
 
-        this.carotteLabel.text = tmpDate.playerInfo.items.carotte === null ? "？？？？" : "にんじん　：" + tmpDate.playerInfo.items.carotte + " 本";
-        this.megusuriLabel.text = tmpDate.playerInfo.items.megusuri === null ? "？？？？" : "魔法の目薬：" + tmpDate.playerInfo.items.megusuri + " 滴";
-        this.featherLabel.text = tmpDate.playerInfo.items.feather === null ? "？？？？" : "飛竜の羽根：" + tmpDate.playerInfo.items.feather + " 枚";
-        this.revivalLabel.text = tmpDate.playerInfo.items.revival === null ? "？？？？" : "復活の線香：" + tmpDate.playerInfo.items.revival + " 本";
+        if (tmpDate.playerInfo.items.carotte === null) {
+            this.carotteLabel.text = "？？？？";
+        } else {
+            this.carotteLabel.text = "にんじん　：" + tmpDate.playerInfo.items.carotte + " 本";
+            this.carotteIcon.show();
+        }
 
-        this.ringLabel.text = tmpDate.playerInfo.items.ring === null ? "？？？？" : "修行の指輪：" + (tmpDate.playerInfo.items.ring === true ? "装着中" : "外している");
-        this.countdownLabel.text = tmpDate.playerInfo.items.countdown === null ? "？？？？" : "死の腕時計：" + (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している");
+        if (tmpDate.playerInfo.items.megusuri === null) {
+            this.megusuriLabel.text = "？？？？";
+        } else {
+            this.megusuriLabel.text = "魔法の目薬：" + tmpDate.playerInfo.items.megusuri + " 滴";
+            this.megusuriIcon.show();
+        }
+
+        if (tmpDate.playerInfo.items.feather === null) {
+            this.featherLabel.text = "？？？？";
+        } else {
+            this.featherLabel.text = "飛竜の羽根：" + tmpDate.playerInfo.items.feather + " 枚";
+            this.featherIcon.show();
+        }
+
+        if (tmpDate.playerInfo.items.revival === null) {
+            this.revivalLabel.text = "？？？？";
+        } else {
+            this.revivalLabel.text = "復活の線香：" + tmpDate.playerInfo.items.revival + " 本";
+            this.revivalIcon.show();
+        }
+
+        if (tmpDate.playerInfo.items.ring === null) {
+            this.ringLabel.text = "？？？？";
+        } else {
+            this.ringLabel.text = "修行の指輪：" + (tmpDate.playerInfo.items.ring === true ? "装着中" : "外している");
+            this.ringIcon.show();
+        }
+
+        if (tmpDate.playerInfo.items.countdown === null) {
+            this.countdownLabel.text = "？？？？";
+        } else {
+            this.countdownLabel.text = "死の腕時計：" + (tmpDate.playerInfo.items.countdown === true ? "装着中" : "外している");
+            this.countdownIcon.show();
+        }
     }
 });
 
@@ -1869,20 +1895,20 @@ var mapLeftTop = {x: 32, y: 32};
 //マップチップ
 var STAGE = {
     B0: [
-        "XXXXXX11111",
-        "XXXXXX12E21",
-        "XXXXXX12221",
-        "XXXXXX11211",
-        "XXXXXXX121",
-        "XXXXXXX121",
-        "1111111121111111",
-        "1      p2     21",
-        "1  a 2  2    b 1",
-        "1       2  2   1",
-        "1  2     c     1",
-        "1    o  S     d1",
-        "1    2       2 1",
-        "1111111111111111",
+        "XXXX11111",
+        "XXXX12E21",
+        "XXXX12221",
+        "XXXX11211",
+        "XXXXX121",
+        "XXXXX121",
+        "11111121111111",
+        "1    p2     21",
+        "1 a2  2    b 1",
+        "1     2  2   1",
+        "12     c     1",
+        "1     S     d1",
+        "1  2       2 1",
+        "11111111111111",
     ],
     B1: [
         "1111111111111111111",

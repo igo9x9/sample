@@ -437,7 +437,7 @@ const questions = [
         ]
     },
     {
-        level: 8,
+        level: 10,
         name: "隅の死活第9型",
         steps: [
             [
@@ -568,7 +568,7 @@ const questions = [
         ]
     },
     {
-        level: 8,
+        level: 10,
         name: "隅の死活第12型",
         steps: [
             [
@@ -625,7 +625,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 7,
         name: "隅の死活第13型",
         steps: [
             [
@@ -880,7 +880,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 9,
         name: "隅の死活第17型",
         steps: [
             [
@@ -927,7 +927,7 @@ const questions = [
         ]
     },
     {
-        level: 7,
+        level: 10,
         name: "隅の死活第17型変化",
         steps: [
             [
@@ -1276,7 +1276,7 @@ const questions = [
         ]
     },
     {
-        level: 7,
+        level: 9,
         name: "隅の死活第24型",
         steps: [
             [
@@ -1558,7 +1558,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 8,
         name: "隅の死活第29型",
         steps: [
             [
@@ -1669,7 +1669,7 @@ const questions = [
         ]
     },
     {
-        level: 6,
+        level: 8,
         name: "隅の死活第32型",
         steps: [
             [
@@ -1904,7 +1904,7 @@ const questions = [
         ]
     },
     {
-        level: 8,
+        level: 11,
         name: "隅の死活第36型",
         steps: [
             [
@@ -1951,7 +1951,7 @@ const questions = [
         ]
     },
     {
-        level: 8,
+        level: 12,
         name: "隅の死活第36型変化",
         steps: [
             [
@@ -2008,7 +2008,7 @@ const questions = [
         ]
     },
     {
-        level: 7,
+        level: 10,
         name: "隅の死活第37型",
         steps: [
             [
@@ -2112,7 +2112,7 @@ const questions = [
         ]
     },
     {
-        level: 9,
+        level: 10,
         name: "隅の死活第39型",
         steps: [
             [
@@ -3413,7 +3413,7 @@ const questions = [
         ]
     },
     {
-        level: 7,
+        level: 8,
         name: "隅の死活第62型",
         steps: [
             [
@@ -3534,7 +3534,7 @@ const questions = [
         ]
     },
     {
-        level: 8,
+        level: 9,
         name: "隅の死活第64型変化",
         steps: [
             [
@@ -3832,6 +3832,439 @@ const questions = [
                 "  BBWWWBW",
                 "  BW  WWB",
                 "  B WW B ",
+            ]
+        ]
+    },
+    {
+        level: 17,
+        name: "隅の死活第70型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "  BBBBBB ",
+                "  BW WWB ",
+                "  BW   WW",
+                "     N   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "  BBBBBB ",
+                "  BW WWB ",
+                "  BWw  WW",
+                "   N B   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "  BBBBBB ",
+                "  BW WWB ",
+                "  BWWN WW",
+                "   BwB   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "  BBBBBB ",
+                "  BW WWB ",
+                "  BWWB WW",
+                "   BWB   ",
+            ]
+        ]
+    },
+    {
+        level: 18,
+        name: "隅の死活第71型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "      B  ",
+                "   BBB B ",
+                "  B  WWB ",
+                "  BWN  WW",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "      B  ",
+                "   BBB B ",
+                "  B  WWB ",
+                "  BWBw WW",
+                "     N   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "      B  ",
+                "   BBB B ",
+                "  B  WWB ",
+                "  BWBW WW",
+                "   N Bw  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "      B  ",
+                "   BBB B ",
+                "  B  WWB ",
+                "  BWBW WW",
+                "   B BW  ",
+            ]
+        ]
+    },
+    {
+        level: 14,
+        name: "隅の死活第72型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "  BBBBB  ",
+                " B W WWBB",
+                " BW  N WW",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "  BBBBB  ",
+                " B W WWBB",
+                " BW NBwWW",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "  BBBBB  ",
+                " B WwWWBB",
+                " BWNBBWWW",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "  BBBBB  ",
+                " B WwWWBB",
+                " BWBBBWWW",
+                "         ",
+            ]
+        ]
+    },
+    {
+        level: 15,
+        name: "隅の死活第73型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "  B BWWW ",
+                "   BW    ",
+                "    W N  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "  B BWWW ",
+                "   BW  N ",
+                "    W Bw ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "  B BWWW ",
+                "   BW  Bw",
+                "    W BWN",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "  B BWWW ",
+                "   BW  BW",
+                "    W B B",
+            ]
+        ]
+    },
+    {
+        level: 16,
+        name: "隅の死活第74型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "    B    ",
+                "    B BB ",
+                "  B BWWWN",
+                "   BW    ",
+                "    W    ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "    B    ",
+                "    B BB ",
+                "  B BWWWB",
+                "   BW   w",
+                "    W  N ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "    B    ",
+                "    B BB ",
+                "  B BWWWB",
+                "   BW N W",
+                "    W wB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "    B    ",
+                "    B BB ",
+                "  B BWWWB",
+                "   BWwB W",
+                "    WNWB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       B ",
+                "    B    ",
+                "    B BB ",
+                "  B BWWWB",
+                "   BWWB W",
+                "    WB B ",
+            ]
+        ]
+    },
+    {
+        level: 14,
+        name: "隅の死活第75型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB    ",
+                "    B N  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB  Nw",
+                "    B B  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB  BW",
+                "    B B  ",
+            ]
+        ]
+    },
+    {
+        level: 14,
+        name: "隅の死活第76型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWN",
+                " B BW    ",
+                "     W   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                " B BW   w",
+                "     W N ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                " B BW   W",
+                "   N WwB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                " B BWN wW",
+                "   B WWB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                " B BWB WW",
+                "   B WWB ",
+            ]
+        ]
+    },
+    {
+        level: 15,
+        name: "隅の死活第77型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWN",
+                "   BW    ",
+                "     W   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                "   BW   w",
+                "     W N ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                "   BW   W",
+                "  Nw W B ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                "   BW   W",
+                "  BWNWwB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "  B BWWWB",
+                "   BW   W",
+                "  B BWWB ",
+            ]
+        ]
+    },
+    {
+        level: 11,
+        name: "隅の死活第78型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "       W ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB  N ",
+                "     B   ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       W ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB  B ",
+                "   w BN  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "       W ",
+                "         ",
+                "    WWWWB",
+                "  W WBBBW",
+                "   WB  B ",
+                "   W BB  ",
             ]
         ]
     },

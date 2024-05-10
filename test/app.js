@@ -42,6 +42,7 @@ ASSETS = {
         "carotte": "images/carotte.png",
         "countdown": "images/countdown.png",
         "ring": "images/ring.png",
+        "kentou": "images/kentou.png",
     },
 };
 
@@ -83,7 +84,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        // tmpDate.playerInfo = {map: 20, level: 6, hp: 500, bossStep: 0, x: null, y: null,
+        // tmpDate.playerInfo = {map: 9, level: 1, hp: 500, bossStep: 0, x: null, y: null,
         //     items: {
         //         carotte: 100,
         //         ring: false,
@@ -99,6 +100,7 @@ phina.define('TitleScene', {
                 megusuri: null,
                 feather: null,
                 revival: null,
+                kentou: null,
                 ring: null,
                 countdown: null,
             }
@@ -1224,8 +1226,16 @@ phina.define("MessageScene", {
         this.yesLabel.onpointstart = function() {
             if (self._message === null) return;
             if (self._message.className === "QuestionMessage") {
-                self.setMessageObj(self._message.yesCallback());
-                self.printText();
+                if (!!self._message.yesCallback) {
+                    self.setMessageObj(self._message.yesCallback());
+                    if (self._message !== null) {
+                        self.printText();
+                    } else {
+                        self.exit();
+                    }
+                } else {
+                    self.exit();
+                }
             }
         };
 
@@ -1242,7 +1252,11 @@ phina.define("MessageScene", {
             if (self._message.className === "QuestionMessage") {
                 if (!!self._message.noCallback) {
                     self.setMessageObj(self._message.noCallback());
-                    self.printText();
+                    if (self._message !== null) {
+                        self.printText();
+                    } else {
+                        self.exit();
+                    }
                 } else {
                     self.exit();
                 }
@@ -1271,7 +1285,7 @@ phina.define("MessageScene", {
     setMessageObj: function(message) {
         const self = this;
         self._message = message;
-        if (message.className === "QuestionMessage") {
+        if (message !== null && message.className === "QuestionMessage") {
             self._messageBox.setInteractive(false);
             self._questionBox.show();
         } else {
@@ -1324,12 +1338,10 @@ phina.define("MenuScene", {
             self.exit();
         });
 
-        Player().addChildTo(Box).setPosition(0, -370);
-
         self.statusLabel = Label({
             fill: "white",
             fontSize: 30,
-            y: -310,
+            y: -380,
             fontWeight: 800,
         }).addChildTo(Box);
 
@@ -1337,7 +1349,7 @@ phina.define("MenuScene", {
             fill: "white",
             fontSize: 30,
             x: -230,
-            y: -250,
+            y: -330,
             align: "left",
             text: "道具",
         }).addChildTo(Box);
@@ -1348,7 +1360,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -180,
+            y: -260,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1393,7 +1405,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -100,
+            y: -180,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1437,7 +1449,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -20,
+            y: -100,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1483,7 +1495,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 60,
+            y: -20,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1522,6 +1534,49 @@ phina.define("MenuScene", {
             App.pushScene(MessageScene(message));
         });
         self.featherIcon = Sprite("feather").addChildTo(featherButton).setPosition(-200, 0).hide();
+
+        // 検討の碁盤
+        const kentouButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 60,
+            width: 450,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.kentouLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -170,
+            y: 0,
+            align: "left",
+            text: "",
+        }).addChildTo(kentouButton);
+        kentouButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.kentou === null) {
+                message = SimpleMessage("？？？？");
+            } else if (tmpDate.playerInfo.items.kentou === 0) {
+                message = SimpleMessage("検討できる碁盤セット。\n使い終わると没収される。");
+            } else if (sceneName !== "BattleScene") {
+                message = SimpleMessage("検討できる碁盤セット。\n使い終わると没収される。\n戦闘中に使います。");
+            } else {
+                const yesFnc = () => {
+                    setTimeout(function() {
+                        tmpDate.playerInfo.items.kentou -= 1;
+                        self.refreshText();
+                        App.pushScene(KentouScene());
+                    }, 10);
+                    return null;
+                };
+                message = QuestionMessage("検討できる碁盤セット。\n使い終わると没収される。\n使いますか？", yesFnc, null);
+            }
+            App.pushScene(MessageScene(message));
+        });
+        self.kentouIcon = Sprite("kentou").addChildTo(kentouButton).setPosition(-200, 0).hide();
+
 
         Label({
             fill: "white",
@@ -1664,6 +1719,9 @@ phina.define("MenuScene", {
             this.revivalLabel.text = "復活の線香：" + tmpDate.playerInfo.items.revival + " 本";
             this.revivalIcon.show();
         }
+
+        this.kentouLabel.text = "検討の碁盤：" + tmpDate.playerInfo.items.kentou + " 面";
+        this.kentouIcon.show();
 
         if (tmpDate.playerInfo.items.ring === null) {
             this.ringLabel.text = "？？？？";

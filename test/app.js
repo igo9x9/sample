@@ -1720,8 +1720,12 @@ phina.define("MenuScene", {
             this.revivalIcon.show();
         }
 
-        this.kentouLabel.text = "検討の碁盤：" + tmpDate.playerInfo.items.kentou + " 面";
-        this.kentouIcon.show();
+        if (tmpDate.playerInfo.items.kentou === null) {
+            this.kentouLabel.text = "？？？？";
+        } else {
+            this.kentouLabel.text = "検討の碁盤：" + tmpDate.playerInfo.items.kentou + " 面";
+            this.kentouIcon.show();
+        }
 
         if (tmpDate.playerInfo.items.ring === null) {
             this.ringLabel.text = "？？？？";

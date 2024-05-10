@@ -95,7 +95,7 @@ phina.define("ButtleScene", {
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
             // @@@@@
             // nowQuestions = questions;
-            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第53型");
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第78型");
             // @@@@@
         } else {
             ememyLevel = 30;
@@ -109,6 +109,8 @@ phina.define("ButtleScene", {
             level: nowQuestions[enemyIndex].level,
             rotate: Math.floor(Math.random() * 4),
         };
+
+        self.enemy = enemy;
 
         this.updateButtleComment(enemy.name + ' が現れた！');
  
@@ -198,12 +200,15 @@ phina.define("ButtleScene", {
                 if (!self.miss) {
                     nowQuestions[enemyIndex].hp -= 1;
                 }
-                if (nowQuestions[enemyIndex].hp === 0) {
+                if (nowQuestions[enemyIndex].hp === 0 || self._playerInfo.bossStep > 0) {
                     self.addButtleComment(enemy.name + " を倒した！");
                     if (self._playerInfo.items.countdown !== true) {
                         if (Math.random() > 0.6) {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
+                        } else if (Math.random() > 0.8) {
+                            self._playerInfo.items.kentou += 1;
+                            self.addButtleComment("検討の碁盤を1面もらった");
                         } else if (Math.random() > 0.8) {
                             self._playerInfo.items.revival += 1;
                             self.addButtleComment("復活の線香を1本もらった");
@@ -216,9 +221,12 @@ phina.define("ButtleScene", {
                         }
                     } else if (self._playerInfo.items.countdown === true) {
                         const r = Math.random();
-                        if (r < 0.7) {
+                        if (r < 0.6) {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
+                        } else if (r < 0.7) {
+                            self._playerInfo.items.kentou += 1;
+                            self.addButtleComment("検討の碁盤を1面もらった");
                         } else if (r < 0.8) {
                             self._playerInfo.items.revival += 1;
                             self.addButtleComment("復活の線香を1本もらった");
@@ -530,7 +538,7 @@ phina.define("Goban", {
                         self._setPositionOnGrid(area, x, y);
                         self._stones[y][x] = area;
                     }
-            }
+                }
             });
         });
 
@@ -542,3 +550,165 @@ phina.define("Goban", {
         this.collectStone.alpha = 0.5;
     },
 });
+
+
+// 検討シーン
+phina.define("KentouScene", {
+    superClass: 'DisplayScene',
+    putBlackStone: function(x, y) {
+        const stone = KentouStone(this.goban._grid.unitWidth / 2 - 1, "black", this).addChildTo(this.goban);
+        this._setPositionOnGrid(stone, x, y);
+        return stone;
+    },
+
+    putWhiteStone: function(x, y) {
+        const stone = KentouStone(this.goban._grid.unitWidth / 2 - 1, "white", this).addChildTo(this.goban);
+        this._setPositionOnGrid(stone, x, y);
+        return stone;
+    },
+
+    putFreeArea: function(x, y) {
+        const stone = KentouStone(this.goban._grid.unitWidth / 2 - 1, null, this).addChildTo(this.goban);
+        this._setPositionOnGrid(stone, x, y);
+        return stone;
+    },
+    _setPositionOnGrid: function(target, spanX, spanY) {
+        target.setPosition(-1 * this.goban.width/2 + this.goban._grid.span(spanX), -1 * this.goban.height/2 + this.goban._grid.span(spanY));
+    },
+    _grid: Grid({width: 470, columns: 8}),
+    init: function() {
+        this.superInit();
+        var self = this;
+
+        this.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+
+        this.nextColor = "black";
+
+        const Box = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 16,
+            x: this.gridX.center(),
+            y: this.gridY.center(),
+            width: this.gridX.width - 20,
+            height: this.gridY.width - 20,
+            cornerRadius: 16,
+        }).addChildTo(this);
+
+        const closeButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 370,
+            width: 150,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        const closeButtonLabel = Label({
+            fill: '#fff',
+            x: 0,
+            y: 0,
+            align: "center",
+            text: "とじる",
+            fontSize: 25,
+        }).addChildTo(closeButton);
+        closeButton.on("pointstart", function() {
+            self.exit();
+        });
+
+        self.goban = RectangleShape({
+            width: self._grid.width + self._grid.unitWidth*2,
+            height: self._grid.width + self._grid.unitWidth*2,
+            fill: '#daa520',
+            strokeWidth: 0,
+        }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(5) + 20);
+
+        self.goban._grid = Grid({width: 470, columns: 8});
+
+        (9).times(function(spanX) {
+            var startPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, -1 * self.goban._grid.width/2),
+                endPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, self.goban._grid.width/2);
+            
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(self.goban);
+        });
+
+        (9).times(function(spanY) {
+            var startPoint = Vector2(-1 * self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth),
+                endPoint = Vector2(self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth);
+            
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(self.goban);
+        });
+
+        const step = App._scenes[1].enemy.steps[0];
+        const rotate = App._scenes[1].enemy.rotate;
+
+        (9).times(function(y) {
+            const raws = step[y].split("");
+            (9).times(function(x) {
+                const item = raws[x];
+                if (item === "W") {
+                    self.putWhiteStone(x+1, y+1);
+                } else if (item === "B") {
+                    self.putBlackStone(x+1, y+1);
+                } else {
+                    self.putFreeArea(x+1, y+1);
+                }
+            });
+        });
+
+        self.goban.setRotation(rotate * 90);
+
+    }
+});
+
+phina.define("KentouStone", {
+    superClass: "CircleShape",
+    color: null,
+    goban: null,
+    init: function(r, color, goban) {
+        const self = this;
+        this.superInit({
+            strokeWidth: 1,
+            radius: r,
+        });
+        self.goban = goban;
+        this.setInteractive(true);
+
+        if (color === "black") {
+            this.alpha = 1;
+            self.fill = "black";
+            self.stroke = "black";
+            self.color = "black";
+        } else if (color === "white") {
+            this.alpha = 1;
+            self.fill = "white";
+            self.stroke = "white";
+            self.color = "white";
+        } else {
+            this.alpha = 0;
+        }
+
+        this.on("pointstart", function() {
+            console.log(self.goban.nextColor)
+            if (self.color === null) {
+                if (self.goban.nextColor === "black") {
+                    self.fill = "black";
+                    self.stroke = "black";
+                    self.color = "black";
+                    self.goban.nextColor = "white";
+                } else {
+                    self.fill = "white";
+                    self.stroke = "white";
+                    self.color = "white";
+                    self.goban.nextColor = "black";
+                }
+                self.alpha = 1;
+            } else {
+                self.alpha = 0;
+                self.color = null;
+            }
+        });
+    }
+});
+

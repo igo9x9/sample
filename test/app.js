@@ -87,11 +87,12 @@ phina.define('TitleScene', {
         // tmpDate.playerInfo = {map: 9, level: 1, hp: 500, bossStep: 0, x: null, y: null,
         //     items: {
         //         carotte: 100,
-        //         ring: false,
         //         megusuri: 100,
-        //         countdown: false,
+        //         kentou: 100,
         //         feather: 100,
         //         revival: 100,
+        //         ring: false,
+        //         countdown: false,
         //     }
         // };
         tmpDate.playerInfo = {map: 0, level: 1, hp: 5, bossStep: 0, x: null, y: null,
@@ -1041,14 +1042,9 @@ phina.define('NPCBlock', {
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
                 yes = ()=>{
-                    if (!self._done) {
-                        tmpDate.playerInfo.items.carotte += 1;
-                        App._scenes[1].updateStatusLabel();
-                        self._done = true;
-                        return SimpleMessage("「がんばれよ！」", () => SimpleMessage("にんじんを1本くれた。"));
-                    } else {
-                        return SimpleMessage("「がんばれよ！」");
-                    }
+                    tmpDate.playerInfo.items.carotte += 1;
+                    App._scenes[1].updateStatusLabel();
+                    return SimpleMessage("「がんばれよ！」", () => SimpleMessage("にんじんを1本くれた。"));
                 };
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.carotte === null) {
@@ -1399,8 +1395,8 @@ phina.define("MenuScene", {
         });
         self.carotteIcon = Sprite("carotte").addChildTo(carotteButton).setPosition(-200, 0).hide();
 
-        // 魔法の目薬
-        const megusuriButton = RectangleShape({
+        // 検討の碁盤
+        const kentouButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 8,
@@ -1410,38 +1406,36 @@ phina.define("MenuScene", {
             height: 50,
             cornerRadius: 8,
         }).addChildTo(Box).setInteractive(true);
-        self.megusuriLabel = Label({
+        self.kentouLabel = Label({
             fill: "white",
             fontSize: 30,
             x: -170,
             y: 0,
             align: "left",
             text: "",
-        }).addChildTo(megusuriButton);
-        megusuriButton.on("pointstart", function() {
+        }).addChildTo(kentouButton);
+        kentouButton.on("pointstart", function() {
             let message;
-            if (tmpDate.playerInfo.items.megusuri === null) {
+            if (tmpDate.playerInfo.items.kentou === null) {
                 message = SimpleMessage("？？？？");
-            } else if (tmpDate.playerInfo.items.megusuri === 0) {
-                message = SimpleMessage("答えが見える不思議な目薬。");
+            } else if (tmpDate.playerInfo.items.kentou === 0) {
+                message = SimpleMessage("自由に石を置いて検討できる碁盤。\n使い終わると没収される。");
+            } else if (sceneName !== "BattleScene") {
+                message = SimpleMessage("自由に石を置いて検討できる碁盤。\n使い終わると没収される。\n戦闘中に使います。");
             } else {
                 const yesFnc = () => {
-                    tmpDate.playerInfo.items.megusuri -= 1;
-                    self.refreshText();
-                    App.flare("megusuri");
-                    self.exit();
-                    menuScene.exit();
-                    return SimpleMessage("答えが見えた！");
+                    setTimeout(function() {
+                        tmpDate.playerInfo.items.kentou -= 1;
+                        self.refreshText();
+                        App.pushScene(KentouScene());
+                    }, 10);
+                    return null;
                 };
-                if (sceneName === "BattleScene") {
-                    message = QuestionMessage("答えが見える不思議な目薬。\n1滴使いますか？", yesFnc, null);
-                } else {
-                    message = SimpleMessage("答えが見える不思議な目薬。\n戦闘中に使います。");
-                }
+                message = QuestionMessage("自由に石を置いて検討できる碁盤。\n使い終わると没収される。\n使いますか？", yesFnc, null);
             }
             App.pushScene(MessageScene(message));
         });
-        self.megusuriIcon = Sprite("megusuri").addChildTo(megusuriButton).setPosition(-200, 0).hide();
+        self.kentouIcon = Sprite("kentou").addChildTo(kentouButton).setPosition(-200, 0).hide();
 
         // 復活の線香
         const revivalButton = RectangleShape({
@@ -1535,8 +1529,8 @@ phina.define("MenuScene", {
         });
         self.featherIcon = Sprite("feather").addChildTo(featherButton).setPosition(-200, 0).hide();
 
-        // 検討の碁盤
-        const kentouButton = RectangleShape({
+        // 魔法の目薬
+        const megusuriButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 8,
@@ -1546,36 +1540,38 @@ phina.define("MenuScene", {
             height: 50,
             cornerRadius: 8,
         }).addChildTo(Box).setInteractive(true);
-        self.kentouLabel = Label({
+        self.megusuriLabel = Label({
             fill: "white",
             fontSize: 30,
             x: -170,
             y: 0,
             align: "left",
             text: "",
-        }).addChildTo(kentouButton);
-        kentouButton.on("pointstart", function() {
+        }).addChildTo(megusuriButton);
+        megusuriButton.on("pointstart", function() {
             let message;
-            if (tmpDate.playerInfo.items.kentou === null) {
+            if (tmpDate.playerInfo.items.megusuri === null) {
                 message = SimpleMessage("？？？？");
-            } else if (tmpDate.playerInfo.items.kentou === 0) {
-                message = SimpleMessage("検討できる碁盤セット。\n使い終わると没収される。");
-            } else if (sceneName !== "BattleScene") {
-                message = SimpleMessage("検討できる碁盤セット。\n使い終わると没収される。\n戦闘中に使います。");
+            } else if (tmpDate.playerInfo.items.megusuri === 0) {
+                message = SimpleMessage("答えが見える不思議な目薬。");
             } else {
                 const yesFnc = () => {
-                    setTimeout(function() {
-                        tmpDate.playerInfo.items.kentou -= 1;
-                        self.refreshText();
-                        App.pushScene(KentouScene());
-                    }, 10);
-                    return null;
+                    tmpDate.playerInfo.items.megusuri -= 1;
+                    self.refreshText();
+                    App.flare("megusuri");
+                    self.exit();
+                    menuScene.exit();
+                    return SimpleMessage("答えが見えた！");
                 };
-                message = QuestionMessage("検討できる碁盤セット。\n使い終わると没収される。\n使いますか？", yesFnc, null);
+                if (sceneName === "BattleScene") {
+                    message = QuestionMessage("答えが見える不思議な目薬。\n1滴使いますか？", yesFnc, null);
+                } else {
+                    message = SimpleMessage("答えが見える不思議な目薬。\n戦闘中に使います。");
+                }
             }
             App.pushScene(MessageScene(message));
         });
-        self.kentouIcon = Sprite("kentou").addChildTo(kentouButton).setPosition(-200, 0).hide();
+        self.megusuriIcon = Sprite("megusuri").addChildTo(megusuriButton).setPosition(-200, 0).hide();
 
 
         Label({

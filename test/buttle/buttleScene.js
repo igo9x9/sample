@@ -221,7 +221,7 @@ phina.define("ButtleScene", {
                         }
                     } else if (self._playerInfo.items.countdown === true) {
                         const r = Math.random();
-                        if (r < 0.6) {
+                        if (r < 0.5) {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
                         } else if (r < 0.7) {
@@ -620,9 +620,10 @@ phina.define("KentouScene", {
         self.goban = RectangleShape({
             width: self._grid.width + self._grid.unitWidth*2,
             height: self._grid.width + self._grid.unitWidth*2,
-            fill: '#daa520',
+            // fill: '#daa520',
+            fill: "#555",
             strokeWidth: 0,
-        }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(5) + 20);
+        }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(7));
 
         self.goban._grid = Grid({width: 470, columns: 8});
 
@@ -630,14 +631,14 @@ phina.define("KentouScene", {
             var startPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, -1 * self.goban._grid.width/2),
                 endPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, self.goban._grid.width/2);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(self.goban);
+            PathShape({paths:[startPoint, endPoint], stroke: "darkgray", strokeWidth: 2}).addChildTo(self.goban);
         });
 
         (9).times(function(spanY) {
             var startPoint = Vector2(-1 * self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth),
                 endPoint = Vector2(self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(self.goban);
+            PathShape({paths:[startPoint, endPoint], stroke: "darkgray", strokeWidth: 2}).addChildTo(self.goban);
         });
 
         const step = App._scenes[1].enemy.steps[0];

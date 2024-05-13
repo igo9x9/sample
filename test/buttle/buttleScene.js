@@ -166,6 +166,8 @@ phina.define("ButtleScene", {
                         App.clear("megusuri");
                         self.exit("TitleScene");
                     });
+
+                    window.localStorage.removeItem("usako");
         
                 }
 
@@ -206,16 +208,16 @@ phina.define("ButtleScene", {
                         if (Math.random() > 0.6) {
                             self._playerInfo.items.carotte += 1;
                             self.addButtleComment("にんじんを1本もらった");
-                        } else if (Math.random() > 0.8) {
+                        } else if (Math.random() > 0.85) {
                             self._playerInfo.items.kentou += 1;
                             self.addButtleComment("検討の碁盤を1面もらった");
-                        } else if (Math.random() > 0.8) {
-                            self._playerInfo.items.revival += 1;
-                            self.addButtleComment("復活の線香を1本もらった");
-                        } else if (Math.random() > 0.8) {
+                        } else if (Math.random() > 0.85) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("飛竜の羽根を1枚もらった");
-                        } else if (Math.random() > 0.9) {
+                        } else if (Math.random() > 0.85) {
+                            self._playerInfo.items.revival += 1;
+                            self.addButtleComment("復活の線香を1本もらった");
+                        } else if (Math.random() > 0.95) {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴もらった");
                         }
@@ -228,11 +230,11 @@ phina.define("ButtleScene", {
                             self._playerInfo.items.kentou += 1;
                             self.addButtleComment("検討の碁盤を1面もらった");
                         } else if (r < 0.8) {
-                            self._playerInfo.items.revival += 1;
-                            self.addButtleComment("復活の線香を1本もらった");
-                        } else if (r < 0.9) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("飛竜の羽根を1枚もらった");
+                        } else if (r < 0.9) {
+                            self._playerInfo.items.revival += 1;
+                            self.addButtleComment("復活の線香を1本もらった");
                         } else {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴もらった");

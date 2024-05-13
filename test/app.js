@@ -50,6 +50,26 @@ let lastLevel = 1;
 let lastMap = 0;
 let lastDirection = DIRECTION.DOWN;
 
+function save() {
+    const data = {player: tmpDate.playerInfo};
+    data.lastLevel = lastLevel;
+    data.lastMap = lastMap;
+    data.mapLeftTop = mapLeftTop;
+    window.localStorage.setItem("usako", JSON.stringify(data));
+}
+
+function load() {
+    const data = window.localStorage.getItem("usako");
+    if (data) {
+        console.log(data);
+        const d = JSON.parse(data);
+        tmpDate.playerInfo = d.player;
+        lastLevel = d.lastLevel;
+        lastMap = d.lastMap;
+        mapLeftTop = d.mapLeftTop;
+    }
+}
+
 // タイトルシーン
 phina.define('TitleScene', {
     superClass: 'DisplayScene',
@@ -113,6 +133,8 @@ phina.define('TitleScene', {
         questions.forEach(function(q) {
             q.hp = 1;
         });
+
+        load();
 
     },
     onpointstart: function() {
@@ -184,7 +206,6 @@ phina.define('MapScene', {
     },
     
     updateStatusLabel() {
-        // this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP : ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5) + "  にんじん : " + tmpDate.playerInfo.items.carotte;
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
 
         if (tmpDate.playerInfo.map !==0 ) {
@@ -215,10 +236,12 @@ phina.define('MapScene', {
         let mapToMap = false;
 
         if (!playerInfo) {
+            load();
             playerInfo = tmpDate.playerInfo;
         } else {
             newGame = false;
             tmpDate.playerInfo = playerInfo;
+            save();
         }
 
         if (playerInfo.map !== lastMap) {
@@ -293,23 +316,6 @@ phina.define('MapScene', {
         itemButton.on("pointstart", function() {
             App.pushScene(MenuScene());
         });
-
-        // if (playerInfo.map !==0 ) {
-        //     const enemyLevel = playerInfo.map;
-        //     let msg = "地下" + playerInfo.map + "階  " + "難易度" + enemyLevel;
-        //     const enemyNum = questions.filter((q) => q.level === enemyLevel && q.hp > 0).length;
-        //     if (enemyNum > 0) {
-        //         msg += " 残り" + enemyNum + "問";
-        //     } else {
-        //         msg += " 全問クリア";
-        //     }
-        //     Label({
-        //         text: msg,
-        //         fill: "#fff",
-        //         x: this.gridX.center(),
-        //         y: 930,
-        //     }).addChildTo(this);
-        // }
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {
@@ -887,24 +893,24 @@ phina.define('MapScene', {
         this.nextScene('ButtleScene');
     },
   
-  /**
-   * 更新
-   */
-  update: function(app) {
-    //キャラクターの動作
-    this.movePlayer(app);
-    
-    //y軸のあたり判定
-    this.collisionY();
-    
-    //x軸のあたり判定
-    this.collisionX();
-    
-    if (this.player.isMove && tmpDate.playerInfo.map !== 0) {
-      //移動中は一定の確率でバトルに突入
-      this.randomButtle();
+    /**
+     * 更新
+     */
+    update: function(app) {
+        //キャラクターの動作
+        this.movePlayer(app);
+
+        //y軸のあたり判定
+        this.collisionY();
+
+        //x軸のあたり判定
+        this.collisionX();
+
+        if (this.player.isMove && tmpDate.playerInfo.map !== 0) {
+            //移動中は一定の確率でバトルに突入
+            this.randomButtle();
+        }
     }
-  }
 });
 
 //-------------------------
@@ -962,11 +968,11 @@ phina.define('Player', {
 // 壁クラス
 //-------------------------
 phina.define('WallBlock', {
-  superClass: 'Sprite',
-  
-  init: function() {
-    this.superInit("wall", BOX_WIDTH, BOX_HEIGHT);
-  },
+    superClass: 'Sprite',
+
+    init: function() {
+        this.superInit("wall", BOX_WIDTH, BOX_HEIGHT);
+    },
 });
 
 //-------------------------

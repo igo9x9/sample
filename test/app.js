@@ -105,7 +105,7 @@ phina.define('TitleScene', {
 
     
         // データ初期化
-        // tmpDate.playerInfo = {map: 9, level: 1, hp: 500, bossStep: 0, x: null, y: null,
+        // tmpDate.playerInfo = {map: 20, level: 10, hp: 500, bossStep: 3, x: null, y: null,
         //     items: {
         //         carotte: 100,
         //         megusuri: 100,
@@ -1805,6 +1805,10 @@ phina.define("GameClearScene", {
 
         self.on("pointstart", function() {
             App._scenes[1].nextScene("TitleScene");
+            tmpDate.playerInfo.map = 0;
+            lastMap = 0;
+            tmpDate.playerInfo.bossStep = 0;
+            save();
             self.exit();
         });
 

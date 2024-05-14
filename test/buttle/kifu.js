@@ -1,4 +1,4 @@
-const questions = [
+let questions = [
     {
         level: 1,
         name: "隅の死活第１型",

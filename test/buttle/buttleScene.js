@@ -207,37 +207,37 @@ phina.define("ButtleScene", {
                     if (self._playerInfo.items.countdown !== true) {
                         if (Math.random() > 0.6) {
                             self._playerInfo.items.carotte += 1;
-                            self.addButtleComment("にんじんを1本もらった");
+                            self.addButtleComment("にんじんを1本手に入れた");
                         } else if (Math.random() > 0.85) {
                             self._playerInfo.items.kentou += 1;
-                            self.addButtleComment("検討の碁盤を1面もらった");
-                        } else if (Math.random() > 0.85) {
-                            self._playerInfo.items.feather += 1;
-                            self.addButtleComment("飛竜の羽根を1枚もらった");
+                            self.addButtleComment("検討の碁盤を1面手に入れた");
                         } else if (Math.random() > 0.85) {
                             self._playerInfo.items.revival += 1;
-                            self.addButtleComment("復活の線香を1本もらった");
+                            self.addButtleComment("復活の線香を1本手に入れた");
+                        } else if (Math.random() > 0.85) {
+                            self._playerInfo.items.feather += 1;
+                            self.addButtleComment("飛竜の羽根を1枚手に入れた");
                         } else if (Math.random() > 0.95) {
                             self._playerInfo.items.megusuri += 1;
-                            self.addButtleComment("魔法の目薬を1滴もらった");
+                            self.addButtleComment("魔法の目薬を1滴手に入れた");
                         }
                     } else if (self._playerInfo.items.countdown === true) {
                         const r = Math.random();
-                        if (r < 0.5) {
+                        if (r < 0.3) {
                             self._playerInfo.items.carotte += 1;
-                            self.addButtleComment("にんじんを1本もらった");
-                        } else if (r < 0.7) {
+                            self.addButtleComment("にんじんを1本手に入れた");
+                        } else if (r < 0.5) {
                             self._playerInfo.items.kentou += 1;
-                            self.addButtleComment("検討の碁盤を1面もらった");
-                        } else if (r < 0.8) {
-                            self._playerInfo.items.feather += 1;
-                            self.addButtleComment("飛竜の羽根を1枚もらった");
-                        } else if (r < 0.9) {
+                            self.addButtleComment("検討の碁盤を1面手に入れた");
+                        } else if (r < 0.7) {
                             self._playerInfo.items.revival += 1;
-                            self.addButtleComment("復活の線香を1本もらった");
+                            self.addButtleComment("復活の線香を1本手に入れた");
+                        } else if (r < 0.9) {
+                            self._playerInfo.items.feather += 1;
+                            self.addButtleComment("飛竜の羽根を1枚手に入れた");
                         } else {
                             self._playerInfo.items.megusuri += 1;
-                            self.addButtleComment("魔法の目薬を1滴もらった");
+                            self.addButtleComment("魔法の目薬を1滴手に入れた");
                         }
                     }
                     if (self._playerInfo.bossStep === 0) {
@@ -593,7 +593,7 @@ phina.define("KentouScene", {
             x: this.gridX.center(),
             y: this.gridY.center(),
             width: this.gridX.width - 20,
-            height: this.gridY.width - 20,
+            height: this.gridY.width - 200,
             cornerRadius: 16,
         }).addChildTo(this);
 
@@ -602,7 +602,7 @@ phina.define("KentouScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 370,
+            y: 310,
             width: 150,
             height: 50,
             cornerRadius: 8,
@@ -612,7 +612,7 @@ phina.define("KentouScene", {
             x: 0,
             y: 0,
             align: "center",
-            text: "とじる",
+            text: "終わる",
             fontSize: 25,
         }).addChildTo(closeButton);
         closeButton.on("pointstart", function() {
@@ -623,7 +623,7 @@ phina.define("KentouScene", {
             width: self._grid.width + self._grid.unitWidth*2,
             height: self._grid.width + self._grid.unitWidth*2,
             // fill: '#daa520',
-            fill: "#555",
+            fill: "#daa520",
             strokeWidth: 0,
         }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(7));
 
@@ -633,14 +633,14 @@ phina.define("KentouScene", {
             var startPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, -1 * self.goban._grid.width/2),
                 endPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, self.goban._grid.width/2);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "darkgray", strokeWidth: 2}).addChildTo(self.goban);
+            PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
         });
 
         (9).times(function(spanY) {
             var startPoint = Vector2(-1 * self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth),
                 endPoint = Vector2(self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "darkgray", strokeWidth: 2}).addChildTo(self.goban);
+            PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
         });
 
         const step = App._scenes[1].enemy.steps[0];

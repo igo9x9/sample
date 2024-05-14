@@ -626,6 +626,7 @@ phina.define("KentouScene", {
             fill: "#daa520",
             strokeWidth: 0,
         }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(7));
+        self.goban.alpha = 0;
 
         self.goban._grid = Grid({width: 470, columns: 8});
 
@@ -660,7 +661,8 @@ phina.define("KentouScene", {
             });
         });
 
-        self.goban.setRotation(rotate * 90);
+        self.goban.setRotation(rotate * 90).tweener.to({alpha: 1}, 1000).play();
+        ;
 
     }
 });

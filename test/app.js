@@ -55,18 +55,19 @@ function save() {
     data.lastLevel = lastLevel;
     data.lastMap = lastMap;
     data.mapLeftTop = mapLeftTop;
+    data.questions = questions;
     window.localStorage.setItem("usako", JSON.stringify(data));
 }
 
 function load() {
     const data = window.localStorage.getItem("usako");
     if (data) {
-        console.log(data);
         const d = JSON.parse(data);
         tmpDate.playerInfo = d.player;
         lastLevel = d.lastLevel;
         lastMap = d.lastMap;
         mapLeftTop = d.mapLeftTop;
+        questions = d.questions;
     }
 }
 
@@ -263,7 +264,6 @@ phina.define('MapScene', {
         var layer2 = DisplayElement().addChildTo(this);//当たり判定のあるもの
 
         if (playerInfo.map !==0 ) {
-            console.log("hoge")
             this.floorInfoLabel = Label({
                 text: "",
                 fill: "#fff",
@@ -871,7 +871,7 @@ phina.define('MapScene', {
      * ランダムでバトルに突入
      */
     randomButtle: function() {
-        var r = (tmpDate.playerInfo.items.ring === true ? Random.randint(1, 20) : Random.randint(1, 200));
+        var r = (tmpDate.playerInfo.items.ring === true ? Random.randint(1, 10) : Random.randint(1, 200));
         if (r === 1) {
             const enemyLevel = tmpDate.playerInfo.map;
             if (questions.filter((q) => q.level === enemyLevel && q.hp > 0).length === 0) {
@@ -1080,7 +1080,7 @@ phina.define('NPCBlock', {
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.countdown === null) {
                         tmpDate.playerInfo.items.countdown = false;
-                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("死の腕時計 を手に入れた！", () => SimpleMessage("囲碁の神様\n「使いこなすのは難しいんじゃが、\nまぁおぬしなら大丈夫じゃろ。」", )));
+                        return SimpleMessage("囲碁の神様\n「ワシからのプレゼントじゃ。」", () => SimpleMessage("死の腕時計 を手に入れた！", () => SimpleMessage("囲碁の神様\n「とても危険な腕時計じゃよ。\n気を付けてな。」", )));
                     } else {
                         return SimpleMessage("囲碁の神様\n「ふぉっふぉっ」");
                     }

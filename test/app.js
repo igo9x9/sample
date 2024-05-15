@@ -27,8 +27,7 @@ ASSETS = {
         "tatefuda": "images/tatefuda.png",
         "flower": "images/flower.png",
         "arrow": "images/arrow.png",
-        "hole1": "images/hole1.png",
-        "hole2": "images/hole2.png",
+        "hole": "images/hole.png",
         "npc1": "images/npc1.png",
         "npc2": "images/npc2.png",
         "npc3": "images/npc3.png",
@@ -79,7 +78,6 @@ phina.define('TitleScene', {
         this.superInit(options);
 
         this.backgroundColor = "green";
-
 
         Label({
             text: 'うさこの',
@@ -429,8 +427,11 @@ phina.define('MapScene', {
                     FlowerBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (item === "E") {
+                    if (playerInfo.map !== 0) {
+                        FloorBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    }
                     //Eに穴
-                    HoleBlock(playerInfo.map).addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
+                    HoleBlock().addChildTo(layer2).setPosition(stageX.span(j), stageY.span(i));
                 }
                 if (newGame || mapToMap) {
                     if (item === "S") {
@@ -1014,12 +1015,8 @@ phina.define('HospitalBlock', {
 phina.define('HoleBlock', {
     superClass: 'Sprite',
     
-    init: function(map) {
-        if (map === 0) {
-            this.superInit("hole1", BOX_WIDTH, BOX_HEIGHT);
-        } else {
-            this.superInit("hole2", BOX_WIDTH, BOX_HEIGHT);
-        }
+    init: function() {
+        this.superInit("hole", BOX_WIDTH, BOX_HEIGHT);
     }
 });
 

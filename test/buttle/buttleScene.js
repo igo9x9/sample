@@ -8,7 +8,7 @@ phina.define("ButtleScene", {
     updateHpLabel() {
         const self = this;
         self.hpLabel.text = "うさこ" + "  HP: " + self._playerInfo.hp + "／" + (self._playerInfo.level * 5);// + "  にんじん:" + self._playerInfo.items.carotte;
-        if (self._playerInfo.hp <= 3) {
+        if (self._playerInfo.hp <= self._playerInfo.level * 2) {
             self.hpLabel.fill = "red";
             self.statusBox.stroke = "red";
         } else {

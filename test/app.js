@@ -1378,13 +1378,16 @@ phina.define("MenuScene", {
                 message = SimpleMessage("？？？？");
             } else if (tmpDate.playerInfo.items.carotte === 0) {
                 message = SimpleMessage("食べるとHPが回復する。");
-            } else if (tmpDate.playerInfo.hp === tmpDate.playerInfo.level * 5) {
+            } else if (tmpDate.playerInfo.hp >= tmpDate.playerInfo.level * 5) {
                 message = SimpleMessage("食べるとHPが回復する。\n今はHPが満タンです。");
             } else {
                 const yesFnc = () => {
                     const kaifuku = Math.ceil(tmpDate.playerInfo.level / 2);
                     tmpDate.playerInfo.items.carotte -= 1;
                     tmpDate.playerInfo.hp += kaifuku;
+                    if (tmpDate.playerInfo.hp > tmpDate.playerInfo.level * 5) {
+                        tmpDate.playerInfo.hp = tmpDate.playerInfo.level * 5;
+                    }
                     if (sceneName === "BattleScene") {
                         App._scenes[1].updateHpLabel();
                     } else {

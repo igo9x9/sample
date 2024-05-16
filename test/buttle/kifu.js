@@ -3471,8 +3471,8 @@ let questions = [
                 "         ",
                 "   BBBBBB",
                 "   BWWWBW",
-                "   BW  WW",
-                "      N  ",
+                "   B   WW",
+                "     WN  ",
             ],[
                 "         ",
                 "         ",
@@ -3481,8 +3481,8 @@ let questions = [
                 "         ",
                 "   BBBBBB",
                 "   BWWWBW",
-                "   BW NWW",
-                "     wB  ",
+                "   Bw NWW",
+                "     WB  ",
             ],[
                 "         ",
                 "         ",

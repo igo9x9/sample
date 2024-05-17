@@ -42,6 +42,7 @@ ASSETS = {
         "countdown": "images/countdown.png",
         "ring": "images/ring.png",
         "kentou": "images/kentou.png",
+        "book": "images/book.jpg",
     },
 };
 
@@ -167,6 +168,23 @@ phina.define('TitleScene', {
             });
         }
         
+        const aboutButton = RectangleShape({
+            fill: 'transparent',
+            strokeWidth: 0,
+            x: this.gridX.center(5),
+            y: 930,
+            width: 200,
+            height: 50,
+        }).addChildTo(this).setInteractive(true);
+        Label({
+            fill: '#fff',
+            align: "center",
+            text: "このゲームについて",
+            fontSize: 22,
+        }).addChildTo(aboutButton);
+        aboutButton.on("pointstart", () => {
+            App.pushScene(AboutScene());
+        });
     
         // データ初期化
         // tmpDate.playerInfo = {map: 20, level: 10, hp: 500, bossStep: 3, x: null, y: null,
@@ -1874,6 +1892,61 @@ phina.define("GameClearScene", {
                 q.hp = 1;
             });
             datastore.save();
+            self.exit();
+        });
+
+    },
+});
+
+/*
+ * アバウトシーン
+ */
+phina.define("AboutScene", {
+    superClass: 'DisplayScene',
+    init: function() {
+        this.superInit();
+        var self = this;
+
+        this.backgroundColor = 'gray';
+
+        Label({
+            fill: "white",
+            x: 30,
+            y: 100,
+            align: "left",
+            text: "このゲームは、\n日本棋院「新・早わかり死活小事典」を\n丸暗記する目的で作りました。",
+        }).addChildTo(this);
+
+        Sprite("book").setPosition(this.gridX.center(),340).addChildTo(this);
+
+        Label({
+            fill: "white",
+            x: 30,
+            y: 600,
+            align: "left",
+            text: "出題する問題は全て黒番に統一して、\n書籍に載っている手順のみを正解と\nしています。\n\n各問題の詳細は、書籍をご覧ください。",
+        }).addChildTo(this);
+
+        const closeButton = RectangleShape({
+            fill: 'transparent',
+            stroke: "white",
+            strokeWidth: 4,
+            x: this.gridX.center(),
+            y: 900,
+            width: 150,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(this).setInteractive(true);
+        const closeButtonLabel = Label({
+            fill: 'white',
+            x: 0,
+            y: 0,
+            align: "center",
+            text: "とじる",
+            fontSize: 25,
+            fontWeight: 800,
+        }).addChildTo(closeButton);
+        closeButton.on("pointstart", function() {
             self.exit();
         });
 

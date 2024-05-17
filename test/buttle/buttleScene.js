@@ -167,7 +167,7 @@ phina.define("ButtleScene", {
                         self.exit("TitleScene");
                     });
 
-                    window.localStorage.removeItem("usako");
+                    datastore.clear();
         
                 }
 

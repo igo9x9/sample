@@ -49,25 +49,32 @@ let lastLevel = 1;
 let lastMap = 0;
 let lastDirection = DIRECTION.DOWN;
 
-function save() {
-    const data = {player: tmpDate.playerInfo};
-    data.lastLevel = lastLevel;
-    data.lastMap = lastMap;
-    data.mapLeftTop = mapLeftTop;
-    data.questions = questions;
-    window.localStorage.setItem("usako", JSON.stringify(data));
-}
-
-function load() {
-    const data = window.localStorage.getItem("usako");
-    if (data) {
-        const d = JSON.parse(data);
-        tmpDate.playerInfo = d.player;
-        lastLevel = d.lastLevel;
-        lastMap = d.lastMap;
-        mapLeftTop = d.mapLeftTop;
-        questions = d.questions;
-    }
+const datastore = {
+    hasData: function() {
+        return window.localStorage.getItem("usako") ? true : false;
+    },
+    clear: function() {
+        window.localStorage.removeItem("usako");
+    },
+    save: function() {
+        const data = {player: tmpDate.playerInfo};
+        data.lastLevel = lastLevel;
+        data.lastMap = lastMap;
+        data.mapLeftTop = mapLeftTop;
+        data.questions = questions;
+        window.localStorage.setItem("usako", JSON.stringify(data));
+    },
+    load: function() {
+        const data = window.localStorage.getItem("usako");
+        if (data) {
+            const d = JSON.parse(data);
+            tmpDate.playerInfo = d.player;
+            lastLevel = d.lastLevel;
+            lastMap = d.lastMap;
+            mapLeftTop = d.mapLeftTop;
+            questions = d.questions;
+        }
+    },
 }
 
 // タイトルシーン
@@ -77,12 +84,14 @@ phina.define('TitleScene', {
     init: function(options) {
         this.superInit(options);
 
+        const self = this;
+
         this.backgroundColor = "green";
 
         Label({
             text: 'うさこの',
             x: 320,
-            y: 420,
+            y: 320,
             fontSize: 40,
             fill: "orange",
             fontWeight: 800,
@@ -92,15 +101,72 @@ phina.define('TitleScene', {
         Label({
             text: '囲碁死活ダンジョン',
             x: 320,
-            y: 500,
+            y: 400,
             fontSize: 50,
             fill: "white",
             fontWeight: 800,
             // strokeWidth: 5,
             // stroke: "black",
         }).addChildTo(this);
-        Player().setPosition(200,420).addChildTo(this);
+        Player().setPosition(200,320).addChildTo(this);
 
+        const newGameButton = RectangleShape({
+            fill: 'transparent',
+            stroke: "#fff",
+            strokeWidth: 4,
+            x: this.gridX.center(),
+            y: 700,
+            width: 200,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(this).setInteractive(true);
+        Label({
+            fill: '#fff',
+            align: "center",
+            text: "はじめから",
+            fontSize: 25,
+            fontWeight: 800,
+        }).addChildTo(newGameButton);
+
+        newGameButton.on("pointstart", function() {
+            if (datastore.hasData()) {
+                App.pushScene(MessageScene(QuestionMessage("セーブデータは消えますが\nよろしいですか？", () => {
+                    setTimeout(function() {
+                        datastore.clear();
+                        self.exit('MapScene');
+                    }, 10);
+                    return null;
+                }, null)));
+            } else {
+                self.exit('MapScene');
+            }
+        });
+
+        if (datastore.hasData()) {
+            const continueButton = RectangleShape({
+                fill: 'transparent',
+                stroke: "#fff",
+                strokeWidth: 4,
+                x: this.gridX.center(),
+                y: 600,
+                width: 200,
+                height: 50,
+                cornerRadius: 8,
+            }).addChildTo(this).setInteractive(true);
+            Label({
+                fill: '#fff',
+                align: "center",
+                text: "つづきから",
+                fontSize: 25,
+                fontWeight: 800,
+            }).addChildTo(continueButton);
+
+            continueButton.on("pointstart", () => {
+                datastore.load();
+                self.exit('MapScene');
+            });
+        }
+        
     
         // データ初期化
         // tmpDate.playerInfo = {map: 20, level: 10, hp: 500, bossStep: 3, x: null, y: null,
@@ -133,12 +199,7 @@ phina.define('TitleScene', {
             q.hp = 1;
         });
 
-        load();
-
     },
-    onpointstart: function() {
-        this.exit('MapScene');
-    }
 });
 
 //-------------------------
@@ -235,12 +296,12 @@ phina.define('MapScene', {
         let mapToMap = false;
 
         if (!playerInfo) {
-            load();
+            datastore.load();
             playerInfo = tmpDate.playerInfo;
         } else {
             newGame = false;
             tmpDate.playerInfo = playerInfo;
-            save();
+            datastore.save();
         }
 
         if (playerInfo.map !== lastMap) {
@@ -301,7 +362,7 @@ phina.define('MapScene', {
             height: 50,
             cornerRadius: 8,
         }).setOrigin(0, 0).addChildTo(this).setInteractive(true);
-        const itemButtonLabel = Label({
+        Label({
             fill: '#fff',
             x: 80,
             y: 34,
@@ -1809,7 +1870,10 @@ phina.define("GameClearScene", {
             tmpDate.playerInfo.map = 0;
             lastMap = 0;
             tmpDate.playerInfo.bossStep = 0;
-            save();
+            questions.forEach(function(q) {
+                q.hp = 1;
+            });
+            datastore.save();
             self.exit();
         });
 

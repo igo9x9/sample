@@ -1154,14 +1154,14 @@ phina.define('NPCBlock', {
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたら、上の階には\nもう戻れないの。慎重に進んでね。", () => SimpleMessage("でも『飛竜の羽根』を使うと\n戻れるらしいわ」"));
+                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたら、上の階には\nもう戻れないの。慎重に進んでね。", () => SimpleMessage("でも『大鷲の羽根』を使うと\n戻れるらしいわ」"));
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
                 yes = ()=>{
                     tmpDate.playerInfo.items.carotte += 1;
                     App._scenes[1].updateStatusLabel();
-                    return SimpleMessage("「がんばれよ！」", () => SimpleMessage("にんじんを1本くれた。"));
+                    return SimpleMessage("「がんばれよ！\nちなみに問題は全部黒番だぜ！」", () => SimpleMessage("にんじんを1本くれた。"));
                 };
                 this._messageFnc = () => {
                     if (tmpDate.playerInfo.items.carotte === null) {
@@ -1604,7 +1604,7 @@ phina.define("MenuScene", {
         });
         self.revivalIcon = Sprite("revival").addChildTo(revivalButton).setPosition(-200, 0).hide();
 
-        // 飛竜の羽根
+        // 大鷲の羽根
         const featherButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
@@ -1628,11 +1628,11 @@ phina.define("MenuScene", {
             if (tmpDate.playerInfo.items.feather === null) {
                 message = SimpleMessage("？？？？");
             } else if (tmpDate.playerInfo.items.feather === 0) {
-                message = SimpleMessage("行ったことがある階に戻れる。\nどの階かは分からない。");
+                message = SimpleMessage("いまの階より上の階に戻れる。\nどの階かは分からない。");
             } else if (sceneName === "BattleScene") {
-                message = SimpleMessage("行ったことがある階に戻れる。\n戦闘中は使えない。");
+                message = SimpleMessage("いまの階より上の階に戻れる。\n戦闘中は使えない。");
             } else if (tmpDate.playerInfo.map < 2) {
-                message = SimpleMessage("行ったことがある階に戻れる。\nここでは使えない。");
+                message = SimpleMessage("いまの階より上の階に戻れる。\nここでは使えない。");
             } else {
                 const yesFnc = () => {
                     const nowMap = tmpDate.playerInfo.map;
@@ -1644,7 +1644,7 @@ phina.define("MenuScene", {
                     menuScene.exit();
                     return SimpleMessage("ジャンプ！");
                 };
-                message = QuestionMessage("行ったことがある階に戻れる。\nどの階かは分からない。\n1枚使いますか？", yesFnc, null);
+                message = QuestionMessage("いまの階より上の階に戻れる。\nどの階かは分からない。\n1枚使いますか？", yesFnc, null);
             }
             App.pushScene(MessageScene(message));
         });
@@ -1826,7 +1826,7 @@ phina.define("MenuScene", {
         if (tmpDate.playerInfo.items.feather === null) {
             this.featherLabel.text = "？？？？";
         } else {
-            this.featherLabel.text = "飛竜の羽根：" + tmpDate.playerInfo.items.feather + " 枚";
+            this.featherLabel.text = "大鷲の羽根：" + tmpDate.playerInfo.items.feather + " 枚";
             this.featherIcon.show();
         }
 
@@ -1958,7 +1958,7 @@ phina.define("AboutScene", {
             fill: "white",
             fontSize: 25,
             width: this.width - 100,
-            text: "　このゲームは、日本棋院出版の「新・早わかり死活小事典」を丸暗記するために作ったものです。",
+            text: "　このゲームは、日本棋院出版の「新・早わかり死活小事典」を丸暗記することを目標に作ったものです。",
         }).addChildTo(this).setOrigin(0,0).setY(100);
 
         Sprite("book").setPosition(this.gridX.center(),340).addChildTo(this);
@@ -1968,7 +1968,7 @@ phina.define("AboutScene", {
             fill: "white",
             fontSize: 25,
             width: this.width - 100,
-            text: "　出題する問題は全て黒番に統一しています。また、実際には正解となる手が複数ある場合でも、書籍に載っている手順のみを正解としています。各問題の詳細はゲームの中では触れていません。書籍でご確認ください。",
+            text: "　出題する問題は全て黒番に統一しています。また、実際には正解となる手が複数ある場合でも、書籍に載っている手順のみを正解としています。各問題の詳細は書籍をご覧ください。",
         }).addChildTo(this).setOrigin(0,0).setY(480);
 
         const closeButton = RectangleShape({
@@ -2380,7 +2380,7 @@ phina.define("ButtleScene", {
             fill: '#fff',
             align:"left",
             x: 20,
-            y: 37,
+            y: 40,
         }).addChildTo(this.statusBox);
         
         self.updateHpLabel();
@@ -2556,7 +2556,7 @@ phina.define("ButtleScene", {
                             self.addButtleComment("復活の線香を1本手に入れた");
                         } else if (Math.random() > 0.85) {
                             self._playerInfo.items.feather += 1;
-                            self.addButtleComment("飛竜の羽根を1枚手に入れた");
+                            self.addButtleComment("大鷲の羽根を1枚手に入れた");
                         } else if (Math.random() > 0.95) {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴手に入れた");
@@ -2574,7 +2574,7 @@ phina.define("ButtleScene", {
                             self.addButtleComment("復活の線香を1本手に入れた");
                         } else if (r < 0.9) {
                             self._playerInfo.items.feather += 1;
-                            self.addButtleComment("飛竜の羽根を1枚手に入れた");
+                            self.addButtleComment("大鷲の羽根を1枚手に入れた");
                         } else {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴手に入れた");

@@ -388,12 +388,12 @@ phina.define('MapScene', {
         var statusBox = RectangleShape({
             fill: '#000',
             stroke: "#000",
-            strokeWidth: 16,
+            // strokeWidth: 16,
             x: 20,
             y: -100,
             width: 400,
             height: 50,
-            cornerRadius: 16,
+            // cornerRadius: 16,
         }).setOrigin(0, 0).addChildTo(this);
 
         self.statusLabel = Label({
@@ -2370,10 +2370,10 @@ phina.define("ButtleScene", {
             height: this.gridX.unitWidth * 1.5,
             fill: '#000',
             stroke: "#fff",
-            strokeWidth: 30,
+            strokeWidth: 8,
             x: 12,
-            y: 650,
-            cornerRadius: 2,
+            y: 660,
+            // cornerRadius: 2,
         }).setOrigin(0,0).addChildTo(this);
 
         this.hpLabel = Label({
@@ -2390,9 +2390,9 @@ phina.define("ButtleScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 436,
-            y: 646,
-            width: 180,
-            height: 67,
+            y: 660,
+            width: 175,
+            height: this.gridX.unitWidth * 1.5,
             cornerRadius: 8,
         }).setOrigin(0, 0).addChildTo(this).setInteractive(true);
         const itemButtonLabel = Label({
@@ -2412,10 +2412,10 @@ phina.define("ButtleScene", {
             height: this.gridX.unitWidth * 5,
             fill: '#000',
             stroke: "#fff",
-            strokeWidth: 30,
+            strokeWidth: 8,
             x: this.gridX.center(),
             y: 850,
-            cornerRadius: 2,
+            // cornerRadius: 2,
         }).addChildTo(this);
 
         this.messageLabel = Label({
@@ -2791,18 +2791,23 @@ phina.define("Goban", {
         }).addChildTo(self);
 
         (9).times(function(spanX) {
-            var startPoint = Vector2((spanX - 4) * self._grid.unitWidth, -1 * self._grid.width/2),
+            var startPoint = Vector2((spanX - 4) * self._grid.unitWidth, -1 * (self._grid.width/2 + self._grid.unitWidth)),
                 endPoint = Vector2((spanX - 4) * self._grid.unitWidth, self._grid.width/2);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(ban);
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: (spanX === 8 ? 4 : 2)}).addChildTo(ban);
         });
 
         (9).times(function(spanY) {
-            var startPoint = Vector2(-1 * self._grid.width/2, (spanY - 4) * self._grid.unitWidth),
+            var startPoint = Vector2(-1 * (self._grid.width/2 + self._grid.unitWidth), (spanY - 4) * self._grid.unitWidth),
                 endPoint = Vector2(self._grid.width/2, (spanY - 4) * self._grid.unitWidth);
             
-            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: 2}).addChildTo(ban);
+            PathShape({paths:[startPoint, endPoint], stroke: "black", strokeWidth: (spanY === 8 ? 4 : 2)}).addChildTo(ban);
         });
+
+        CircleShape({x: self._grid.unitWidth, y: self._grid.unitWidth, radius: 5, fill: "black", strokeWidth: 0}).addChildTo(ban);
+        CircleShape({x: self._grid.unitWidth * -5, y: self._grid.unitWidth, radius: 5, fill: "black", strokeWidth: 0}).addChildTo(ban);
+        CircleShape({x: self._grid.unitWidth, y: self._grid.unitWidth * -5, radius: 5, fill: "black", strokeWidth: 0}).addChildTo(ban);
+        CircleShape({x: self._grid.unitWidth * -5, y: self._grid.unitWidth * -5, radius: 5, fill: "black", strokeWidth: 0}).addChildTo(ban);
 
     },
     nextStep: function() {
@@ -4625,7 +4630,7 @@ let questions = [
                 "         ",
                 "         ",
                 "         ",
-                "      B  ",
+                "       B ",
                 "       BW",
                 "    BBBW ",
                 "    BWWW ",
@@ -4635,7 +4640,7 @@ let questions = [
                 "         ",
                 "         ",
                 "         ",
-                "      B  ",
+                "       B ",
                 "       BW",
                 "    BBBW ",
                 "    BWWW ",
@@ -4645,7 +4650,7 @@ let questions = [
                 "         ",
                 "         ",
                 "         ",
-                "      B  ",
+                "       B ",
                 "       BW",
                 "    BBBW ",
                 "    BWWW ",
@@ -4655,7 +4660,7 @@ let questions = [
                 "         ",
                 "         ",
                 "         ",
-                "      B  ",
+                "       B ",
                 "       BW",
                 "    BBBWN",
                 "    BWWW ",

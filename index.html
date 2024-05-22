@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="囲碁の書籍「新・早わかり死活小事典」を暗記するためのアプリです。">
     <link rel="icon" href="favicon.png">
     <title>うさこの囲碁死活ダンジョン</title>
 
@@ -2379,10 +2380,10 @@ phina.define("ButtleScene", {
         this.hpLabel = Label({
             fill: '#fff',
             align:"left",
-            x: 20,
+            x: 30,
             y: 40,
         }).addChildTo(this.statusBox);
-        
+
         self.updateHpLabel();
 
         const itemButton = RectangleShape({
@@ -2434,8 +2435,8 @@ phina.define("ButtleScene", {
             nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
             // @@@@@
-            // nowQuestions = questions;
-            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第90型");
+            nowQuestions = questions;
+            enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第93型");
             // @@@@@
         } else {
             ememyLevel = 30;
@@ -7565,6 +7566,157 @@ let questions = [
                 "  W WB BW",
                 "   WBBBW ",
                 "      B W",
+            ]
+        ]
+    },
+    {
+        level: 14,
+        name: "隅の死活第91型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "    BWWWN",
+                "    BW   ",
+                "  B B  W ",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "    BWWWB",
+                "    BW  w",
+                "  B B NW ",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBB ",
+                "    BWWWB",
+                "    BW  W",
+                "  B BwBW ",
+                "     N   ",
+            ],[
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBBw",
+                "    BWWW ",
+                "    BW  W",
+                "  B BWBW ",
+                "     B N ",
+                ],[
+                "         ",
+                "         ",
+                "       B ",
+                "         ",
+                "    BBBBW",
+                "    BWWW ",
+                "    BW  W",
+                "  B BWBW ",
+                "     B B ",
+            ]
+        ]
+    },
+    {
+        level: 15,
+        name: "隅の死活第92型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBBB",
+                "    BWWW ",
+                "    BW   ",
+                "   B BWW ",
+                "     B N ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBBB",
+                "    BWWW ",
+                "    BW  N",
+                "   B BWW ",
+                "     BwB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBBB",
+                "    BWWW ",
+                "    BW wB",
+                "   B BWWN",
+                "     BWB ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBBB",
+                "    BWWW ",
+                "    BW WB",
+                "   B BWWB",
+                "     BWB ",
+            ]
+        ]
+    },
+    {
+        level: 13,
+        name: "隅の死活第93型",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     BBBB",
+                "    B WWW",
+                "    BW   ",
+                "    BBWW ",
+                "      N  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     BBBB",
+                "    B WWW",
+                "    BW   ",
+                "    BBWWN",
+                "      Bw ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     BBBB",
+                "    BwWWW",
+                "    BW N ",
+                "    BBWWB",
+                "      BW ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "     BBBB",
+                "    BWWWW",
+                "    BW B ",
+                "    BBWWB",
+                "      BW ",
             ]
         ]
     },

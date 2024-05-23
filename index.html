@@ -262,6 +262,15 @@ phina.define('TitleScene', {
 phina.define('MapScene', {
     superClass: 'DisplayScene',
 
+    onenter: function() {
+        if (datastore.hasData()) {
+            return;
+        }
+        const msg2 = SimpleMessage("ダンジョンは、囲碁の死活問題が\n敵として現れるのでした。");
+        const msg = SimpleMessage("いろいろあって、うさこは\n村のはずれにあるダンジョンへ\n魔王を倒しに向かうのでした", () => msg2);
+        App.pushScene(MessageScene(msg));
+    },
+
     /**
      * コンストラクタ
      */
@@ -594,7 +603,7 @@ phina.define('MapScene', {
                 .play();
         } else {
             //プレイヤーはいつだって真ん中
-            player.setPosition(stageX.span(COLUMNS_COUNT_X / 2), stageY.span(COLUMNS_COUNT_Y / 2));
+            player.setPosition(stageX.span(COLUMNS_COUNT_X / 2) - 32, stageY.span(COLUMNS_COUNT_Y / 2) - 32);
         }
 
         //クラス内で参照できるようにする
@@ -605,17 +614,14 @@ phina.define('MapScene', {
         }
 
         this.on("pause", function() {
-            console.log("hoge");
             self.canMovePlayer = false;
             self.touchPointX = null;
             self.touchPointY = null;
-            self.touchCircle.remove();
+            self.touchCircle && self.touchCircle.remove();
         });
 
         this.on("resume", function() {
-            // setTimeout(function() {
-                self.canMovePlayer = true;
-            // }, 300);
+            self.canMovePlayer = true;
         });
 
     },
@@ -2096,7 +2102,7 @@ phina.main(function() {
                 label: 'HospitalScene',
                 className: 'HospitalScene',
                 nextLabel: "MapScene",
-            },
+            }
         ],
     });
     App.fps = FPS;

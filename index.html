@@ -604,6 +604,20 @@ phina.define('MapScene', {
             this.setMapLeftTop(mapLeftTop);
         }
 
+        this.on("pause", function() {
+            console.log("hoge");
+            self.canMovePlayer = false;
+            self.touchPointX = null;
+            self.touchPointY = null;
+            self.touchCircle.remove();
+        });
+
+        this.on("resume", function() {
+            // setTimeout(function() {
+                self.canMovePlayer = true;
+            // }, 300);
+        });
+
     },
 
     // マップブロックの左上の座標を得る
@@ -1008,11 +1022,16 @@ phina.define('MapScene', {
         //バトル画面に遷移
         this.nextScene('ButtleScene');
     },
+
+    canMovePlayer: true,
   
     /**
      * 更新
      */
     update: function(app) {
+        if (!this.canMovePlayer) {
+            return;
+        }
         //キャラクターの動作
         this.movePlayer(app);
 
@@ -2435,8 +2454,8 @@ phina.define("ButtleScene", {
             nowQuestions = questions.filter((q) => q.level === ememyLevel && q.hp > 0);
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
             // @@@@@
-            nowQuestions = questions;
-            enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第93型");
+            // nowQuestions = questions;
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第93型");
             // @@@@@
         } else {
             ememyLevel = 30;

@@ -266,8 +266,12 @@ phina.define('MapScene', {
         if (datastore.hasData()) {
             return;
         }
-        const msg2 = SimpleMessage("そのダンジョンは、\n囲碁の死活問題が敵として\n待ち受けるのです。");
-        const msg = SimpleMessage("いろいろあって、うさこは\n村のはずれにあるダンジョンへ\n魔王を倒しに向かうのでした。", () => msg2);
+        const self = this;
+        this.player.hide();
+        const msg2 = SimpleMessage("そして、そのダンジョンでは\n囲碁の死活問題が\n敵として待ち受けているのです。");
+        const msg = SimpleMessage("いろいろあって、うさこは\n村のはずれにあるダンジョンへ\n魔王を倒しに向かいます。", () => {
+            self.player.show();
+            return msg2;});
         App.pushScene(MessageScene(msg));
     },
 
@@ -1031,7 +1035,7 @@ phina.define('MapScene', {
         this.nextScene('ButtleScene');
     },
 
-    canMovePlayer: true,
+    canMovePlayer: false,
   
     /**
      * 更新

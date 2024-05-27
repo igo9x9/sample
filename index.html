@@ -267,12 +267,36 @@ phina.define('MapScene', {
             return;
         }
         const self = this;
-        this.player.hide();
-        const msg2 = SimpleMessage("そして、そのダンジョンでは\n囲碁の死活問題が\n敵として待ち受けているのです。");
-        const msg = SimpleMessage("いろいろあって、うさこは\n村のはずれにあるダンジョンへ\n魔王を倒しに向かいます。", () => {
-            self.player.show();
-            return msg2;});
-        App.pushScene(MessageScene(msg));
+        // this.player.hide();
+
+        const box = RectangleShape({
+            x: this.gridX.center(),
+            y: this.gridY.center(),
+            width: this.width,
+            height: this.height,
+            fill: "black",
+        }).addChildTo(this);
+
+        const god = Sprite("npc6").setScale(2,2);
+        god.alpha = 0;
+        god.addChildTo(this)
+            .setPosition(this.gridX.center(), -10)
+            .tweener.to({y: self.gridY.center(-3), alpha: 1}, 800)
+            .call(function() {
+                const msg3 = SimpleMessage("「以上！」");
+                const msg2 = SimpleMessage("「村のはずれのダンジョンに住む\n魔王を倒すのじゃ」", () => {
+                    // self.player.show();
+                    god.remove();
+                    box.tweener
+                        .to({alpha: 0}, 500)
+                        .call(() => { box.remove(); })
+                        .play();
+                    return msg3;})
+                const msg = SimpleMessage("囲碁の神様\n「…うさこよ」", () => msg2);
+                App.pushScene(MessageScene(msg));
+            })
+            .play();
+
     },
 
     /**

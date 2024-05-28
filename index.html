@@ -280,13 +280,16 @@ phina.define('MapScene', {
         const god = Sprite("npc6").setScale(2,2);
         god.alpha = 0;
         god.addChildTo(this)
-            .setPosition(this.gridX.center(), -10)
-            .tweener.to({y: self.gridY.center(-3), alpha: 1}, 800)
+            .setPosition(this.gridX.center(), self.gridY.span(4))
+            .tweener.to({y: self.gridY.center(-2), alpha: 1}, 800)
             .call(function() {
                 const msg3 = SimpleMessage("「以上！」");
                 const msg2 = SimpleMessage("「村のはずれのダンジョンに住む\n魔王を倒すのじゃ」", () => {
                     // self.player.show();
-                    god.remove();
+                    god.tweener
+                        .to({alpha: 0, y: self.gridY.span(4)}, 500)
+                        .call(() => { god.remove(); })
+                        .play();
                     box.tweener
                         .to({alpha: 0}, 500)
                         .call(() => { box.remove(); })

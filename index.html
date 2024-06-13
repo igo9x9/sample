@@ -5,7 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="description" content="囲碁の書籍「新・早わかり死活小事典」を暗記するためのアプリです。">
+    <meta name="description" content="日本棋院出版「新・早わかり死活小事典」を丸暗記するモチベーションを保つことを目的にしたRPGです。">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@igo9x9" />
+    <meta property="og:url" content="https://igo9x9.github.io/sikatsu/" />
+    <meta property="og:title" content="うさこの囲碁死活ダンジョン" />
+    <meta property="og:description" content="日本棋院出版「新・早わかり死活小事典」を丸暗記するモチベーションを保つことを目的にしたRPGです。" />
+    <meta property="og:image" content="/img/twitter.png" />
     <link rel="icon" href="favicon.png">
     <title>うさこの囲碁死活ダンジョン</title>
 
@@ -95,7 +101,12 @@ const datastore = {
         data.lastLevel = lastLevel;
         data.lastMap = lastMap;
         data.mapLeftTop = mapLeftTop;
-        data.questions = questions;
+        data.questions = questions.map(function(q) {
+            return {
+                name: q.name,
+                hp: q.hp
+            };
+        });
         window.localStorage.setItem("usako", JSON.stringify(data));
     },
     load: function() {
@@ -106,7 +117,17 @@ const datastore = {
             lastLevel = d.lastLevel;
             lastMap = d.lastMap;
             mapLeftTop = d.mapLeftTop;
-            questions = d.questions;
+            // questions = d.questions;
+            d.questions.forEach(function(q1) {
+                questions.some(function(q2) {
+                    if (q1.name === q2.name) {
+                        q2.hp = q1.hp;
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
         }
     },
 }
@@ -2017,7 +2038,7 @@ phina.define("AboutScene", {
             fill: "white",
             fontSize: 25,
             width: this.width - 100,
-            text: "　このゲームは、日本棋院出版の「新・早わかり死活小事典」を丸暗記することを目標に作ったものです。",
+            text: "　このゲームは、日本棋院出版「新・早わかり死活小事典」を丸暗記するモチベーションを保つことを目的に作りました。",
         }).addChildTo(this).setOrigin(0,0).setY(100);
 
         Sprite("book").setPosition(this.gridX.center(),340).addChildTo(this);
@@ -3125,7 +3146,7 @@ phina.define("KentouStone", {
 let questions = [
     {
         level: 1,
-        name: "隅の死活第１型",
+        name: "隅の死活第1型",
         steps: [
             [
                 "         ",
@@ -4927,7 +4948,7 @@ let questions = [
                 "      W  ",
                 "       W ",
                 "    WWWBW",
-                " W  WBBB ",
+                "  W WBBB ",
                 "   WBB N ",
                 "         ",
             ],[
@@ -4937,7 +4958,7 @@ let questions = [
                 "      W  ",
                 "       W ",
                 "    WWWBW",
-                " W  WBBB ",
+                "  W WBBB ",
                 "   WBB B ",
                 "         ",
             ]

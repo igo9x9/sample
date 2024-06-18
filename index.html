@@ -2147,7 +2147,8 @@ phina.define("AboutScene", {
         }).addChildTo(mailButton);
 
         mailButton.on("pointstart", function() {
-            window.open("mailto:ando19721226@gmail.com");
+            navigator.clipboard.writeText("ando19721226@gmail.com");
+            alert("クリップボードにコピーしました。");
         });
 
         const closeButton = RectangleShape({

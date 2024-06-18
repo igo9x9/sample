@@ -2132,20 +2132,18 @@ phina.define("AboutScene", {
         const mailButton = RectangleShape({
             x: 80,
             fill: "transparent",
-            fontSize: 18,
             height: 30,
             width: 300,
             strokeWidth: 0,
         }).addChildTo(this).setOrigin(0,0).setY(770).setInteractive(true);
         Label({
             fill: 'white',
-            x: 130,
+            x: 200,
             y: 20,
             align: "center",
-            text: "ando19721226@gmail.com",
-            fontSize: 18,
+            text: "メール：ando19721226@gmail.com",
+            fontSize: 23,
         }).addChildTo(mailButton);
-
         mailButton.on("pointstart", function() {
             navigator.clipboard.writeText("ando19721226@gmail.com");
             alert("クリップボードにコピーしました。");

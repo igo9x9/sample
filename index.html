@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="description" content="日本棋院出版「新・早わかり死活小事典」を丸暗記するモチベーションを保つためのRPGです。">
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@igo9x9" />
+    <meta name="twitter:site" content="@fando93736414" />
     <meta property="og:url" content="https://igo9x9.github.io/sikatsu/" />
     <meta property="og:title" content="うさこの囲碁死活ダンジョン" />
     <meta property="og:description" content="「新・早わかり死活小事典」を丸暗記するためのRPGです。" />
@@ -79,9 +79,11 @@ ASSETS = {
         "revival": "img/revival.png",
         "carotte": "img/carotte.png",
         "countdown": "img/countdown.png",
+        "telephone": "img/telephone.png",
         "ring": "img/ring.png",
         "kentou": "img/kentou.png",
         "book": "img/book.jpg",
+        "crown": "img/crown.png",
     },
 };
 
@@ -114,6 +116,8 @@ const datastore = {
         if (data) {
             const d = JSON.parse(data);
             tmpDate.playerInfo = d.player;
+            if (tmpDate.playerInfo.items.telephone === undefined) { tmpDate.playerInfo.items.telephone = null; }
+            if (tmpDate.playerInfo.crown === undefined) { tmpDate.playerInfo.crown = 0; }
             lastLevel = d.lastLevel;
             lastMap = d.lastMap;
             mapLeftTop = d.mapLeftTop;
@@ -244,24 +248,26 @@ phina.define('TitleScene', {
         });
     
         // データ初期化
-        // tmpDate.playerInfo = {map: 20, level: 10, hp: 500, bossStep: 3, x: null, y: null,
+        // tmpDate.playerInfo = {map: 1, level: 10, hp: 500, bossStep: 0, x: null, y: null,
         //     items: {
         //         carotte: 100,
         //         megusuri: 100,
         //         kentou: 100,
         //         feather: 100,
         //         revival: 100,
+        //         telephone: 100,
         //         ring: false,
         //         countdown: false,
         //     }
         // };
-        tmpDate.playerInfo = {map: 0, level: 1, hp: 5, bossStep: 0, x: null, y: null,
+        tmpDate.playerInfo = {map: 0, level: 1, hp: 5, bossStep: 0, x: null, y: null, crown: 0,
             items: {
                 carotte: null,
                 megusuri: null,
                 feather: null,
                 revival: null,
                 kentou: null,
+                telephone: null,
                 ring: null,
                 countdown: null,
             }
@@ -467,6 +473,12 @@ phina.define('MapScene', {
         self.updateStatusLabel();
         statusBox.tweener.moveTo(20, 20, 500, "easeOutQuad").play();
 
+        for (let c = 0; c < tmpDate.playerInfo.crown; c++) {
+            if (c < 20) {
+                Sprite("crown").addChildTo(self.statusLabel).setPosition(c * 20, -30)
+            }
+        }
+
         const itemButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
@@ -539,7 +551,7 @@ phina.define('MapScene', {
                                                 self.player.show();
                                                 self.player.tweener.to({y: -100}, 200).wait(500).call(function() {App.pushScene(GameClearScene());}).play();
                                             }).play();
-    
+                                        tmpDate.playerInfo.crown += 1;
                                         return SimpleMessage("「さあ、地上へ戻してやろう！」");
                                     }
                                 );
@@ -1505,7 +1517,7 @@ phina.define("MenuScene", {
             x: this.gridX.center(),
             y: this.gridY.center(),
             width: this.gridX.width - 100,
-            height: this.gridY.width - 100,
+            height: this.gridY.width - 50,
             cornerRadius: 16,
         }).addChildTo(this);
 
@@ -1514,7 +1526,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 370,
+            y: 400,
             width: 150,
             height: 50,
             cornerRadius: 8,
@@ -1534,7 +1546,7 @@ phina.define("MenuScene", {
         self.statusLabel = Label({
             fill: "white",
             fontSize: 30,
-            y: -380,
+            y: -410,
             fontWeight: 800,
         }).addChildTo(Box);
 
@@ -1542,7 +1554,7 @@ phina.define("MenuScene", {
             fill: "white",
             fontSize: 30,
             x: -230,
-            y: -330,
+            y: -360,
             align: "left",
             text: "道具",
         }).addChildTo(Box);
@@ -1553,7 +1565,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -260,
+            y: -300,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1602,7 +1614,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -180,
+            y: -220,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1644,7 +1656,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -100,
+            y: -140,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1690,7 +1702,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: -20,
+            y: -60,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1730,13 +1742,54 @@ phina.define("MenuScene", {
         });
         self.featherIcon = Sprite("feather").addChildTo(featherButton).setPosition(-200, 0).hide();
 
+        // テレフォン
+        const telephoneButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: 0,
+            y: 20,
+            width: 450,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        self.telephoneLabel = Label({
+            fill: "white",
+            fontSize: 30,
+            x: -170,
+            y: 0,
+            align: "left",
+            text: "",
+        }).addChildTo(telephoneButton);
+        telephoneButton.on("pointstart", function() {
+            let message;
+            if (tmpDate.playerInfo.items.telephone === null) {
+                message = SimpleMessage("？？？？");
+            } else if (tmpDate.playerInfo.items.telephone === 0) {
+                message = SimpleMessage("囲碁の神様に電話して相談する。");
+            } else {
+                const yesFnc = () => {
+                    tmpDate.playerInfo.items.telephone -= 1;
+                    self.refreshText();
+                    return SimpleMessage("囲碁の神様\n「もしもし、ワシですけど。」", () => SimpleMessage("「" + hint + "」"));
+                };
+                if (sceneName === "BattleScene") {
+                    message = QuestionMessage("囲碁の神様に電話して相談する。\n電話しますか？", yesFnc, null);
+                } else {
+                    message = SimpleMessage("囲碁の神様に電話して相談する。\n戦闘中に使います。");
+                }
+            }
+            App.pushScene(MessageScene(message));
+        });
+        self.telephoneIcon = Sprite("telephone").addChildTo(telephoneButton).setPosition(-200, 0).hide();
+
         // 魔法の目薬
         const megusuriButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 60,
+            y: 100,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1779,7 +1832,7 @@ phina.define("MenuScene", {
             fill: "white",
             fontSize: 30,
             x: -230,
-            y: 130,
+            y: 180,
             align: "left",
             text: "装備",
         }).addChildTo(Box);
@@ -1790,7 +1843,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 200,
+            y: 240,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1834,7 +1887,7 @@ phina.define("MenuScene", {
             stroke: "#fff",
             strokeWidth: 8,
             x: 0,
-            y: 280,
+            y: 320,
             width: 450,
             height: 50,
             cornerRadius: 8,
@@ -1922,6 +1975,13 @@ phina.define("MenuScene", {
         } else {
             this.kentouLabel.text = "検討の碁盤：" + tmpDate.playerInfo.items.kentou + " 面";
             this.kentouIcon.show();
+        }
+
+        if (tmpDate.playerInfo.items.telephone === null) {
+            this.telephoneLabel.text = "？？？？";
+        } else {
+            this.telephoneLabel.text = "テレフォン：" + tmpDate.playerInfo.items.telephone + " 回分";
+            this.telephoneIcon.show();
         }
 
         if (tmpDate.playerInfo.items.ring === null) {
@@ -2047,9 +2107,48 @@ phina.define("AboutScene", {
             x: 50,
             fill: "white",
             fontSize: 25,
+            fontWeight: 800,
             width: this.width - 100,
-            text: "　出題する問題は全て黒番に統一しています。また、実際には正解となる手が複数ある場合でも、書籍に載っている手順のみを正解としています。各問題の詳細は書籍をご覧ください。",
+            text: "出題内容について",
         }).addChildTo(this).setOrigin(0,0).setY(480);
+
+        LabelArea({
+            x: 50,
+            fill: "white",
+            fontSize: 25,
+            width: this.width - 100,
+            text: "　ゲーム内で出題する問題は黒番に統一しています。また、実際には正解となる手が複数ある場合でも、書籍に載っている手順のみを正解としています。各問題の詳細は書籍をご覧ください。",
+        }).addChildTo(this).setOrigin(0,0).setY(530);
+
+        LabelArea({
+            x: 50,
+            fill: "white",
+            fontSize: 25,
+            fontWeight: 800,
+            width: this.width - 100,
+            text: "お問い合わせ",
+        }).addChildTo(this).setOrigin(0,0).setY(720);
+
+        const mailButton = RectangleShape({
+            x: 80,
+            fill: "transparent",
+            fontSize: 18,
+            height: 30,
+            width: 300,
+            strokeWidth: 0,
+        }).addChildTo(this).setOrigin(0,0).setY(770).setInteractive(true);
+        Label({
+            fill: 'white',
+            x: 130,
+            y: 20,
+            align: "center",
+            text: "ando19721226@gmail.com",
+            fontSize: 18,
+        }).addChildTo(mailButton);
+
+        mailButton.on("pointstart", function() {
+            window.open("mailto:ando19721226@gmail.com");
+        });
 
         const closeButton = RectangleShape({
             fill: 'transparent',
@@ -2221,6 +2320,8 @@ var tmpDate = {
 }
 
 var mapLeftTop = {x: 32, y: 32};
+
+var hint = "";
 
 //マップチップ
 var STAGE = {
@@ -2515,7 +2616,7 @@ phina.define("ButtleScene", {
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
             // @@@@@
             // nowQuestions = questions;
-            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第93型");
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第89型");
             // @@@@@
         } else {
             ememyLevel = 30;
@@ -2529,6 +2630,12 @@ phina.define("ButtleScene", {
             level: nowQuestions[enemyIndex].level,
             rotate: Math.floor(Math.random() * 4),
         };
+
+        hint = nowQuestions[enemyIndex].hint;
+
+        if (!hint) {
+            hint = "すまん、ワシも分からん。";
+        }
 
         self.enemy = enemy;
 
@@ -2637,6 +2744,9 @@ phina.define("ButtleScene", {
                         } else if (Math.random() > 0.85) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("大鷲の羽根を1枚手に入れた");
+                        } else if (Math.random() > 0.85) {
+                            self._playerInfo.items.telephone += 1;
+                            self.addButtleComment("テレフォン1回分を手に入れた");
                         } else if (Math.random() > 0.95) {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴手に入れた");
@@ -2649,12 +2759,15 @@ phina.define("ButtleScene", {
                         } else if (r < 0.5) {
                             self._playerInfo.items.kentou += 1;
                             self.addButtleComment("検討の碁盤を1面手に入れた");
-                        } else if (r < 0.7) {
+                        } else if (r < 0.65) {
                             self._playerInfo.items.revival += 1;
                             self.addButtleComment("復活の線香を1本手に入れた");
-                        } else if (r < 0.9) {
+                        } else if (r < 0.75) {
                             self._playerInfo.items.feather += 1;
                             self.addButtleComment("大鷲の羽根を1枚手に入れた");
+                        } else if (r < 0.9) {
+                            self._playerInfo.items.feather += 1;
+                            self.addButtleComment("テレフォン1回分を手に入れた");
                         } else {
                             self._playerInfo.items.megusuri += 1;
                             self.addButtleComment("魔法の目薬を1滴手に入れた");
@@ -3147,6 +3260,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第1型",
+        hint: "コウにするのじゃ。",
         steps: [
             [
                 "         ",
@@ -3174,6 +3288,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第2型",
+        hint: "オシツブシを狙うのじゃ。",
         steps: [
             [
                 "         ",
@@ -3211,6 +3326,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第3型",
+        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん。",
         steps: [
             [
                 "         ",
@@ -3238,6 +3354,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第4型",
+        hint: "左右同形、中央にアレじゃ。",
         steps: [
             [
                 "         ",
@@ -3265,6 +3382,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第5型",
+        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん。",
         steps: [
             [
                 "         ",
@@ -3302,6 +3420,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第5型変化",
+        hint: "三目にして白に取らせるのじゃ。",
         steps: [
             [
                 "         ",
@@ -3349,6 +3468,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第6型",
+        hint: "隅のマガリ四目じゃ。",
         steps: [
             [
                 "         ",
@@ -3396,6 +3516,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第6型変化",
+        hint: "まずは急所じゃ。\nそのあと注意が必要じゃの。\n白石を取らんように。",
         steps: [
             [
                 "         ",
@@ -3433,6 +3554,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第7型",
+        hint: "たぶんカケツギかのう？",
         steps: [
             [
                 "         ",
@@ -3490,6 +3612,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第7型変化",
+        hint: "まずはカケツギじゃ。\nその後が難しいのう。\nホウリコんでオシツブす？",
         steps: [
             [
                 "         ",
@@ -3547,6 +3670,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第8型",
+        hint: "いかにも急所なあそこじゃ。",
         steps: [
             [
                 "         ",
@@ -3584,6 +3708,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第9型",
+        hint: "最終的にはコウじゃ。\n初手が難しいのう。\n『２の二』ではない。",
         steps: [
             [
                 "         ",
@@ -3631,6 +3756,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第10型",
+        hint: "まずは二線をハッてみるかの。",
         steps: [
             [
                 "         ",
@@ -3678,6 +3804,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第11型",
+        hint: "たぶんマゲじゃな。\n他の手だと薄いからのう。",
         steps: [
             [
                 "         ",
@@ -3715,6 +3842,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第12型",
+        hint: "コウになるの。\nツケたら失敗じゃ。",
         steps: [
             [
                 "         ",
@@ -3772,6 +3900,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第13型",
+        hint: "初手は「２の一」じゃ。ただし、\n黒取り番のコウが正解じゃ。",
         steps: [
             [
                 "         ",
@@ -3829,6 +3958,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第14型",
+        hint: "ダメヅマリに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -3866,6 +3996,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第15型",
+        hint: "三手目が難しいのう。\n最後は両アタリじゃ！",
         steps: [
             [
                 "         ",
@@ -3923,6 +4054,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第15型変化",
+        hint: "三手目が難しいのう。\n最後は引き出してカケ眼じゃ。",
         steps: [
             [
                 "         ",
@@ -3990,6 +4122,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第16型",
+        hint: "急所に置いて、サガリじゃ。",
         steps: [
             [
                 "         ",
@@ -4027,6 +4160,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第17型",
+        hint: "初手がカッコよいのう。\n最後は両アタリじゃ。",
         steps: [
             [
                 "         ",
@@ -4074,6 +4208,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第17型変化",
+        hint: "初手がカッコよいのう。\n最後はダメヅマリじゃ。",
         steps: [
             [
                 "         ",
@@ -4131,6 +4266,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第18型",
+        hint: "アテてアテて終わりじゃ。",
         steps: [
             [
                 "         ",
@@ -4178,6 +4314,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第19型",
+        hint: "ダメが空いとるこの形は、\nコウが精いっぱいじゃ。\n初手はサガリでなくツケじゃ。",
         steps: [
             [
                 "         ",
@@ -4225,6 +4362,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第20型",
+        hint: "気になるアレをどう守るか。\nひとひねり必要じゃ。",
         steps: [
             [
                 "         ",
@@ -4272,6 +4410,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第21型",
+        hint: "五目中手じゃ。",
         steps: [
             [
                 "         ",
@@ -4319,6 +4458,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第22型",
+        hint: "黒の取り番のコウが正解じゃ。",
         steps: [
             [
                 "         ",
@@ -4376,6 +4516,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第23型",
+        hint: "ぴょーん、ぴょーん、くいっ。\nという感じじゃ。",
         steps: [
             [
                 "         ",
@@ -4423,6 +4564,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第24型",
+        hint: "ノゾいてトンでサガる。",
         steps: [
             [
                 "         ",
@@ -4470,6 +4612,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第25型",
+        hint: "外側のダメが詰まっておる。\nダメヅマリに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -4507,6 +4650,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第26型",
+        hint: "外ダメが１つ空いとるから、\n無条件死にはできんのう。",
         steps: [
             [
                 "         ",
@@ -4554,6 +4698,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第27型",
+        hint: "外ダメが２つ空いとるから\nオシツブせるのう。",
         steps: [
             [
                 "         ",
@@ -4601,6 +4746,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第28型",
+        hint: "五目中手じゃ。",
         steps: [
             [
                 "         ",
@@ -4648,6 +4794,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第28型変化",
+        hint: "五目中手かと思ったら、\n三目中手じゃ。",
         steps: [
             [
                 "         ",
@@ -4705,6 +4852,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第29型",
+        hint: "オキでも隅のマガリ四目じゃが、\nもっと単純なほうが正解じゃ。\nツケはコウにされて不正解じゃ。",
         steps: [
             [
                 "         ",
@@ -4752,6 +4900,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第30型",
+        hint: "ぴょーん、じゃ。",
         steps: [
             [
                 "         ",
@@ -4789,6 +4938,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第31型",
+        hint: "クイッとマゲるのじゃ。\n他の生き方はちょっと損じゃよ。",
         steps: [
             [
                 "         ",
@@ -4816,6 +4966,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第32型",
+        hint: "打ち欠くのは最後じゃな。\nまずはツケてみたらどうじゃ。",
         steps: [
             [
                 "         ",
@@ -4863,6 +5014,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第33型",
+        hint: "手順は長いが一本道じゃ。\n最後はコウになるんじゃよ。",
         steps: [
             [
                 "         ",
@@ -4940,6 +5092,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第34型",
+        hint: "クイッとマゲるのじゃ。\nそれが一番確実じゃよ。",
         steps: [
             [
                 "         ",
@@ -4967,6 +5120,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第35型",
+        hint: "まずはハネるのじゃ。\nそのあとは白次第じゃな。",
         steps: [
             [
                 "         ",
@@ -5004,6 +5158,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第35型変化",
+        hint: "まずはハネるのじゃが、\n白に惑わされんようにの。\nコウにはならんよ。",
         steps: [
             [
                 "         ",
@@ -5051,6 +5206,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第36型",
+        hint: "ツケからコスんでホウリコミ。\n二段コウみたいなやつじゃ。",
         steps: [
             [
                 "         ",
@@ -5098,6 +5254,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第36型変化",
+        hint: "本当ならコウになるのじゃが、\n白が応手を間違えるから\nダメヅマリに導けるぞい。",
         steps: [
             [
                 "         ",
@@ -5155,6 +5312,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第37型",
+        hint: "ホウリコミからの例の筋じゃ。\n最後は隅のマガリ四目じゃ。",
         steps: [
             [
                 "         ",
@@ -5212,6 +5370,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第38型",
+        hint: "ブツカリじゃ。どっちから？",
         steps: [
             [
                 "         ",
@@ -5259,6 +5418,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第39型",
+        hint: "まずはキリかのう。\n隅のマガリ四目を目指すのじゃ。",
         steps: [
             [
                 "         ",
@@ -5326,6 +5486,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第40型",
+        hint: "ハネてハネて、例の筋じゃ。\nハネは短い方からじゃ。",
         steps: [
             [
                 "         ",
@@ -5383,6 +5544,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第41型",
+        hint: "ダメヅマリに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -5440,6 +5602,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第41型変化",
+        hint: "途中で白がツイで抵抗するが、\n難しく考えんでええよ。",
         steps: [
             [
                 "         ",
@@ -5487,6 +5650,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第42型",
+        hint: "カケツギで二子を守ってから、\nクイッとマゲて終わりじゃ。",
         steps: [
             [
                 "         ",
@@ -5534,6 +5698,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第43型",
+        hint: "一手目が難しいのう。\nオサえてしまったら生きられる。\nコウにするのじゃ。",
         steps: [
             [
                 "         ",
@@ -5611,6 +5776,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第44型",
+        hint: "クイッとマゲるのじゃ。",
         steps: [
             [
                 "         ",
@@ -5638,6 +5804,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第45型",
+        hint: "ツケでは生きられるのう。\nどうしたらコウにできるかの。",
         steps: [
             [
                 "         ",
@@ -5685,6 +5852,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第46型",
+        hint: "黒の先手セキになるのじゃよ。",
         steps: [
             [
                 "         ",
@@ -5732,6 +5900,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第47型",
+        hint: "短い方にサガリがあるこの形は、\n『デてからツケ』じゃ。\nさて、どこにツケるんじゃろ。",
         steps: [
             [
                 "         ",
@@ -5789,6 +5958,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第48型",
+        hint: "長い方にサガリがあるこの形は、\nオイてからデるのじゃ。\n別解もあるけど。",
         steps: [
             [
                 "         ",
@@ -5846,6 +6016,7 @@ let questions = [
     {
         level: 16,
         name: "隅の死活第50型",
+        hint: "万年コウじゃ。\nえーと、どうするんじゃっけ？",
         steps: [
             [
                 "         ",
@@ -5913,6 +6084,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第51型",
+        hint: "万年コウにすれば正解じゃ。",
         steps: [
             [
                 "         ",
@@ -5970,6 +6142,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第52型",
+        hint: "ハネてハネてツケ、じゃ。\nハサミツケでは失敗じゃよ。",
         steps: [
             [
                 "         ",
@@ -6017,6 +6190,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第53型",
+        hint: "三子はカケツギで守るのじゃ。",
         steps: [
             [
                 "         ",
@@ -6084,6 +6258,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第54型",
+        hint: "出を打ちたくなるが罠じゃ。\nハネてオサエて、オイてハウ。",
         steps: [
             [
                 "         ",
@@ -6123,8 +6298,8 @@ let questions = [
                 "         ",
                 "   BBBBB ",
                 "   BW WWw",
-                " B BWW NB",
-                "    B  W ",
+                " B BWW  B",
+                "    BN W ",
             ],[
                 "         ",
                 "         ",
@@ -6133,14 +6308,15 @@ let questions = [
                 "         ",
                 "   BBBBB ",
                 "   BW WWW",
-                " B BWW BB",
-                "    B  W ",
+                " B BWW  B",
+                "    BB W ",
             ]
         ]
     },
     {
         level: 19,
         name: "隅の死活第55型",
+        hint: "ハネてオイて、\nいろいろあってコウになる、\nという感じじゃ。",
         steps: [
             [
                 "         ",
@@ -6208,6 +6384,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第56型",
+        hint: "初手のツキアタリから、\n最終的にはオシツブシじゃ。",
         steps: [
             [
                 "         ",
@@ -6295,6 +6472,7 @@ let questions = [
     {
         level: 19,
         name: "隅の死活第57型",
+        hint: "黒のサガリがあるこの形は、\nハネて出てからのオキ、\n最終的には隅のマガリ四目じゃ。",
         steps: [
             [
                 "         ",
@@ -6382,6 +6560,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第58型",
+        hint: "どっちにオクか。\n白がダメヅマリになる方じゃ。",
         steps: [
             [
                 "         ",
@@ -6419,6 +6598,7 @@ let questions = [
     {
         level: 16,
         name: "隅の死活第59型",
+        hint: "初手はうさこが驚く場所じゃ。",
         steps: [
             [
                 "         ",
@@ -6466,6 +6646,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第60型",
+        hint: "眼を作ることが最優先じゃ。\n欲を出さんようにの。",
         steps: [
             [
                 "         ",
@@ -6523,6 +6704,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第61型",
+        hint: "ダメヅマリに導くのじゃ。\n深く入りすぎんようにの。",
         steps: [
             [
                 "         ",
@@ -6560,6 +6742,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第62型",
+        hint: "三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -6607,6 +6790,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第63型",
+        hint: "押す手なしに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -6644,6 +6828,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第64型",
+        hint: "三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -6681,6 +6866,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第64型変化",
+        hint: "三目の真ん中じゃ。\n白は押す手なしになるの。",
         steps: [
             [
                 "         ",
@@ -6728,6 +6914,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第65型",
+        hint: "外ダメが空いとるからのう。\n三目の真ん中ではセキになる。\n例の筋でダメヅマリ狙いじゃ。",
         steps: [
             [
                 "         ",
@@ -6785,6 +6972,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第66型",
+        hint: "ダメが詰まってるのなら\n三目の真ん中じゃ！\nコウにするのじゃ。",
         steps: [
             [
                 "         ",
@@ -6832,6 +7020,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第67型",
+        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -6889,6 +7078,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第68型",
+        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -6936,6 +7126,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第69型",
+        hint: "初手はツケではなく打欠きじゃ。\n白はその石をヌケんからの。",
         steps: [
             [
                 "         ",
@@ -6983,6 +7174,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第70型",
+        hint: "初手は、出切りとワタリを\n両にらみする急所じゃ！",
         steps: [
             [
                 "         ",
@@ -7030,6 +7222,7 @@ let questions = [
     {
         level: 19,
         name: "隅の死活第71型",
+        hint: "平凡にコウを目指すのじゃ。",
         steps: [
             [
                 "         ",
@@ -7077,6 +7270,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第72型",
+        hint: "初手は、第一感のお隣じゃ。",
         steps: [
             [
                 "         ",
@@ -7124,6 +7318,7 @@ let questions = [
     {
         level: 16,
         name: "隅の死活第73型",
+        hint: "三目の真ん中じゃ。\nあとは流れにまかせて\nコウになるのう。",
         steps: [
             [
                 "         ",
@@ -7171,6 +7366,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第74型",
+        hint: "外ダメが空いとる形は\n三目の真ん中ではダメじゃ。\nハネてオイて、コウじゃ！",
         steps: [
             [
                 "         ",
@@ -7228,6 +7424,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第75型",
+        hint: "三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -7265,6 +7462,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第76型",
+        hint: "まずハネじゃろうのう。\nそして例の筋じゃ。",
         steps: [
             [
                 "         ",
@@ -7319,66 +7517,67 @@ let questions = [
             ]
         ]
     },
-    {
-        level: 16,
-        name: "隅の死活第77型",
-        steps: [
-            [
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "    BBBB ",
-                "  B BWWWN",
-                "   BW    ",
-                "     W   ",
-            ],[
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "    BBBB ",
-                "  B BWWWB",
-                "   BW   w",
-                "     W N ",
-            ],[
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "    BBBB ",
-                "  B BWWWB",
-                "   BW   W",
-                "  Nw W B ",
-            ],[
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "    BBBB ",
-                "  B BWWWB",
-                "   BW   W",
-                "  BWNWwB ",
-            ],[
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "         ",
-                "    BBBB ",
-                "  B BWWWB",
-                "   BW   W",
-                "  B BWWB ",
-            ]
-        ]
-    },
+    // {
+    //     level: 16,
+    //     name: "隅の死活第77型",
+    //     steps: [
+    //         [
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "    BBBB ",
+    //             "  B BWWWN",
+    //             "   BW    ",
+    //             "     W   ",
+    //         ],[
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "    BBBB ",
+    //             "  B BWWWB",
+    //             "   BW   w",
+    //             "     W N ",
+    //         ],[
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "    BBBB ",
+    //             "  B BWWWB",
+    //             "   BW   W",
+    //             "  Nw W B ",
+    //         ],[
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "    BBBB ",
+    //             "  B BWWWB",
+    //             "   BW   W",
+    //             "  BWNWwB ",
+    //         ],[
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "         ",
+    //             "    BBBB ",
+    //             "  B BWWWB",
+    //             "   BW   W",
+    //             "  B BWWB ",
+    //         ]
+    //     ]
+    // },
     {
         level: 12,
         name: "隅の死活第78型",
+        hint: "マガリかトビか。\n得なのはマガリじゃ。",
         steps: [
             [
                 "         ",
@@ -7416,6 +7615,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第79型",
+        hint: "広さで生きるのは無理じゃ。",
         steps: [
             [
                 "         ",
@@ -7453,6 +7653,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第80型",
+        hint: "ピョン、ピョン、じゃ。",
         steps: [
             [
                 "         ",
@@ -7490,6 +7691,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第81型",
+        hint: "三目の真ん中じゃ。\nそれからオイてハネじゃな。",
         steps: [
             [
                 "         ",
@@ -7547,6 +7749,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第89型",
+        hint: "左右同形ほにゃららじゃ。\nその後は五目中手に導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -7594,6 +7797,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第90型",
+        hint: "どっちからブツカるか。\nセキにせぬようにの。",
         steps: [
             [
                 "         ",
@@ -7651,6 +7855,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第91型",
+        hint: "ハネてツケ、かのう？",
         steps: [
             [
                 "         ",
@@ -7708,6 +7913,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第92型",
+        hint: "『２の一』が急所じゃ。\nダメヅマリに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -7755,6 +7961,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第93型",
+        hint: "ハネてツケて、\nダメヅマリに導くのじゃ。",
         steps: [
             [
                 "         ",
@@ -7802,6 +8009,7 @@ let questions = [
     {
         level: 2,
         name: "辺の死活第10型",
+        hint: "クシ形じゃ！",
         steps: [
             [
                 "         ",
@@ -7829,6 +8037,7 @@ let questions = [
     {
         level: 4,
         name: "辺の死活第13型",
+        hint: "三目の真ん中じゃ。",
         steps: [
             [
                 "         ",
@@ -7866,6 +8075,7 @@ let questions = [
     {
         level: 4,
         name: "辺の死活第13型変化",
+        hint: "三目の真ん中じゃ。\n最後は三目ナカ手じゃの。",
         steps: [
             [
                 "         ",
@@ -7913,6 +8123,7 @@ let questions = [
     {
         level: 30,
         name: "隅の死活第100型",
+        hint: "平凡に狭めていくのじゃ！",
         steps: [
             [
                 "         ",
@@ -7970,6 +8181,7 @@ let questions = [
     {
         level: 30,
         name: "隅の死活第101型",
+        hint: "切ってからのツケじゃ！",
         steps: [
             [
                 "         ",

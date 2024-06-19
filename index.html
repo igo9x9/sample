@@ -1250,18 +1250,23 @@ phina.define('NPCBlock', {
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
-                yes = ()=>{
-                    tmpDate.playerInfo.items.carotte += 1;
-                    App._scenes[1].updateStatusLabel();
-                    return SimpleMessage("「がんばれよ！\nちなみに問題は全部黒番だぜ！」", () => SimpleMessage("にんじんを1本くれた。"));
-                };
-                this._messageFnc = () => {
-                    if (tmpDate.playerInfo.items.carotte === null) {
-                        return QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
-                    } else {
-                        return SimpleMessage("村人\n「にんじん食べたら元気でるぜ！」");
-                    }
-                };
+                if (tmpDate.playerInfo.crown === 0) {
+                    const yes = ()=>{
+                        tmpDate.playerInfo.items.carotte += 1;
+                        App._scenes[1].updateStatusLabel();
+                        return SimpleMessage("「がんばれよ！\nちなみに問題は全部黒番だぜ！」", () => SimpleMessage("にんじんを1本くれた。"));
+                    };
+                    this._messageFnc = () => {
+                        if (tmpDate.playerInfo.items.carotte === null) {
+                            return QuestionMessage("村人\n「ダンジョンに行くのかい？」", yes, ()=>SimpleMessage("「そうかい」"));
+                        } else {
+                            return SimpleMessage("村人\n「にんじん食べたら元気でるぜ！」");
+                        }
+                    };
+                } else {
+                    this._messageFnc = () => SimpleMessage("村人\n「おう、おかえり。",
+                        () => SimpleMessage("あそこのダンジョン、\nまた魔王が住みついたらしいぜ」"));
+                }
                 break;
             case "d":
                 this.superInit("npc4", BOX_WIDTH, BOX_HEIGHT);
@@ -1771,7 +1776,16 @@ phina.define("MenuScene", {
                 const yesFnc = () => {
                     tmpDate.playerInfo.items.telephone -= 1;
                     self.refreshText();
-                    return SimpleMessage("囲碁の神様\n「もしもし、ワシですけど。」", () => SimpleMessage("「" + hint + "」"));
+                    const r = Random.randint(1, 10);
+                    let msg;
+                    if (r < 6) {
+                        msg = "もしもし、ワシですけど";
+                    } else if (r < 8) {
+                        msg = "はいはい、ワシじゃ";
+                    } else {
+                        msg = "なんじゃ、うさこか";
+                    }
+                    return SimpleMessage("プルルル … カチャッ\n\n囲碁の神様\n「" + msg + "」", () => SimpleMessage("「" + hint + "」"));
                 };
                 if (sceneName === "BattleScene") {
                     message = QuestionMessage("囲碁の神様に電話して相談する。\n電話しますか？", yesFnc, null);
@@ -3259,7 +3273,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第1型",
-        hint: "コウにするのじゃ。",
+        hint: "コウにするのじゃ",
         steps: [
             [
                 "         ",
@@ -3287,7 +3301,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第2型",
-        hint: "オシツブシを狙うのじゃ。",
+        hint: "オシツブシを狙うのじゃ",
         steps: [
             [
                 "         ",
@@ -3325,7 +3339,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第3型",
-        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん。",
+        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん",
         steps: [
             [
                 "         ",
@@ -3353,7 +3367,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第4型",
-        hint: "左右同形、中央にアレじゃ。",
+        hint: "左右同形、中央にアレじゃ",
         steps: [
             [
                 "         ",
@@ -3381,7 +3395,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第5型",
-        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん。",
+        hint: "隅のマガリ四目は知っとるの。\nそれじゃよ、たぶん",
         steps: [
             [
                 "         ",
@@ -3419,7 +3433,7 @@ let questions = [
     {
         level: 1,
         name: "隅の死活第5型変化",
-        hint: "三目にして白に取らせるのじゃ。",
+        hint: "三目にして白に取らせるのじゃ",
         steps: [
             [
                 "         ",
@@ -3467,7 +3481,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第6型",
-        hint: "隅のマガリ四目じゃ。",
+        hint: "隅のマガリ四目じゃ",
         steps: [
             [
                 "         ",
@@ -3515,7 +3529,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第6型変化",
-        hint: "まずは急所じゃ。\nそのあと注意が必要じゃの。\n白石を取らんように。",
+        hint: "まずは急所じゃ。\nそのあと注意が必要じゃの。\n白石を取らんように",
         steps: [
             [
                 "         ",
@@ -3611,7 +3625,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第7型変化",
-        hint: "まずはカケツギじゃ。\nその後が難しいのう。\nホウリコんでオシツブす？",
+        hint: "まずはカケツギじゃ。\nその後が難しいのう。\nホウリコんでオシツブシか",
         steps: [
             [
                 "         ",
@@ -3669,7 +3683,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第8型",
-        hint: "いかにも急所なあそこじゃ。",
+        hint: "いかにも急所なあそこじゃ",
         steps: [
             [
                 "         ",
@@ -3707,7 +3721,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第9型",
-        hint: "最終的にはコウじゃ。\n初手が難しいのう。\n『２の二』ではない。",
+        hint: "最終的にはコウじゃ。\n初手が難しいのう。\n『２の二』ではない",
         steps: [
             [
                 "         ",
@@ -3755,7 +3769,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第10型",
-        hint: "まずは二線をハッてみるかの。",
+        hint: "まずは二線をハッてみるかの",
         steps: [
             [
                 "         ",
@@ -3803,7 +3817,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第11型",
-        hint: "たぶんマゲじゃな。\n他の手だと薄いからのう。",
+        hint: "たぶんマゲじゃな。\n他の手だと薄いからのう",
         steps: [
             [
                 "         ",
@@ -3841,7 +3855,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第12型",
-        hint: "コウになるの。\nツケたら失敗じゃ。",
+        hint: "コウになるの。\nツケたら失敗じゃ",
         steps: [
             [
                 "         ",
@@ -3899,7 +3913,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第13型",
-        hint: "初手は「２の一」じゃ。ただし、\n黒取り番のコウが正解じゃ。",
+        hint: "初手は「２の一」じゃ。ただし、\n黒取り番のコウが正解じゃ",
         steps: [
             [
                 "         ",
@@ -3957,7 +3971,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第14型",
-        hint: "ダメヅマリに導くのじゃ。",
+        hint: "ダメヅマリに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -4053,7 +4067,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第15型変化",
-        hint: "三手目が難しいのう。\n最後は引き出してカケ眼じゃ。",
+        hint: "三手目が難しいのう。\n最後は引き出してカケ眼じゃ",
         steps: [
             [
                 "         ",
@@ -4121,7 +4135,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第16型",
-        hint: "急所に置いて、サガリじゃ。",
+        hint: "急所に置いて、サガリじゃ",
         steps: [
             [
                 "         ",
@@ -4159,7 +4173,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第17型",
-        hint: "初手がカッコよいのう。\n最後は両アタリじゃ。",
+        hint: "初手がカッコよいのう。\n最後は両アタリじゃ",
         steps: [
             [
                 "         ",
@@ -4207,7 +4221,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第17型変化",
-        hint: "初手がカッコよいのう。\n最後はダメヅマリじゃ。",
+        hint: "初手がカッコよいのう。\n最後はダメヅマリじゃ",
         steps: [
             [
                 "         ",
@@ -4265,7 +4279,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第18型",
-        hint: "アテてアテて終わりじゃ。",
+        hint: "アテてアテて終わりじゃ",
         steps: [
             [
                 "         ",
@@ -4313,7 +4327,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第19型",
-        hint: "ダメが空いとるこの形は、\nコウが精いっぱいじゃ。\n初手はサガリでなくツケじゃ。",
+        hint: "ダメが空いとるこの形は、\nコウが精いっぱいじゃ。\n初手はサガリでなくツケじゃ",
         steps: [
             [
                 "         ",
@@ -4361,7 +4375,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第20型",
-        hint: "気になるアレをどう守るか。\nひとひねり必要じゃ。",
+        hint: "気になるアレをどう守るか。\nひとひねり必要じゃ",
         steps: [
             [
                 "         ",
@@ -4457,7 +4471,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第22型",
-        hint: "黒の取り番のコウが正解じゃ。",
+        hint: "黒の取り番のコウが正解じゃ",
         steps: [
             [
                 "         ",
@@ -4515,7 +4529,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第23型",
-        hint: "ぴょーん、ぴょーん、くいっ。\nという感じじゃ。",
+        hint: "ぴょーん、ぴょーん、くいっ。\nという感じじゃ",
         steps: [
             [
                 "         ",
@@ -4563,7 +4577,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第24型",
-        hint: "ノゾいてトンでサガる。",
+        hint: "ノゾいてトンでサガる",
         steps: [
             [
                 "         ",
@@ -4611,7 +4625,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第25型",
-        hint: "外側のダメが詰まっておる。\nダメヅマリに導くのじゃ。",
+        hint: "外側のダメが詰まっておる。\nダメヅマリに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -4649,7 +4663,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第26型",
-        hint: "外ダメが１つ空いとるから、\n無条件死にはできんのう。",
+        hint: "外ダメが１つ空いとるから、\n無条件死にはできんのう",
         steps: [
             [
                 "         ",
@@ -4697,7 +4711,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第27型",
-        hint: "外ダメが２つ空いとるから\nオシツブせるのう。",
+        hint: "外ダメが２つ空いとるから\nオシツブせるのう",
         steps: [
             [
                 "         ",
@@ -4745,7 +4759,7 @@ let questions = [
     {
         level: 4,
         name: "隅の死活第28型",
-        hint: "五目中手じゃ。",
+        hint: "五目中手じゃ",
         steps: [
             [
                 "         ",
@@ -4793,7 +4807,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第28型変化",
-        hint: "五目中手かと思ったら、\n三目中手じゃ。",
+        hint: "五目中手かと思ったら、\n三目中手じゃ",
         steps: [
             [
                 "         ",
@@ -4851,7 +4865,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第29型",
-        hint: "オキでも隅のマガリ四目じゃが、\nもっと単純なほうが正解じゃ。\nツケはコウにされて不正解じゃ。",
+        hint: "ツケはコウにされて不正解じゃ。\nオキからの隅のマガリ四目より、\nもっと単純なほうが正解じゃ",
         steps: [
             [
                 "         ",
@@ -4899,7 +4913,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第30型",
-        hint: "ぴょーん、じゃ。",
+        hint: "ぴょーん、じゃの",
         steps: [
             [
                 "         ",
@@ -4937,7 +4951,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第31型",
-        hint: "クイッとマゲるのじゃ。\n他の生き方はちょっと損じゃよ。",
+        hint: "クイッとマゲるのじゃ。\n他の生き方はちょっと損じゃよ",
         steps: [
             [
                 "         ",
@@ -4965,7 +4979,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第32型",
-        hint: "打ち欠くのは最後じゃな。\nまずはツケてみたらどうじゃ。",
+        hint: "打ち欠くのは最後じゃな。\nまずはツケてみたらどうじゃ",
         steps: [
             [
                 "         ",
@@ -5013,7 +5027,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第33型",
-        hint: "手順は長いが一本道じゃ。\n最後はコウになるんじゃよ。",
+        hint: "手順は長いが一本道じゃ。\n最後はコウになるんじゃよ",
         steps: [
             [
                 "         ",
@@ -5091,7 +5105,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第34型",
-        hint: "クイッとマゲるのじゃ。\nそれが一番確実じゃよ。",
+        hint: "クイッとマゲるのじゃ。\nそれが一番確実じゃ",
         steps: [
             [
                 "         ",
@@ -5119,7 +5133,7 @@ let questions = [
     {
         level: 3,
         name: "隅の死活第35型",
-        hint: "まずはハネるのじゃ。\nそのあとは白次第じゃな。",
+        hint: "まずはハネるのじゃ。\nそのあとは白次第じゃな",
         steps: [
             [
                 "         ",
@@ -5157,7 +5171,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第35型変化",
-        hint: "まずはハネるのじゃが、\n白に惑わされんようにの。\nコウにはならんよ。",
+        hint: "まずはハネるのじゃが、\n白に惑わされんようにの。\nコウにはならんよ",
         steps: [
             [
                 "         ",
@@ -5205,7 +5219,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第36型",
-        hint: "ツケからコスんでホウリコミ。\n二段コウみたいなやつじゃ。",
+        hint: "ツケからコスんでホウリコミ。\n二段コウみたいなやつじゃ",
         steps: [
             [
                 "         ",
@@ -5253,7 +5267,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第36型変化",
-        hint: "本当ならコウになるのじゃが、\n白が応手を間違えるから\nダメヅマリに導けるぞい。",
+        hint: "本当ならコウなのじゃが、\n白が応手を間違えて\nダメヅマリに導ける",
         steps: [
             [
                 "         ",
@@ -5311,7 +5325,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第37型",
-        hint: "ホウリコミからの例の筋じゃ。\n最後は隅のマガリ四目じゃ。",
+        hint: "ホウリコミからの例の筋じゃ。\n最後は隅のマガリ四目じゃ",
         steps: [
             [
                 "         ",
@@ -5369,7 +5383,7 @@ let questions = [
     {
         level: 5,
         name: "隅の死活第38型",
-        hint: "ブツカリじゃ。どっちから？",
+        hint: "どっちからかブツカリじゃ",
         steps: [
             [
                 "         ",
@@ -5417,7 +5431,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第39型",
-        hint: "まずはキリかのう。\n隅のマガリ四目を目指すのじゃ。",
+        hint: "まずはキリかのう。\n隅のマガリ四目を目指すのじゃ",
         steps: [
             [
                 "         ",
@@ -5485,7 +5499,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第40型",
-        hint: "ハネてハネて、例の筋じゃ。\nハネは短い方からじゃ。",
+        hint: "ハネてハネて、例の筋じゃ。\nハネは短い方からじゃ",
         steps: [
             [
                 "         ",
@@ -5543,7 +5557,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第41型",
-        hint: "ダメヅマリに導くのじゃ。",
+        hint: "ダメヅマリに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -5601,7 +5615,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第41型変化",
-        hint: "途中で白がツイで抵抗するが、\n難しく考えんでええよ。",
+        hint: "途中で白がツイで抵抗するが、\n難しく考えんでええよ",
         steps: [
             [
                 "         ",
@@ -5649,7 +5663,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第42型",
-        hint: "カケツギで二子を守ってから、\nクイッとマゲて終わりじゃ。",
+        hint: "カケツギで二子を守ってから、\nクイッとマゲて終わりじゃ",
         steps: [
             [
                 "         ",
@@ -5697,7 +5711,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第43型",
-        hint: "一手目が難しいのう。\nオサえてしまったら生きられる。\nコウにするのじゃ。",
+        hint: "一手目が難しいのう。\nオサえてしまったら生きられる。\nコウにするのじゃ",
         steps: [
             [
                 "         ",
@@ -5775,7 +5789,7 @@ let questions = [
     {
         level: 2,
         name: "隅の死活第44型",
-        hint: "クイッとマゲるのじゃ。",
+        hint: "クイッとマゲるのじゃ",
         steps: [
             [
                 "         ",
@@ -5803,7 +5817,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第45型",
-        hint: "ツケでは生きられるのう。\nどうしたらコウにできるかの。",
+        hint: "ツケでは生きられるのう。\nどうしたらコウにできるかの",
         steps: [
             [
                 "         ",
@@ -5851,7 +5865,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第46型",
-        hint: "黒の先手セキになるのじゃよ。",
+        hint: "黒の先手セキになるのじゃよ",
         steps: [
             [
                 "         ",
@@ -5899,7 +5913,7 @@ let questions = [
     {
         level: 11,
         name: "隅の死活第47型",
-        hint: "短い方にサガリがあるこの形は、\n『デてからツケ』じゃ。\nさて、どこにツケるんじゃろ。",
+        hint: "短い方にサガリがあるこの形は、\nデてからツケじゃ",
         steps: [
             [
                 "         ",
@@ -5957,7 +5971,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第48型",
-        hint: "長い方にサガリがあるこの形は、\nオイてからデるのじゃ。\n別解もあるけど。",
+        hint: "長い方にサガリがあるこの形は、\nオイてからデるのじゃ",
         steps: [
             [
                 "         ",
@@ -6083,7 +6097,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第51型",
-        hint: "万年コウにすれば正解じゃ。",
+        hint: "万年コウにすれば正解じゃ",
         steps: [
             [
                 "         ",
@@ -6141,7 +6155,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第52型",
-        hint: "ハネてハネてツケ、じゃ。\nハサミツケでは失敗じゃよ。",
+        hint: "ハネてハネてツケ、じゃ。\nハサミツケでは失敗じゃよ",
         steps: [
             [
                 "         ",
@@ -6189,7 +6203,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第53型",
-        hint: "三子はカケツギで守るのじゃ。",
+        hint: "三子はカケツギで守るのじゃ",
         steps: [
             [
                 "         ",
@@ -6257,7 +6271,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第54型",
-        hint: "出を打ちたくなるが罠じゃ。\nハネてオサエて、オイてハウ。",
+        hint: "出を打ちたくなるが罠じゃ。\nハネてオサエて、オイてハウ",
         steps: [
             [
                 "         ",
@@ -6315,7 +6329,7 @@ let questions = [
     {
         level: 19,
         name: "隅の死活第55型",
-        hint: "ハネてオイて、\nいろいろあってコウになる、\nという感じじゃ。",
+        hint: "ハネてオイて、\nいろいろあってコウになる",
         steps: [
             [
                 "         ",
@@ -6383,7 +6397,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第56型",
-        hint: "初手のツキアタリから、\n最終的にはオシツブシじゃ。",
+        hint: "初手のツキアタリから、\n最終的にはオシツブシじゃ",
         steps: [
             [
                 "         ",
@@ -6471,7 +6485,7 @@ let questions = [
     {
         level: 19,
         name: "隅の死活第57型",
-        hint: "黒のサガリがあるこの形は、\nハネて出てからのオキ、\n最終的には隅のマガリ四目じゃ。",
+        hint: "黒のサガリがあるこの形は、\nハネて出てからのオキ、\n最終的には隅のマガリ四目じゃ",
         steps: [
             [
                 "         ",
@@ -6559,7 +6573,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第58型",
-        hint: "どっちにオクか。\n白がダメヅマリになる方じゃ。",
+        hint: "どっちにオクか。\n白がダメヅマリになる方じゃ",
         steps: [
             [
                 "         ",
@@ -6597,7 +6611,7 @@ let questions = [
     {
         level: 16,
         name: "隅の死活第59型",
-        hint: "初手はうさこが驚く場所じゃ。",
+        hint: "初手はすごいところじゃ",
         steps: [
             [
                 "         ",
@@ -6645,7 +6659,7 @@ let questions = [
     {
         level: 9,
         name: "隅の死活第60型",
-        hint: "眼を作ることが最優先じゃ。\n欲を出さんようにの。",
+        hint: "眼を作ることが最優先じゃ。\n欲を出さんようにの",
         steps: [
             [
                 "         ",
@@ -6703,7 +6717,7 @@ let questions = [
     {
         level: 7,
         name: "隅の死活第61型",
-        hint: "ダメヅマリに導くのじゃ。\n深く入りすぎんようにの。",
+        hint: "ダメヅマリに導くのじゃ。\n深く入りすぎんようにの",
         steps: [
             [
                 "         ",
@@ -6741,7 +6755,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第62型",
-        hint: "三目の真ん中じゃ。",
+        hint: "三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -6789,7 +6803,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第63型",
-        hint: "押す手なしに導くのじゃ。",
+        hint: "押す手なしに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -6827,7 +6841,7 @@ let questions = [
     {
         level: 6,
         name: "隅の死活第64型",
-        hint: "三目の真ん中じゃ。",
+        hint: "三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -6865,7 +6879,7 @@ let questions = [
     {
         level: 10,
         name: "隅の死活第64型変化",
-        hint: "三目の真ん中じゃ。\n白は押す手なしになるの。",
+        hint: "三目の真ん中じゃ。\n白は押す手なしになるの",
         steps: [
             [
                 "         ",
@@ -6913,7 +6927,7 @@ let questions = [
     {
         level: 14,
         name: "隅の死活第65型",
-        hint: "外ダメが空いとるからのう。\n三目の真ん中ではセキになる。\n例の筋でダメヅマリ狙いじゃ。",
+        hint: "外ダメが空いとるからのう。\n三目の真ん中ではセキになる。\n例の筋でダメヅマリ狙いじゃ",
         steps: [
             [
                 "         ",
@@ -6971,7 +6985,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第66型",
-        hint: "ダメが詰まってるのなら\n三目の真ん中じゃ！\nコウにするのじゃ。",
+        hint: "ダメが詰まってるのなら\n三目の真ん中じゃ！\nコウにするのじゃ",
         steps: [
             [
                 "         ",
@@ -7019,7 +7033,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第67型",
-        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ。",
+        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -7077,7 +7091,7 @@ let questions = [
     {
         level: 18,
         name: "隅の死活第68型",
-        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ。",
+        hint: "クシ形にさせないのじゃ。\nその後は三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -7125,7 +7139,7 @@ let questions = [
     {
         level: 17,
         name: "隅の死活第69型",
-        hint: "初手はツケではなく打欠きじゃ。\n白はその石をヌケんからの。",
+        hint: "初手はツケではなく打欠きじゃ。\n白はその石をヌケんからの",
         steps: [
             [
                 "         ",
@@ -7221,7 +7235,7 @@ let questions = [
     {
         level: 19,
         name: "隅の死活第71型",
-        hint: "平凡にコウを目指すのじゃ。",
+        hint: "平凡にコウを目指すのじゃ",
         steps: [
             [
                 "         ",
@@ -7269,7 +7283,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第72型",
-        hint: "初手は、第一感のお隣じゃ。",
+        hint: "初手は、第一感の隣じゃ",
         steps: [
             [
                 "         ",
@@ -7317,7 +7331,7 @@ let questions = [
     {
         level: 16,
         name: "隅の死活第73型",
-        hint: "三目の真ん中じゃ。\nあとは流れにまかせて\nコウになるのう。",
+        hint: "三目の真ん中じゃ。\nあとは流れにまかせて\nコウになるのう",
         steps: [
             [
                 "         ",
@@ -7423,7 +7437,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第75型",
-        hint: "三目の真ん中じゃ。",
+        hint: "三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -7461,7 +7475,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第76型",
-        hint: "まずハネじゃろうのう。\nそして例の筋じゃ。",
+        hint: "まずハネじゃろうのう。\nそして例の筋じゃ",
         steps: [
             [
                 "         ",
@@ -7576,7 +7590,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第78型",
-        hint: "マガリかトビか。\n得なのはマガリじゃ。",
+        hint: "マガリかトビか。\n得なのはマガリじゃ",
         steps: [
             [
                 "         ",
@@ -7614,7 +7628,7 @@ let questions = [
     {
         level: 8,
         name: "隅の死活第79型",
-        hint: "広さで生きるのは無理じゃ。",
+        hint: "広さで生きるのは無理じゃ",
         steps: [
             [
                 "         ",
@@ -7652,7 +7666,7 @@ let questions = [
     {
         level: 12,
         name: "隅の死活第80型",
-        hint: "ピョン、ピョン、じゃ。",
+        hint: "ピョン、ピョン、じゃ",
         steps: [
             [
                 "         ",
@@ -7690,7 +7704,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第81型",
-        hint: "三目の真ん中じゃ。\nそれからオイてハネじゃな。",
+        hint: "三目の真ん中じゃ。\nそれからオイてハネじゃな",
         steps: [
             [
                 "         ",
@@ -7748,7 +7762,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第89型",
-        hint: "左右同形ほにゃららじゃ。\nその後は五目中手に導くのじゃ。",
+        hint: "左右同形ほにゃららじゃ。\nその後は五目中手に導くのじゃ",
         steps: [
             [
                 "         ",
@@ -7796,7 +7810,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第90型",
-        hint: "どっちからブツカるか。\nセキにせぬようにの。",
+        hint: "どっちからブツカるか。\nセキにせぬようにの",
         steps: [
             [
                 "         ",
@@ -7912,7 +7926,7 @@ let questions = [
     {
         level: 15,
         name: "隅の死活第92型",
-        hint: "『２の一』が急所じゃ。\nダメヅマリに導くのじゃ。",
+        hint: "『２の一』が急所じゃ。\nダメヅマリに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -7960,7 +7974,7 @@ let questions = [
     {
         level: 13,
         name: "隅の死活第93型",
-        hint: "ハネてツケて、\nダメヅマリに導くのじゃ。",
+        hint: "ハネてツケて、\nダメヅマリに導くのじゃ",
         steps: [
             [
                 "         ",
@@ -8036,7 +8050,7 @@ let questions = [
     {
         level: 4,
         name: "辺の死活第13型",
-        hint: "三目の真ん中じゃ。",
+        hint: "三目の真ん中じゃ",
         steps: [
             [
                 "         ",
@@ -8074,7 +8088,7 @@ let questions = [
     {
         level: 4,
         name: "辺の死活第13型変化",
-        hint: "三目の真ん中じゃ。\n最後は三目ナカ手じゃの。",
+        hint: "三目の真ん中じゃ。\n最後は三目ナカ手じゃの",
         steps: [
             [
                 "         ",

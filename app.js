@@ -347,6 +347,18 @@ phina.define('MapScene', {
     
     updateStatusLabel() {
         this.statusLabel.text = levelText(tmpDate.playerInfo.level) + '  HP: ' + tmpDate.playerInfo.hp + "／" + (tmpDate.playerInfo.level * 5);
+        
+        if (tmpDate.playerInfo.items.ring === true) {
+            this.ringIcon.show();
+        } else {
+            this.ringIcon.hide();
+        }
+
+        if (tmpDate.playerInfo.items.countdown === true) {
+            this.countdownIcon.show();
+        } else {
+            this.countdownIcon.hide();
+        }
 
         if (tmpDate.playerInfo.map !==0 ) {
             const enemyLevel = tmpDate.playerInfo.map;
@@ -412,32 +424,6 @@ phina.define('MapScene', {
             this.floorInfoLabel.addChildTo(this);
         }
 
-        var statusBox = RectangleShape({
-            fill: '#000',
-            stroke: "#000",
-            // strokeWidth: 16,
-            x: 20,
-            y: -100,
-            width: 400,
-            height: 50,
-            // cornerRadius: 16,
-        }).setOrigin(0, 0).addChildTo(this);
-
-        self.statusLabel = Label({
-            fill: '#fff',
-            x: 20,
-            y: 34,
-            align: "left",
-        }).addChildTo(statusBox);
-        self.updateStatusLabel();
-        statusBox.tweener.moveTo(20, 20, 500, "easeOutQuad").play();
-
-        for (let c = 0; c < tmpDate.playerInfo.crown; c++) {
-            if (c < 20) {
-                Sprite("crown").addChildTo(self.statusLabel).setPosition(c * 20, -30)
-            }
-        }
-
         const itemButton = RectangleShape({
             fill: '#000',
             stroke: "#fff",
@@ -461,6 +447,42 @@ phina.define('MapScene', {
         itemButton.on("pointstart", function() {
             App.pushScene(MenuScene());
         });
+
+        self.ringIcon = Sprite("ring").addChildTo(itemButton).setPosition(15, 90).hide();
+        if (tmpDate.playerInfo.items.ring === true) {
+            self.ringIcon.show();
+        }
+
+        self.countdownIcon = Sprite("countdown").addChildTo(itemButton).setPosition(55, 90).hide();
+        if (tmpDate.playerInfo.items.countdown === true) {
+            self.countdownIcon.show();
+        }
+
+        var statusBox = RectangleShape({
+            fill: '#000',
+            stroke: "#000",
+            // strokeWidth: 16,
+            x: 20,
+            y: -100,
+            width: 400,
+            height: 50,
+            // cornerRadius: 16,
+        }).setOrigin(0, 0).addChildTo(this);
+
+        self.statusLabel = Label({
+            fill: '#fff',
+            x: 20,
+            y: 34,
+            align: "left",
+        }).addChildTo(statusBox);
+        self.updateStatusLabel();
+        statusBox.tweener.moveTo(20, 20, 500, "easeOutQuad").play();
+
+        for (let c = 0; c < tmpDate.playerInfo.crown; c++) {
+            if (c < 20) {
+                Sprite("crown").addChildTo(self.statusLabel).setPosition(c * 20, -30);
+            }
+        }
 
         //他の画面から来た時用にシェードを用意
         this.offShade(function() {

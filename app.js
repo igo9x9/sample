@@ -1227,7 +1227,20 @@ phina.define('NPCBlock', {
                 break;
             case "b":
                 this.superInit("npc2", BOX_WIDTH, BOX_HEIGHT);
-                this._messageFnc = ()=> SimpleMessage("村人\n「下の階に降りたら、上の階には\nもう戻れないの。慎重に進んでね。", () => SimpleMessage("でも『大鷲の羽根』を使うと\n戻れるらしいわ」"));
+                this._messageFnc = () => {
+                    if (tmpDate.playerInfo.crown === 0) {
+                        return SimpleMessage("村人\n「下の階に降りたら、上の階には\nもう戻れないの。慎重に進んでね。", () => SimpleMessage("でも『大鷲の羽根』を使うと\n戻れるらしいわ」"));
+                    } else if (tmpDate.playerInfo.level > 1) {
+                        return QuestionMessage("村人\n「またダンジョンに行くのね。\n気分転換にレベル1に戻ってみる？", () => {
+                            tmpDate.playerInfo.level = 1;
+                            tmpDate.playerInfo.hp = 5;
+                            lastLevel = 1;
+                            return SimpleMessage("「そうこなくっちゃ！」");
+                        }, () => SimpleMessage("「あら残念」"));
+                    } else {
+                        return SimpleMessage("「がんばってね！」");
+                    }
+                };
                 break;
             case "c":
                 this.superInit("npc3", BOX_WIDTH, BOX_HEIGHT);
@@ -1245,7 +1258,7 @@ phina.define('NPCBlock', {
                         }
                     };
                 } else {
-                    this._messageFnc = () => SimpleMessage("村人\n「おう、おかえり。",
+                    this._messageFnc = () => SimpleMessage("村人\n「よう、おかえり。",
                         () => SimpleMessage("あそこのダンジョン、\nまた魔王が住みついたらしいぜ」"));
                 }
                 break;

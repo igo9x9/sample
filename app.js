@@ -2622,7 +2622,7 @@ phina.define("ButtleScene", {
             enemyIndex = Math.floor(Math.random() * nowQuestions.length);
             // @@@@@
             // nowQuestions = questions;
-            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第89型");
+            // enemyIndex = nowQuestions.findIndex((q) =>  q.name==="隅の死活第94型変化");
             // @@@@@
         } else {
             ememyLevel = 30;
@@ -8008,6 +8008,112 @@ let questions = [
                 "    BW B ",
                 "    BBWWB",
                 "      BW ",
+            ]
+        ]
+    },
+    {
+        level: 16,
+        name: "隅の死活第94型",
+        hint: "一手目が変な手じゃ。\nそして眼あり眼なしの攻合いじゃ",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW W ",
+                "   BWW  N",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW Ww",
+                "   BWW NB",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW WW",
+                "   BWWNBB",
+                "    w    ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BWwWW",
+                "   BWWBBB",
+                "    W N  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BWWWW",
+                "   BWWBBB",
+                "    W B  ",
+            ]
+        ]
+    },
+    {
+        level: 16,
+        name: "隅の死活第94型変化",
+        hint: "一手目が変な手じゃ。\nそれから渡ればよい",
+        steps: [
+            [
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW W ",
+                "   BWW  N",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW WN",
+                "   BWW wB",
+                "         ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW WB",
+                "   BWW WB",
+                "    w N  ",
+            ],[
+                "         ",
+                "         ",
+                "         ",
+                "         ",
+                "    BBBB ",
+                "    BWWB ",
+                "  B BW WB",
+                "   BWW WB",
+                "    W B  ",
             ]
         ]
     },

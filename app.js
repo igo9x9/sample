@@ -113,8 +113,8 @@ phina.define('TitleScene', {
             fontSize: 40,
             fill: "orange",
             fontWeight: 800,
-            // strokeWidth: 5,
-            // stroke: "white",
+            strokeWidth: 4,
+            stroke: "darkgreen",
         }).addChildTo(this);
         Label({
             text: '囲碁死活ダンジョン',
@@ -2090,11 +2090,11 @@ phina.define("AboutScene", {
         this.superInit();
         var self = this;
 
-        this.backgroundColor = '#333';
+        this.backgroundColor = '#ddd';
 
         LabelArea({
             x: 50,
-            fill: "white",
+            fill: "black",
             fontSize: 25,
             fontWeight: 800,
             width: this.width - 100,
@@ -2103,7 +2103,7 @@ phina.define("AboutScene", {
 
         LabelArea({
             x: 50,
-            fill: "white",
+            fill: "black",
             fontSize: 25,
             width: this.width - 100,
             text: "　このゲームは、日本棋院出版「新・早わかり死活小事典」を丸暗記するモチベーションを保つことを目的に作りました。",
@@ -2113,7 +2113,7 @@ phina.define("AboutScene", {
 
         LabelArea({
             x: 50,
-            fill: "white",
+            fill: "black",
             fontSize: 25,
             fontWeight: 800,
             width: this.width - 100,
@@ -2122,7 +2122,7 @@ phina.define("AboutScene", {
 
         LabelArea({
             x: 50,
-            fill: "white",
+            fill: "black",
             fontSize: 25,
             width: this.width - 100,
             text: "　ゲーム内で出題する問題は黒番に統一しています。また、実際には正解となる手が複数ある場合でも、書籍に載っている手順のみを正解としていますがご了承ください。各問題の詳細については書籍をご覧ください。",
@@ -2130,7 +2130,7 @@ phina.define("AboutScene", {
 
         LabelArea({
             x: 50,
-            fill: "white",
+            fill: "black",
             fontSize: 25,
             fontWeight: 800,
             width: this.width - 100,
@@ -2145,7 +2145,7 @@ phina.define("AboutScene", {
             strokeWidth: 0,
         }).addChildTo(this).setOrigin(0,0).setY(770).setInteractive(true);
         Label({
-            fill: 'white',
+            fill: 'black',
             x: 200,
             y: 20,
             align: "center",
@@ -2158,8 +2158,8 @@ phina.define("AboutScene", {
         });
 
         const closeButton = RectangleShape({
-            fill: 'transparent',
-            stroke: "white",
+            fill: 'white',
+            stroke: "black",
             strokeWidth: 4,
             x: this.gridX.center(),
             y: 900,
@@ -2168,7 +2168,7 @@ phina.define("AboutScene", {
             cornerRadius: 8,
         }).addChildTo(this).setInteractive(true);
         const closeButtonLabel = Label({
-            fill: 'white',
+            fill: 'black',
             x: 0,
             y: 0,
             align: "center",
@@ -2686,6 +2686,8 @@ phina.define("ButtleScene", {
                     .tweener.to({y: self.gridY.center() * 2/3}, 500, "easeOutExpo")
                     .play();
 
+                    self.addButtleComment("");
+                    self.addButtleComment("おそるべし、" + self.enemy.name + "！");
                     self.addButtleComment("うさこ は力尽きた…");
 
                     const exitBox = RectangleShape({
@@ -3137,7 +3139,7 @@ phina.define("KentouScene", {
             x: this.gridX.center(),
             y: this.gridY.center(),
             width: this.gridX.width - 20,
-            height: this.gridY.width - 200,
+            height: this.gridY.width - 100,
             cornerRadius: 16,
         }).addChildTo(this);
 
@@ -3145,8 +3147,9 @@ phina.define("KentouScene", {
             fill: '#000',
             stroke: "#fff",
             strokeWidth: 8,
-            x: 0,
-            y: 310,
+            x: 100,
+            // y: 310,
+            y: 370,
             width: 150,
             height: 50,
             cornerRadius: 8,
@@ -3163,50 +3166,121 @@ phina.define("KentouScene", {
             self.exit();
         });
 
-        self.goban = RectangleShape({
-            width: self._grid.width + self._grid.unitWidth*2,
-            height: self._grid.width + self._grid.unitWidth*2,
-            // fill: '#daa520',
-            fill: "#daa520",
-            strokeWidth: 0,
-        }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(7));
-        self.goban.alpha = 0;
-
-        self.goban._grid = Grid({width: 470, columns: 8});
-
-        (9).times(function(spanX) {
-            var startPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, -1 * self.goban._grid.width/2),
-                endPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, self.goban._grid.width/2);
-            
-            PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
+        const initButton = RectangleShape({
+            fill: '#000',
+            stroke: "#fff",
+            strokeWidth: 8,
+            x: -100,
+            // y: 310,
+            y: 370,
+            width: 150,
+            height: 50,
+            cornerRadius: 8,
+        }).addChildTo(Box).setInteractive(true);
+        const initButtonLabel = Label({
+            fill: '#fff',
+            x: 0,
+            y: 0,
+            align: "center",
+            text: "最初から",
+            fontSize: 25,
+        }).addChildTo(initButton);
+        initButton.on("pointstart", function() {
+            self.goban.remove();
+            createGoban();
+            self.nextColor = "black";
+            self.moveStoneSelect(self.nextColor);
         });
 
-        (9).times(function(spanY) {
-            var startPoint = Vector2(-1 * self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth),
-                endPoint = Vector2(self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth);
-            
-            PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
+        createGoban();
+
+        const blackStone = CircleShape({
+            strokeWidth: 1,
+            radius: 20,
+            fill: "black",
+            stroke: "white",
+            strokeWidth: 4,
+        }).addChildTo(this).setPosition(this.gridX.center(-1), this.gridY.center(4.8));
+        blackStone.setInteractive(true);
+        blackStone.on("pointstart", function() {
+            self.nextColor = "black";
+            self.moveStoneSelect(self.nextColor);
         });
 
-        const step = App._scenes[1].enemy.steps[0];
-        const rotate = App._scenes[1].enemy.rotate;
+        const whiteStone = CircleShape({
+            strokeWidth: 1,
+            radius: 20,
+            fill: "white",
+            stroke: "white",
+            strokeWidth: 4,
+        }).addChildTo(this).setPosition(this.gridX.center(1), this.gridY.center(4.8));
+        whiteStone.setInteractive(true);
+        whiteStone.on("pointstart", function() {
+            self.nextColor = "white";
+            self.moveStoneSelect(self.nextColor);
+        });
 
-        (9).times(function(y) {
-            const raws = step[y].split("");
-            (9).times(function(x) {
-                const item = raws[x];
-                if (item === "W") {
-                    self.putWhiteStone(x+1, y+1);
-                } else if (item === "B") {
-                    self.putBlackStone(x+1, y+1);
-                } else {
-                    self.putFreeArea(x+1, y+1);
-                }
+        const stoneSelect = RectangleShape({
+            width: 60,
+            height: 60,
+            fill: "transparent",
+            stroke: "yellow",
+            strokeWidth: 3,
+        }).addChildTo(this).setPosition(this.gridX.center(-1), this.gridY.center(4.8));
+
+        self.moveStoneSelect = function(nextColor) {
+            if (nextColor === "black") {
+                stoneSelect.tweener.to({x:self.gridX.center(-1)}, 100).play();
+            } else {
+                stoneSelect.tweener.to({x:self.gridX.center(1)}, 100).play();
+            }
+        }
+
+        function createGoban() {
+            self.goban = RectangleShape({
+                width: self._grid.width + self._grid.unitWidth*2,
+                height: self._grid.width + self._grid.unitWidth*2,
+                // fill: '#daa520',
+                fill: "#daa520",
+                strokeWidth: 0,
+            }).addChildTo(self).setPosition(self.gridX.center(), self.gridY.span(7));
+            self.goban.alpha = 0;
+    
+            self.goban._grid = Grid({width: 470, columns: 8});
+    
+            (9).times(function(spanX) {
+                var startPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, -1 * self.goban._grid.width/2),
+                    endPoint = Vector2((spanX - 4) * self.goban._grid.unitWidth, self.goban._grid.width/2);
+                
+                PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
             });
-        });
-
-        self.goban.setRotation(rotate * 90).tweener.to({alpha: 1}, 1000).play();
-        ;
+    
+            (9).times(function(spanY) {
+                var startPoint = Vector2(-1 * self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth),
+                    endPoint = Vector2(self.goban._grid.width/2, (spanY - 4) * self.goban._grid.unitWidth);
+                
+                PathShape({paths:[startPoint, endPoint], stroke: "#111", strokeWidth: 2}).addChildTo(self.goban);
+            });
+    
+            const step = App._scenes[1].enemy.steps[0];
+            const rotate = App._scenes[1].enemy.rotate;
+    
+            (9).times(function(y) {
+                const raws = step[y].split("");
+                (9).times(function(x) {
+                    const item = raws[x];
+                    if (item === "W") {
+                        self.putWhiteStone(x+1, y+1);
+                    } else if (item === "B") {
+                        self.putBlackStone(x+1, y+1);
+                    } else {
+                        self.putFreeArea(x+1, y+1);
+                    }
+                });
+            });
+    
+            self.goban.setRotation(rotate * 90).tweener.to({alpha: 1}, 500).play();
+        }
 
     }
 });
@@ -3239,7 +3313,6 @@ phina.define("KentouStone", {
         }
 
         this.on("pointstart", function() {
-            console.log(self.goban.nextColor)
             if (self.color === null) {
                 if (self.goban.nextColor === "black") {
                     self.fill = "black";
@@ -3257,6 +3330,7 @@ phina.define("KentouStone", {
                 self.alpha = 0;
                 self.color = null;
             }
+            self.goban.moveStoneSelect(self.goban.nextColor);
         });
     }
 });

@@ -2706,7 +2706,7 @@ phina.define("ButtleScene", {
                                 self.exit("TitleScene");
                             });
                             App.pushScene(KentouScene());
-                            return SimpleMessage("これで、うさこはまたひとつ\n強くなりました。");
+                            return SimpleMessage("うさこはまたひとつ強くなった！");
                         };
                         const noFnc = function() {
                             self.one("resume", () => {

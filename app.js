@@ -2699,7 +2699,24 @@ phina.define("ButtleScene", {
         
                     exitBox.on("pointstart", function() {
                         App.clear("megusuri");
-                        self.exit("TitleScene");
+                        // self.exit("TitleScene");
+
+                        const yesFnc = function() {
+                            self.one("resume", () => {
+                                self.exit("TitleScene");
+                            });
+                            App.pushScene(KentouScene());
+                            return SimpleMessage("これで、うさこはまたひとつ\n強くなりました。");
+                        };
+                        const noFnc = function() {
+                            self.one("resume", () => {
+                                self.exit("TitleScene");
+                            });
+                            return null;
+                        }
+                        message = QuestionMessage("ゲームを終える前に\n「" + self.enemy.name + "」を\n検討しておきますか？", yesFnc, noFnc);
+                        App.pushScene(MessageScene(message));
+
                     });
 
                     datastore.clear();

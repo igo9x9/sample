@@ -2699,14 +2699,13 @@ phina.define("ButtleScene", {
         
                     exitBox.on("pointstart", function() {
                         App.clear("megusuri");
-                        // self.exit("TitleScene");
 
                         const yesFnc = function() {
                             self.one("resume", () => {
                                 self.exit("TitleScene");
                             });
                             App.pushScene(KentouScene());
-                            return SimpleMessage("うさこはまたひとつ強くなった！");
+                            return SimpleMessage("うさこは、またひとつ力をつけた！");
                         };
                         const noFnc = function() {
                             self.one("resume", () => {
